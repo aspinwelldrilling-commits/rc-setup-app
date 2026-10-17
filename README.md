@@ -1,6 +1,8 @@
 # RC Setup Helper
 
-Mobile-first setup helper for the Tekno NT48 2.2 / ET48 2.2. It's a single-file app (`index.html`) that works offline. Setups and the log are kept in localStorage; Photo Setup pictures are kept in IndexedDB on the phone.
+Mobile-first setup helper for the Tekno NT48 2.2 / ET48 2.2. It's a single-file app (`index.html`) that works offline. Setups and the log are kept in localStorage; Photo Setup pictures are kept in IndexedDB on the phone (DB `rcsetup-photos`, store `shots`, key `<truck>_<shotId>`; the JPEG is stored as `blob`, or — on browsers that refuse Blobs in IndexedDB — as `buf` (ArrayBuffer) + `type`).
+
+My Setup opens straight on the active setup sheet (created from Tekno Box Stock if you have none). Every section starts with its diagram and every row has a mini picture of its value; tap it for the big view. When a new version is deployed the service worker updates itself and the app shows **Update available · tap to refresh**.
 
 Live: https://aspinwelldrilling-commits.github.io/rc-setup-app/
 

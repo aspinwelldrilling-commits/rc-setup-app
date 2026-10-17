@@ -196,6 +196,27 @@ ol.see{margin:4px 0 8px;padding-left:20px;font-size:14px}
 html.rm *,html.rm *::before,html.rm *::after{transition:none!important;animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important}
 html.rm #splash{display:none}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){header,nav{background:#0c0e13}}
+.fld{display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 12px;align-items:start}
+.fth{width:52px;height:52px;padding:2px;margin-top:2px;border-radius:12px;border:1px solid var(--line2);background:linear-gradient(180deg,#18202c,#0c1017);box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 4px 10px -4px rgba(0,0,0,.7);cursor:zoom-in;transition:transform .12s var(--ease),border-color .2s}
+.fth svg{display:block;width:100%;height:100%}.fth svg text{font-family:var(--font)}
+.fth:active{transform:scale(.94)}.fld.chg .fth{border-color:rgba(255,122,26,.55)}
+.fb{min-width:0}
+.acts{display:flex;gap:8px;overflow-x:auto;margin:12px -2px 0;padding:0 2px 2px;scrollbar-width:none}.acts::-webkit-scrollbar{display:none}.acts .btn{flex:0 0 auto}
+.ovw{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:4px -16px 8px;padding:4px 16px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.ovw::-webkit-scrollbar{display:none}
+.ovc{flex:0 0 78%;max-width:340px;scroll-snap-align:start;padding:0;border-radius:14px;overflow:hidden;border:1px solid var(--line2);background:#0f131b;color:var(--tx);text-align:left;box-shadow:var(--sh)}
+.ovc:active{transform:scale(.98)}
+.ovs{display:block;pointer-events:none}.ovs svg{display:block;width:100%;height:auto;max-height:240px}
+.ovt{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;font-size:13px;border-top:1px solid var(--line);background:rgba(0,0,0,.3)}
+.ovt i{font-style:normal;font-size:11.5px;font-weight:800;color:var(--acc2)}.ovt i.ok{color:var(--good)}
+.shead h2{font-size:19px;overflow-wrap:anywhere}
+details.meta{background:rgba(0,0,0,.2);box-shadow:none;margin:12px 0 4px;padding:0 12px}
+details.meta summary{min-height:44px;font-size:14px;color:var(--mut)}
+.secnav{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;margin:4px -2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.secnav::-webkit-scrollbar{display:none}
+.secnav a{flex:0 0 auto;font-size:13px;font-weight:700;padding:8px 12px;border-radius:999px;border:1px solid var(--line2);color:var(--tx);text-decoration:none;background:rgba(255,255,255,.04)}
+.secnav a:active{background:rgba(255,122,26,.2)}
+details.sec{scroll-margin-top:150px}
+.swupd{position:fixed;left:50%;transform:translateX(-50%);top:calc(12px + env(safe-area-inset-top));z-index:70;border:0;border-radius:999px;padding:12px 18px;min-height:48px;font-size:14px;color:#170a00;background:linear-gradient(180deg,var(--acc2),var(--acc));box-shadow:0 12px 30px -8px rgba(255,122,26,.7);max-width:calc(100% - 32px)}
 #printArea{display:none}
 body.printing>*:not(#printArea){display:none!important}
 body.printing #printArea{display:block}
@@ -723,12 +744,13 @@ var truck=load(LS_TRUCK,'NT48');
 function setTruck(t){truck=t;save(LS_TRUCK,t);
  $$('#truckSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.truck===t)});
  $('#hdrTruck').textContent=t==='NT48'?'Tekno NT48 2.2 · Nitro':'Tekno ET48 2.2 · Electric';
- if(curSym)showSym(curSym);renderLog();if(typeof showSetupHome==='function'&&setups){if(photoOpen)renderPhoto();else showSetupHome()}}
+ if(curSym)showSym(curSym);renderLog();if(typeof showSetupHome==='function'&&setups){if(photoOpen)renderPhoto();else if(editId&&!$('#tab-setup').classList.contains('hidden'))openSetupDefault();else showSetupHome()}}
 $$('#truckSeg button').forEach(function(b){b.addEventListener('click',function(){setTruck(b.dataset.truck)})});
 
 /* ---------- Tabs ---------- */
 function showTab(t){$$('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===t)});
- ['advisor','setup','log','learn'].forEach(function(x){$('#tab-'+x).classList.toggle('hidden',x!==t)});if(t==='setup'&&!editId&&!photoOpen)showSetupHome();window.scrollTo(0,0)}
+ ['advisor','setup','log','learn'].forEach(function(x){$('#tab-'+x).classList.toggle('hidden',x!==t)});if(t==='setup'&&!editId&&!photoOpen)openSetupDefault();window.scrollTo(0,0)}
+function openSetupDefault(){var s=ensureActive();openSetup(s.id)}
 $$('nav button').forEach(function(b){b.addEventListener('click',function(){showTab(b.dataset.tab)})});
 
 /* ---------- Advisor ---------- */
@@ -952,18 +974,20 @@ function fieldInput(f,v){var id='sf_'+f.id,val=v==null?'':v;
 function isChanged(f,v){var st=stockOf(f,truck);if(!st)return false;return String(v==null?'':v)!==String(st.v)}
 function openSetup(id){var s=getSetup(id);if(!s)return;editId=id;if(photoOpen)closePhoto();$('#setupHome').classList.add('hidden');$('#setupCmp').classList.add('hidden');var E=$('#setupEdit');E.classList.remove('hidden');
  var isA=active[s.truck]===s.id;
- var h='<button class="btn sm" id="seBack" style="margin-top:10px">← All setups</button><h2>'+esc(truckName(s.truck))+' setup sheet</h2>';
- h+='<div class="card"><label for="sm_name" style="margin-top:0">Setup name</label><input id="sm_name" value="'+esc(s.name)+'">'+
+ var h='<div class="row" style="margin-top:8px;justify-content:space-between"><button class="btn sm" id="seBack">← All setups</button><span class="leg" style="margin:0">'+(isA?'The Advisor reads this sheet':'Not the active setup')+'</span></div>';
+ h+='<div class="card shead"><div class="row" style="justify-content:space-between;align-items:flex-start;flex-wrap:nowrap"><div style="min-width:0;flex:1"><h2 style="margin:0">'+esc(s.name)+'</h2><div class="leg" style="margin:4px 0 0">'+esc(truckName(s.truck))+' setup sheet · '+esc(s.date||'')+' · '+esc(s.track||'')+' · '+esc(s.cond||'')+'</div></div>'+(isA?'<span class="badge">ACTIVE</span>':'')+'</div>'+
+  '<div class="acts">'+(isA?'':'<button class="btn sm pri" id="seAct">Set active</button>')+'<button class="btn sm" id="seStock">Load Tekno stock</button><button class="btn sm" id="seDup">Duplicate</button><button class="btn sm" id="sePrint">Print</button><button class="btn sm" id="seShare">Export / share</button></div>'+
+  '<details class="meta"><summary>Setup info · name, date, track, conditions</summary><label for="sm_name" style="margin-top:0">Setup name</label><input id="sm_name" value="'+esc(s.name)+'">'+
   '<div class="two"><div><label for="sm_date">Date</label><input id="sm_date" type="date" value="'+esc(s.date)+'"></div><div><label for="sm_temp">Temp (°F)</label><input id="sm_temp" type="number" inputmode="numeric" value="'+esc(s.temp==null?'':s.temp)+'"></div></div>'+
-  '<label for="sm_track">Track</label><input id="sm_track" value="'+esc(s.track||'')+'"><label for="sm_cond">Conditions</label><select id="sm_cond">'+COND_OPTS.map(function(c){return '<option'+(c===s.cond?' selected':'')+'>'+esc(c)+'</option>'}).join('')+'</select>'+
-  '<div class="row" style="margin-top:12px"><button class="btn sm pri" id="seStock">Load Tekno stock baseline</button>'+(isA?'<span class="badge">ACTIVE</span>':'<button class="btn sm" id="seAct">Set active</button>')+'<button class="btn sm" id="seDup">Duplicate</button><button class="btn sm" id="sePrint">Print</button><button class="btn sm" id="seShare">Export / share</button></div>'+
-  '<label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="seOnly" style="width:auto;min-height:0"> Show only settings changed from Tekno stock</label></div>';
- h+='<div class="leg">Orange bar = differs from Tekno box stock. Tap “stock / source” to see where a value comes from.</div>';
+  '<label for="sm_track">Track</label><input id="sm_track" value="'+esc(s.track||'')+'"><label for="sm_cond">Conditions</label><select id="sm_cond">'+COND_OPTS.map(function(c){return '<option'+(c===s.cond?' selected':'')+'>'+esc(c)+'</option>'}).join('')+'</select><label style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><input type="checkbox" id="seOnly" style="width:auto;min-height:0"> Show only settings changed from Tekno stock</label></details></div>';
+ h+='<div class="ovw" aria-label="Visual overview">'+ovHTML(s)+'</div>';
  var secs=[];fieldsFor(s.truck).forEach(function(f){if(secs.indexOf(f.sec)<0)secs.push(f.sec)});
- secs.forEach(function(sec,si){h+='<details class="sec"'+(si<3?' open':'')+'><summary>'+esc(sec)+'</summary>'+sdForSec(sec,s.vals,s.truck);
+ h+='<div class="secnav" role="navigation" aria-label="Sections">'+secs.map(function(sec,si){return '<a href="#sec-'+si+'" data-go="'+si+'">'+esc(sec)+'</a>'}).join('')+'</div>';
+ h+='<div class="leg">Each section opens with its diagram; every row has a mini picture of its value — tap it for the big view. Orange = differs from Tekno box stock.</div>';
+ secs.forEach(function(sec,si){h+='<details class="sec" id="sec-'+si+'" open><summary>'+esc(sec)+'</summary>'+sdForSec(sec,s.vals,s.truck);
   fieldsFor(s.truck).filter(function(f){return f.sec===sec}).forEach(function(f){var st=stockOf(f,s.truck),v=s.vals[f.id];
-   h+='<div class="fld'+(isChanged(f,v)?' chg':'')+'" data-row="'+f.id+'"><label for="sf_'+f.id+'">'+esc(f.label)+(f.kind==='num'&&f.unit?' <span class="u">('+esc(f.unit)+')</span>':'')+'</label>'+fieldInput(f,v)+
-   ((st||f.note)?'<details class="src"><summary>'+(st?'stock: '+esc(shortVal(f,st.v))+' · ':'')+'source / notes</summary>'+(st?'<div>Tekno box stock: <b>'+esc(fmtVal(f,st.v))+'</b><br>Source: '+esc(srcLabel(st.src))+'</div>':'<div>Not specified in the official Tekno docs.</div>')+(f.note?'<div class="nt">'+esc(srcLabel(f.note))+'</div>':'')+'</details>':(f.sec==='Event'||f.sec==='Notes'?'':'<div class="src0">Not specified in official Tekno docs</div>'))+'</div>'});
+   h+='<div class="fld'+(isChanged(f,v)?' chg':'')+'" data-row="'+f.id+'">'+thumbBtn(f,v,s.truck)+'<div class="fb"><label for="sf_'+f.id+'">'+esc(f.label)+(f.kind==='num'&&f.unit?' <span class="u">('+esc(f.unit)+')</span>':'')+'</label>'+fieldInput(f,v)+
+   ((st||f.note)?'<details class="src"><summary>'+(st?'stock: '+esc(shortVal(f,st.v))+' · ':'')+'source / notes</summary>'+(st?'<div>Tekno box stock: <b>'+esc(fmtVal(f,st.v))+'</b><br>Source: '+esc(srcLabel(st.src))+'</div>':'<div>Not specified in the official Tekno docs.</div>')+(f.note?'<div class="nt">'+esc(srcLabel(f.note))+'</div>':'')+'</details>':(f.sec==='Event'||f.sec==='Notes'?'':'<div class="src0">Not specified in official Tekno docs</div>'))+'</div></div>'});
   h+='</details>'});
  h+='<div class="note blue" style="font-size:13px">Sources: official Tekno '+truckName(s.truck)+' manual (Box Stock setup sheet p'+(s.truck==='NT48'?'34':'30')+', build steps, setup notes) and teknorc.com product pages. Shock/diff oil lists are generic viscosities.</div>';
  E.innerHTML=h;window.scrollTo(0,0);
@@ -975,7 +999,9 @@ function openSetup(id){var s=getSetup(id);if(!s)return;editId=id;if(photoOpen)cl
  $('#sePrint').onclick=function(){printSetup(s.id)};$('#seShare').onclick=function(){shareSetups([s])};
  $('#seOnly').onchange=function(){var on=this.checked;$$('#setupEdit .fld').forEach(function(r){r.classList.toggle('hidden',on&&!r.classList.contains('chg'))});$$('#setupEdit details.sec').forEach(function(d){d.open=on?true:d.open})};
  $$('#setupEdit [data-f]').forEach(function(el){el.addEventListener('change',function(){var f=FBY[el.dataset.f],v=el.value;if(v==='')delete s.vals[f.id];else s.vals[f.id]=(f.kind==='num'?+v:(f.opts&&typeof optVal(f.opts[0])==='number'?+v:v));
-  s.updated=new Date().toISOString();saveSetups();var row=el.closest('.fld');row.classList.toggle('chg',isChanged(f,s.vals[f.id]))})});
+  s.updated=new Date().toISOString();saveSetups();var row=el.closest('.fld');row.classList.toggle('chg',isChanged(f,s.vals[f.id]));var th=row.querySelector('.fth');if(th)th.innerHTML=fThumb(f,s.vals[f.id],s.truck);var ov=document.querySelector('#setupEdit .ovw');if(ov)ov.innerHTML=ovHTML(s)})});
+ $('#setupEdit .ovw').onclick=function(e){var c=e.target.closest('[data-ovsec]');if(!c)return;var d=null;$$('#setupEdit details.sec').forEach(function(x){if(x.querySelector('summary').textContent===c.dataset.ovsec)d=x});if(d){d.open=true;d.scrollIntoView({behavior:motionOff()?'auto':'smooth',block:'start'})}};
+ $$('#setupEdit .secnav a').forEach(function(a){a.onclick=function(e){e.preventDefault();var d=document.getElementById('sec-'+a.dataset.go);if(d){d.open=true;d.scrollIntoView({behavior:motionOff()?'auto':'smooth',block:'start'})}}});
  sdBind(s);}
 
 /* compare */
@@ -1389,9 +1415,11 @@ function phGuide(k){var o='#ff8a1f',m='#8a94a6',p='#2a3242',ps='#6b778c',b='';
 /* ----- IndexedDB ----- */
 var PDB=null;
 function pdb(){if(!PDB)PDB=new Promise(function(res,rej){var r=indexedDB.open('rcsetup-photos',1);r.onupgradeneeded=function(){r.result.createObjectStore('shots')};r.onsuccess=function(){res(r.result)};r.onerror=function(){PDB=null;rej(r.error)}});return PDB}
-function ptx(mode,fn){return pdb().then(function(db){return new Promise(function(res,rej){var tx=db.transaction('shots',mode),q=fn(tx.objectStore('shots'));tx.oncomplete=function(){res(q&&'result' in q?q.result:undefined)};tx.onerror=tx.onabort=function(){rej(tx.error)}})})}
-function phAll(t){return ptx('readonly',function(st){return st.getAll()}).then(function(a){var m={};(a||[]).forEach(function(r){if(r&&r.truck===t)m[r.shot]=r});return m})}
-function phPut(t,shot,rec){rec.truck=t;rec.shot=shot;return ptx('readwrite',function(st){return st.put(rec,t+'_'+shot)})}
+function ptx(mode,fn){return pdb().then(function(db){return new Promise(function(res,rej){var tx,q;try{tx=db.transaction('shots',mode);q=fn(tx.objectStore('shots'))}catch(e){rej(e);return}tx.oncomplete=function(){res(q&&'result' in q?q.result:undefined)};tx.onerror=tx.onabort=function(){rej(tx.error||(q&&q.error)||new Error('Photo storage failed'))}})})}
+function phAll(t){return ptx('readonly',function(st){return st.getAll()}).then(function(a){var m={};(a||[]).forEach(function(r){if(r&&!r.blob&&r.buf)r.blob=new Blob([r.buf],{type:r.type||'image/jpeg'});if(r&&r.truck===t)m[r.shot]=r});return m})}
+/* some WebKit modes refuse Blobs in IndexedDB: fall back to the same record with the JPEG bytes as an ArrayBuffer (same DB/store/key) */
+function phPut(t,shot,rec){rec.truck=t;rec.shot=shot;return ptx('readwrite',function(st){return st.put(rec,t+'_'+shot)}).catch(function(err){
+ if(!rec.blob||!rec.blob.arrayBuffer)throw err||new Error('Photo storage failed');return rec.blob.arrayBuffer().then(function(buf){var r2={};for(var k in rec)if(k!=='blob')r2[k]=rec[k];r2.buf=buf;r2.type=rec.blob.type||'image/jpeg';return ptx('readwrite',function(st){return st.put(r2,t+'_'+shot)})})})}
 function phDel(t,shot){return ptx('readwrite',function(st){return st.delete(t+'_'+shot)})}
 function phCompress(file){return new Promise(function(res,rej){var url=URL.createObjectURL(file),img=new Image();
  img.onload=function(){var w=img.naturalWidth,h=img.naturalHeight,k=Math.min(1,PH_MAX/Math.max(w,h)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));
@@ -1436,7 +1464,7 @@ function renderPhoto(){var t=truck,L=shotList(t);phAll(t).then(function(got){phU
  $('#phBack').onclick=function(){closePhoto();showSetupHome()};
  $$('#setupPhoto .chk a').forEach(function(a){a.onclick=function(e){e.preventDefault();var el=document.getElementById(a.getAttribute('href').slice(1));if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}});
  $$('#setupPhoto .phin').forEach(function(inp){inp.onchange=function(){var f=inp.files&&inp.files[0],id=inp.dataset.shot;if(!f)return;toast('Saving photo…');
-  phCompress(f).then(function(rec){return phPut(t,id,rec)}).then(function(){toast('Saved '+shotFile(t,{id:id}));var keep=id;renderPhoto();setTimeout(function(){var el=document.getElementById('shot-'+keep);if(el)el.scrollIntoView({block:'start'})},60)}).catch(function(e){alert(e.message||'Could not save photo')})}});
+  phCompress(f).then(function(rec){return phPut(t,id,rec)}).then(function(){toast('Saved '+shotFile(t,{id:id}));var keep=id;renderPhoto();setTimeout(function(){var el=document.getElementById('shot-'+keep);if(el)el.scrollIntoView({block:'start'})},60)}).catch(function(e){alert((e&&e.message)||'Could not save photo')})}});
  $$('#setupPhoto [data-phdel]').forEach(function(b){b.onclick=function(){if(!confirm('Delete this photo?'))return;phDel(t,b.dataset.phdel).then(renderPhoto)}});
  $$('#setupPhoto [data-phguide]').forEach(function(b){b.onclick=function(){$('#phg-'+b.dataset.phguide).classList.toggle('hidden')}});
  $('#phShare').onclick=function(){sharePhotos(t,got)};$('#phZip').onclick=function(){zipPhotos(t,got)};
@@ -1547,7 +1575,8 @@ function sdHole(x,y,r,fid,val,v,ctx,lab,lo){var cur=sdV(v,fid),sel=String(cur)==
  if(lab!=null){var p=lo||[0,-r-5];h+=sdT(x+p[0],y+p[1]+3,lab,{fs:10,a:'middle',c:sel?'#fff':SDC.mu,w:sel?700:400})}
  return h+'</g>'}
 function sdBind(s){var E=$('#setupEdit');
- E.onclick=function(ev){var g=ev.target.closest&&ev.target.closest('[data-pick]');if(!g||!E.contains(g))return;var fid=g.getAttribute('data-pick'),val=g.getAttribute('data-v'),el=document.getElementById('sf_'+fid);
+ E.onclick=function(ev){var tb=ev.target.closest&&ev.target.closest('.fth');if(tb&&E.contains(tb)){openThumb(tb.dataset.th);return}
+  var g=ev.target.closest&&ev.target.closest('[data-pick]');if(!g||!E.contains(g))return;var fid=g.getAttribute('data-pick'),val=g.getAttribute('data-v'),el=document.getElementById('sf_'+fid);
   if(!el)return;el.value=val;el.dispatchEvent(new Event('change'));if(navigator.vibrate)try{navigator.vibrate(8)}catch(e){}};
  $$('#setupEdit [data-f]').forEach(function(el){el.addEventListener('change',function(){SD_LAST=el.getAttribute('data-f')||(el.id||'').replace(/^sf_/,'');sdRefresh(s);SD_LAST=null;
   var row=el.closest('.fld');if(row){row.classList.remove('pulse');void row.offsetWidth;row.classList.add('pulse')}})});mipRows(s)}
@@ -1557,9 +1586,145 @@ document.documentElement.classList.toggle('rm',motionOff());
 (function(){var sp=document.getElementById('splash');if(!sp)return;var seen=false;try{seen=sessionStorage.getItem('rcsetup.splash')==='1';sessionStorage.setItem('rcsetup.splash','1')}catch(e){}
  if(seen||motionOff()){sp.parentNode.removeChild(sp);return}setTimeout(function(){if(sp.parentNode)sp.parentNode.removeChild(sp)},1400)})();
 
+/* ---------- Inline field thumbnails + section diagrams for every section ---------- */
+var TA='#ff7a1a',TC='#38c6ff',TM='#5b677d',TL='#a8b2c3';
+function tsv(b){return '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">'+b+'</svg>'}
+function tTx(s,y,c){s=String(s==null||s===''?'—':s);if(s.length>7)s=s.slice(0,7);return '<text x="24" y="'+(y||45)+'" text-anchor="middle" font-size="'+(s.length>5?8:9.5)+'" font-weight="700" fill="'+(c||'#eef1f6')+'">'+esc(s)+'</text>'}
+function tIdx(f,v){if(!f.opts||v==null||v==='')return -1;for(var i=0;i<f.opts.length;i++)if(String(optVal(f.opts[i]))===String(v))return i;return -1}
+function tDot(x,y,r,on,stk){return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+(on?TC:'#07090d')+'" stroke="'+(on?'#d9f3ff':(stk||TL))+'" stroke-width="'+(on?1.2:.9)+'"/>'}
+function tGridDots(n,cols,idx,x0,y0,dx,dy,r){var h='';for(var i=0;i<n;i++)h+=tDot(x0+(i%cols)*dx,y0+Math.floor(i/cols)*dy,r,i===idx);return h}
+function tAng(deg,lab,ref){var a=(deg||0)*Math.PI/180,x=24+Math.sin(a)*16,y=34-Math.cos(a)*16;
+ return '<line x1="24" y1="34" x2="24" y2="14" stroke="'+TM+'" stroke-dasharray="2 2"/><path d="M24,34 L'+x.toFixed(1)+','+y.toFixed(1)+'" stroke="'+TA+'" stroke-width="2.6" stroke-linecap="round"/><circle cx="24" cy="34" r="2.4" fill="url(#g-rim)"/>'+tTx(lab)}
+function tVial(fr,lab){fr=Math.max(.06,Math.min(1,fr));var hgt=26*fr;return '<rect x="17" y="6" width="14" height="28" rx="4" fill="rgba(255,255,255,.04)" stroke="'+TL+'" stroke-width=".9"/><rect x="18.5" y="'+(33-hgt).toFixed(1)+'" width="11" height="'+hgt.toFixed(1)+'" rx="2.5" fill="'+(fr>.66?'#a0522d':fr>.33?'#d9a441':'#ffd58a')+'" opacity=".95"/>'+tTx(lab)}
+function tGearI(lab){return '<path d="'+gearPath(24,20,14,13)+'" fill="url(#g-alu)" stroke="'+TL+'" stroke-width=".6"/><circle cx="24" cy="20" r="4" fill="#07090d"/>'+tTx(lab)}
+function tCoil(col,lab){var p='M24,4';for(var j=0;j<8;j++)p+=' L'+(j%2?33:15)+','+(7+j*3.6);p+=' L24,36';return '<path d="'+p+'" fill="none" stroke="'+col+'" stroke-width="2.6" stroke-linejoin="round"/>'+tTx(lab)}
+function tTire(lab){return '<circle cx="24" cy="20" r="14" fill="url(#g-tire)"/><circle cx="24" cy="20" r="12.5" fill="none" stroke="#3a3a3a" stroke-width="2.2" stroke-dasharray="2 1.6"/><circle cx="24" cy="20" r="6.5" fill="url(#g-rim)"/>'+tTx(lab)}
+function tChip(sym,lab){return '<rect x="8" y="6" width="32" height="26" rx="6" fill="url(#g-plate)" stroke="'+TM+'"/><text x="24" y="24" text-anchor="middle" font-size="11" font-weight="800" fill="'+TA+'">'+esc(sym)+'</text>'+tTx(lab)}
+function tShock(len,lab){var L=Math.max(10,Math.min(30,len));return '<rect x="20" y="'+(36-L)+'" width="8" height="'+L+'" rx="2" fill="url(#g-alu)"/><path d="M24,'+(36-L)+' V4" stroke="url(#g-rim)" stroke-width="2.4"/><circle cx="24" cy="4" r="2.4" fill="none" stroke="'+TL+'"/>'+tTx(lab)}
+function tShort(f,v){var s=v==null||v===''?'—':String(v);var lb=f.opts?optLab(f.opts[Math.max(0,tIdx(f,v))]):s;if(f.opts&&tIdx(f,v)<0)lb=s;
+ var m=String(lb).match(/^(\d[\d.,]*)\s*(mm|cSt|t|°)?/);if(m)return m[1]+(m[2]==='mm'?'mm':'');return String(lb).split(' ')[0]}
+function springCol(lab){lab=String(lab||'').toLowerCase();return /pink/.test(lab)?'#ff6fb5':/green/.test(lab)?'#34d399':/yellow/.test(lab)?'#ffd34d':/orange/.test(lab)?'#ff7a1a':TL}
+var VCOL={G:'#34d399',T:'#d2b48c',B:'#38c6ff',C:'#e6edf5',N:'#8b5a2b'};
+function fThumb(f,v,t){var id=f.id,i=tIdx(f,v),num=v==null||v===''?null:+v,lab=tShort(f,v),o=f.opts;
+ if(/^(fUpper|rUpper)$/.test(id))return tsv('<path d="M6,40 L10,22 L40,6 L44,12 L18,30 L18,40Z" fill="url(#g-alu)"/>'+[0,1,2,3].map(function(k){return tDot(40-k*8,9+k*5,2.8,k===i)}).join('')+tTx(i<0?'—':'H'+(i+1),47));
+ if(/^(fLower|rLower)$/.test(id))return tsv('<path d="M4,30 L44,22 L44,28 L4,36Z" fill="url(#g-plate)" stroke="'+TM+'"/>'+[0,1,2].map(function(k){return tDot(20+k*9,28-k*1.6,3,k===i)}).join('')+tTx(lab,14));
+ if(id==='fInCam')return tsv('<rect x="10" y="3" width="28" height="34" rx="5" fill="url(#g-alu)"/>'+tGridDots(6,2,i,18,10,12,9,3)+tTx(i<0?'—':'#'+(i+1),46));
+ if(id==='rInCam')return tsv('<rect x="10" y="2" width="28" height="36" rx="5" fill="url(#g-alu)"/>'+tGridDots(8,2,i,18,8,12,8,2.8)+tTx(i<0?'—':'#'+(i+1),46));
+ if(id==='rOutCam')return tsv('<rect x="4" y="5" width="40" height="28" rx="5" fill="url(#g-plate)" stroke="'+TM+'"/>'+tGridDots(15,5,i,10,11,7,8,2.4)+tTx(i<0?'—':'#'+(i+1),45));
+ if(/^(fOutCam|ackHole|spHeight|rAxle|fStand|rStand|spPart|spPlate|fHub|rHub|aBlock|bBlock|fBulk|rBulk|cScrew)$/.test(id)&&o){var n=o.length,h='<rect x="14" y="3" width="20" height="34" rx="5" fill="url(#g-plate)" stroke="'+TM+'"/>',sp=n>1?28/(n-1):0;if(n>4){h='<rect x="3" y="12" width="42" height="16" rx="5" fill="url(#g-plate)" stroke="'+TM+'"/>';for(var k=0;k<n;k++)h+=tDot(8+k*(32/(n-1)),20,2.6,k===i)}else for(var k2=0;k2<n;k2++)h+=tDot(24,n===1?20:6+k2*sp,3.2,k2===i);return tsv(h+tTx(lab,46))}
+ if(/Pill$/.test(id))return tsv('<rect x="8" y="2" width="32" height="32" rx="7" fill="url(#g-plate)" stroke="'+TM+'"/>'+tGridDots(9,3,i,14,8,10,10,3.4)+tTx(i<0?'—':['TL','T','TR','L','C','R','BL','B','BR'][i],46));
+ if(/^(fCam|rCam)$/.test(id)){var a=num==null?0:Math.max(-18,Math.min(18,num*4));return tsv('<line x1="4" y1="36" x2="44" y2="36" stroke="#8a6c4d" stroke-width="2"/><g transform="rotate('+(-a)+' 24 36)"><rect x="17" y="10" width="14" height="26" rx="4" fill="url(#g-tire)" stroke="'+TA+'"/></g><line x1="24" y1="36" x2="24" y2="8" stroke="'+TM+'" stroke-dasharray="2 2"/>'+tTx(num==null?'—':num+'°',46))}
+ if(/^(fToe|rToe)$/.test(id)){var a2=num==null?0:Math.max(-20,Math.min(20,num*5)),sg=id==='fToe'?1:-1;return tsv('<rect x="20" y="6" width="8" height="28" rx="3" fill="url(#g-plate)"/><g transform="rotate('+(-a2*sg)+' 10 20)"><rect x="6" y="10" width="8" height="20" rx="3" fill="url(#g-tire)" stroke="'+TA+'"/></g><g transform="rotate('+(a2*sg)+' 38 20)"><rect x="34" y="10" width="8" height="20" rx="3" fill="url(#g-tire)" stroke="'+TA+'"/></g>'+tTx(num==null?'—':num+'°',46))}
+ if(/^(fCaster|fSweep|fKick|rAS)$/.test(id))return tsv(tAng(num==null?0:Math.max(-30,Math.min(30,num*1.5)),num==null?'—':num+'°'));
+ if(id==='caster')return tsv(tAng(num?num*1.5:0,num?num+'°':'—'));
+ if(/^(fRH|rRH)$/.test(id)){var g=num==null?8:Math.max(2,Math.min(18,(num-25)/1.2));return tsv('<line x1="4" y1="36" x2="44" y2="36" stroke="#8a6c4d" stroke-width="2"/><rect x="8" y="'+(36-g-6).toFixed(1)+'" width="32" height="6" rx="2" fill="url(#g-plate)" stroke="'+TM+'"/><path d="M24,'+(36-g).toFixed(1)+' V35" stroke="'+TC+'" stroke-width="1.6"/>'+tTx(num==null?'—':num+'mm',46))}
+ if(/ShockLen$|Droop$|UpTravel$/.test(id))return tsv(tShock(/ShockLen/.test(id)?(num?(num-100)/1.3:20):20+(num||0)*.8,num==null?'—':num+'mm'));
+ if(/^(fOil|rOil)$/.test(id))return tsv(tVial(num?(num-200)/900:0,num||'—'));
+ if(/DiffOil$/.test(id))return tsv(tVial(num?Math.log(num/800)/Math.log(40):0,num?(num>=1000?(num/1000)+'k':num):'—'));
+ if(/Spring$/.test(id)){var sl=o&&i>=0?optLab(o[i]):'';return tsv(tCoil(springCol(sl),sl?(/90mm/.test(sl)?'90':'80')+'mm':'—'))}
+ if(/^(fBar|rBar)$/.test(id)){var w=v==='none'||num==null?0:num;return tsv('<path d="M6,30 L6,14 L42,14 L42,30" fill="none" stroke="'+(w?TA:TM)+'" stroke-width="'+(w?Math.max(1.4,(w-1.4)*3.2).toFixed(1):1.4)+'" stroke-linejoin="round"'+(w?'':' stroke-dasharray="3 3"')+'/>'+tTx(w?w+'mm':'none',46))}
+ if(/Bush$/.test(id))return tsv('<circle cx="24" cy="20" r="14" fill="url(#g-plate)" stroke="'+TM+'"/><circle cx="24" cy="20" r="'+(num?num*2.6:6)+'" fill="#07090d" stroke="'+TA+'"/>'+tTx(num?num:'—',46));
+ if(/^(fPiston|rPiston|fMipPiston|rMipPiston)$/.test(id)){var pl=o&&i>=0?optLab(o[i]):'',hm=pl.match(/(\d+)(?:\+(\d+))?\s*(?:hole|×)/),nh=hm?(+hm[1]+(+hm[2]||0)):0,h2='<circle cx="24" cy="20" r="15" fill="url(#g-alu)" stroke="'+TL+'" stroke-width=".6"/><circle cx="24" cy="20" r="3" fill="#07090d"/>';
+  for(var q=0;q<Math.min(nh,24);q++){var aa=q/Math.min(nh,24)*Math.PI*2,rr=nh>12&&q%2?6.5:10;h2+='<circle cx="'+(24+Math.cos(aa)*rr).toFixed(1)+'" cy="'+(20+Math.sin(aa)*rr).toFixed(1)+'" r="'+(nh>12?1.2:1.7)+'" fill="#07090d"/>'}
+  return tsv(h2+tTx(pl?(nh?nh+' hole':'blank'):'—',46))}
+ if(/PisType$/.test(id))return tsv(tChip({tekno:'TKR',b1:'B1',hf:'HF',thf:'THF'}[v]||'—',v==='tekno'?'Tekno':v?'MIP':'—'));
+ if(/MipValve$/.test(id)){var vk=String(v||''),cs=vk==='TG'?['T','G']:vk?[vk]:[];var h3='<rect x="22.5" y="2" width="3" height="34" fill="url(#g-rim)"/>';cs.forEach(function(c,k){h3+='<ellipse cx="24" cy="'+(22-k*5)+'" rx="15" ry="3.4" fill="'+(VCOL[c]||TM)+'" stroke="rgba(0,0,0,.4)"/>'});if(!cs.length)h3+='<ellipse cx="24" cy="22" rx="15" ry="3.4" fill="none" stroke="'+TM+'" stroke-dasharray="2 2"/>';return tsv(h3+tTx(vk?{G:'Green',TG:'Tan+G',B:'Blue',C:'Clear',N:'Brown'}[vk]:'—',46))}
+ if(/Rebound$/.test(id)){var p=Math.max(0,Math.min(100,num||0));return tsv('<path d="M8,30 A16,16 0 0 1 40,30" fill="none" stroke="'+TM+'" stroke-width="4" stroke-linecap="round"/><path d="M8,30 A16,16 0 0 1 40,30" fill="none" stroke="'+TA+'" stroke-width="4" stroke-linecap="round" pathLength="100" stroke-dasharray="'+p+' 100"/>'+tTx(num==null?'—':num+'%',46))}
+ if(/Build$/.test(id))return tsv('<rect x="14" y="4" width="20" height="32" rx="4" fill="rgba(217,164,65,.3)" stroke="'+TL+'"/>'+(v==='Bladder'?'<rect x="17" y="6" width="14" height="9" rx="4" fill="#111" stroke="'+TA+'"/>':'<circle cx="20" cy="14" r="1.6" fill="#fff" opacity=".7"/><circle cx="27" cy="20" r="1.2" fill="#fff" opacity=".6"/><circle cx="22" cy="27" r="1.4" fill="#fff" opacity=".6"/>')+tTx(v?String(v).slice(0,7):'—',46));
+ if(/(Oring|Shim|Outdrive|Gears|Case|Pin)$/.test(id))return tsv(tGearI(lab.replace(/^TKR/,'')));
+ if(/^(clutchBell|spurNT|pinion|spurET)$/.test(id))return tsv(tGearI(num?num+'t':String(v||'—').replace(/t.*$/,'t')));
+ if(/^(braceMid|braceRear)$/.test(id))return tsv('<rect x="4" y="26" width="40" height="8" rx="2" fill="url(#g-plate)" stroke="'+TM+'"/><path d="M10,26 L24,8 L38,26" fill="none" stroke="'+(v==='Removed'?TM:TA)+'" stroke-width="3"'+(v==='Removed'?' stroke-dasharray="3 3"':'')+'/>'+tTx(v==='Removed'?'off':v?'on':'—',46));
+ if(/^(wbRear|wbFront)$/.test(id)){var h4='';for(var z=0;z<Math.min(6,num||0);z++)h4+='<rect x="'+(10+z*5)+'" y="8" width="4" height="24" rx="1" fill="url(#g-alu)"/>';return tsv('<rect x="4" y="18" width="40" height="4" fill="'+TM+'"/>'+h4+tTx(num==null?'—':num+'mm',46))}
+ if(/^(brakeF|brakeR)$/.test(id)){var bf=Math.max(0,Math.min(100,num||0));return tsv('<rect x="4" y="14" width="40" height="10" rx="5" fill="'+TM+'"/><rect x="4" y="14" width="'+(40*bf/100).toFixed(1)+'" height="10" rx="5" fill="'+TA+'"/>'+tTx(num==null?'—':num+'%',46))}
+ if(id==='expo'){var e=(num||0)/100,pp='M6,36';for(var x=0;x<=1.0001;x+=.1){var yv=x*(1+e*(1-x)*-1.6);pp+=' L'+(6+x*36).toFixed(1)+','+(36-Math.max(0,Math.min(1,yv))*30).toFixed(1)}return tsv('<path d="M6,36 L42,6" stroke="'+TM+'" stroke-dasharray="2 2"/><path d="'+pp+'" fill="none" stroke="'+TA+'" stroke-width="2.2"/>'+tTx(num==null?'—':num+'%',46))}
+ if(id==='servoSpd'||id==='brakeDR'||id==='saver'){var fr=id==='brakeDR'?(num||0)/100:id==='saver'?(num||0)/3:1+(num||0)/100;return tsv('<path d="M8,32 A16,16 0 0 1 40,32" fill="none" stroke="'+TM+'" stroke-width="4" stroke-linecap="round"/><path d="M8,32 A16,16 0 0 1 40,32" fill="none" stroke="'+TA+'" stroke-width="4" stroke-linecap="round" pathLength="100" stroke-dasharray="'+Math.max(2,Math.min(100,fr*100)).toFixed(0)+' 100"/>'+tTx(num==null?'—':num+(id==='saver'?'':'%'),46))}
+ if(/Wash$/.test(id)){var h5='';for(var w2=0;w2<Math.min(8,num||0);w2++)h5+='<ellipse cx="24" cy="'+(34-w2*3.4)+'" rx="10" ry="2.4" fill="url(#g-alu)" stroke="rgba(0,0,0,.4)" stroke-width=".4"/>';return tsv('<path d="M24,4 V36" stroke="url(#g-rim)" stroke-width="2.4"/>'+h5+tTx(num==null?'—':'×'+num,46))}
+ if(/^(fCvd|rCvd)$/.test(id))return tsv('<path d="M4,20 H44" stroke="url(#g-rim)" stroke-width="4"/><circle cx="10" cy="20" r="6" fill="url(#g-alu)"/><circle cx="38" cy="20" r="6" fill="url(#g-alu)"/>'+tTx(String(v||'—').split(' ')[0]+(v?' '+String(v).slice(-4):''),46));
+ if(id==='insertType')return tsv(tChip('5mm'.slice(0,v&&/31565/.test(v)?3:0)||'INS',v?(/31565/.test(v)?'31565':'kit'):'—'));
+ if(/^(fTower|rTower)$/.test(id))return tsv('<path d="M8,36 L12,18 L38,4 L42,10 L20,24 L20,36Z" fill="url(#g-alu)"/>'+tTx(String(v||'—').replace(/^TKR/,''),46));
+ if(/^t(Brand|Comp|Insert|Wheel)$/.test(id))return tsv(tTire(v?String(v).slice(0,7):'—'));
+ if(id==='body')return tsv('<path d="M4,32 L5,24 C12,22 16,21 20,21 L25,12 C30,10 36,10.5 39,12 L43,20 C46,21 47,24 47,28 L46,32Z" fill="url(#g-body)"/><path d="M27,13 L37,13.4 L40,19.5 L24,19.5Z" fill="url(#g-glass)"/>'+tTx(v?'stock':'—',46));
+ if(id==='wing'||id==='wingPos')return tsv('<path d="M6,14 L40,10 L40,14 L6,18Z" fill="url(#g-wing)"/><path d="M20,17 L22,34 M32,13 L33,34" stroke="'+TL+'" stroke-width="1.6"/><rect x="38" y="6" width="3" height="12" rx="1" fill="'+TA+'"/>'+tTx(id==='wingPos'?(v||'—'):(v?'stock':'—'),46));
+ if(/^(engine|fuel|esc|motor|battery|sServo|tServo|shoes|clutchSprings)$/.test(id))return tsv(tChip({engine:'ENG',fuel:'FUEL',esc:'ESC',motor:'MTR',battery:'BAT',sServo:'STR',tServo:'THR',shoes:'CLU',clutchSprings:'SPR'}[id],v?'set':'—'));
+ if(id==='traction'){var tl=i+1;return tsv([0,1,2].map(function(k){return '<rect x="'+(9+k*11)+'" y="'+(28-k*8)+'" width="8" height="'+(8+k*8)+'" rx="2" fill="'+(k<tl?TA:'rgba(255,255,255,.08)')+'"/>'}).join('')+tTx(v||'—',46))}
+ if(id==='surface'){var sp2=v==='Bumpy'?'M4,28 Q9,18 14,28 T24,28 T34,28 T44,28':v==='Rutted'?'M4,24 H12 V32 H18 V24 H28 V32 H34 V24 H44':'M4,28 H44';return tsv('<path d="'+sp2+' V38 H4Z" fill="url(#g-dirt)" stroke="#8a6c4d"/>'+tTx(v||'—',46))}
+ if(id==='track')return tsv((v==='Indoor'?'<path d="M4,20 L24,6 L44,20" fill="none" stroke="'+TL+'" stroke-width="2.4"/>':'<circle cx="34" cy="12" r="6" fill="#ffd34d"/>')+'<rect x="4" y="26" width="40" height="10" rx="3" fill="url(#g-dirt)"/>'+tTx(v||'—',46));
+ if(id==='size')return tsv('<rect x="'+(i===0?14:i===1?9:4)+'" y="'+(i===0?12:i===1?8:4)+'" width="'+(i===0?20:i===1?30:40)+'" height="'+(i===0?18:i===1?24:30)+'" rx="8" fill="none" stroke="#8a6c4d" stroke-width="4"/>'+tTx(v||'—',46));
+ if(id==='type'||id==='condition'){var ic=/Wet|Muddy|Clay/.test(v)?'<path d="M18,8 Q14,16 18,20 Q22,16 18,8Z M30,12 Q26,20 30,24 Q34,20 30,12Z" fill="'+TC+'"/>':/Dusty|Loose/.test(v)?'<circle cx="16" cy="20" r="5" fill="url(#g-dust)"/><circle cx="26" cy="16" r="7" fill="url(#g-dust)"/><circle cx="34" cy="22" r="5" fill="url(#g-dust)"/>':/Blue/.test(v)?'<path d="M4,22 H44" stroke="#2c4a6e" stroke-width="8"/>':'<circle cx="24" cy="16" r="7" fill="#ffd34d"/>';return tsv(ic+'<rect x="4" y="28" width="40" height="8" rx="3" fill="url(#g-dirt)"/>'+tTx(v?String(v).split(' ')[0]:'—',46))}
+ if(id==='notes')return tsv('<rect x="10" y="4" width="28" height="34" rx="4" fill="url(#g-plate)" stroke="'+TM+'"/><path d="M15,13 H33 M15,19 H33 M15,25 H27" stroke="'+TL+'" stroke-width="1.6"/>'+tTx(v?'note':'—',46));
+ if(o&&o.length)return tsv('<rect x="6" y="6" width="36" height="28" rx="6" fill="url(#g-plate)" stroke="'+TM+'"/>'+(i>=0?tTx(i+1+'/'+o.length,25,TA):'')+tTx(lab,46));
+ return tsv('<rect x="6" y="6" width="36" height="28" rx="6" fill="url(#g-plate)" stroke="'+TM+'"/>'+tTx(num!=null&&!isNaN(num)?num:(v?'set':'—'),25,TA))}
+/* tappable option pills inside a diagram (synced with the dropdowns through data-pick) */
+function sdPillsRow(x,y,fid,v,ctx,title,w){var f=FBY[fid];if(!f||!f.opts)return '';var cur=sdV(v,fid),h=sdT(x,y,title,{fs:10,c:SDC.mu}),cx=x,df=ctx.dif&&ctx.dif[fid];
+ f.opts.forEach(function(o){var ov=String(optVal(o)),lb=String(optLab(o)).split(' (')[0].split(' – ')[0],wd=w||Math.max(44,lb.length*6.4+16),sel=String(cur)===ov,st=ctx.stock[fid]!=null&&String(ctx.stock[fid])===ov;
+  h+='<g class="hp" data-pick="'+fid+'" data-v="'+esc(ov)+'"><rect class="'+(sel?'on'+(SD_LAST===fid?' pop':''):'')+'" x="'+cx+'" y="'+(y+6)+'" width="'+wd+'" height="26" rx="13" fill="'+(sel?(df?'rgba(255,122,26,.25)':'rgba(56,198,255,.22)'):'rgba(0,0,0,.35)')+'" stroke="'+(sel?(df?SDC.acc:SDC.sel):(st?SDC.mu:'#3a4354'))+'"'+(st&&!sel?' stroke-dasharray="3 2"':'')+' stroke-width="'+(sel?1.8:1)+'"/>'+sdT(cx+wd/2,y+23,lb,{fs:10.5,a:'middle',w:sel?700:500,c:sel?'#fff':SDC.tx})+'</g>';cx+=wd+6});return h}
+function sdEventD(v,t,ctx){var h=sdT(10,16,'Track & conditions',{fs:11,w:700}),sf=sdV(v,'surface'),tr=sdV(v,'traction');
+ var gp=sf==='Bumpy'?'M10,92 Q25,74 40,92 T70,92 T100,92 T130,92':sf==='Rutted'?'M10,86 H34 V96 H48 V86 H80 V96 H94 V86 H130':'M10,92 H130';
+ h+='<rect x="10" y="30" width="120" height="76" rx="10" fill="url(#g-sky)" stroke="'+SDC.ps+'"/>'+(sdV(v,'track')==='Indoor'?'<path d="M14,58 L70,36 L126,58" fill="none" stroke="'+SDC.hs+'" stroke-width="3"/>':'<circle cx="104" cy="50" r="9" fill="#ffd34d" opacity=".9"/>')+'<path d="'+gp+' V104 H10Z" fill="url(#g-dirt)" stroke="#8a6c4d"/>';
+ h+='<g transform="translate(70,84) scale(1.6)">'+truckSide(RED)+'</g>';
+ var tl={Low:1,Medium:2,High:3}[tr]||0;[0,1,2].forEach(function(k){h+='<rect x="'+(146+k*14)+'" y="'+(84-k*12)+'" width="10" height="'+(14+k*12)+'" rx="2" fill="'+(k<tl?SDC.acc:'rgba(255,255,255,.08)')+'"/>'});h+=sdT(146,114,'traction',{fs:9.5,c:SDC.mu});
+ h+=sdPillsRow(196,40,'track',v,ctx,'Track',56)+sdPillsRow(196,86,'traction',v,ctx,'Traction',50);
+ h+=sdPillsRow(10,128,'size',v,ctx,'Size',60)+sdPillsRow(10,174,'surface',v,ctx,'Surface',66)+sdPillsRow(10,220,'condition',v,ctx,'Condition',62);
+ h+=sdT(10,278,'Type: '+(sdV(v,'type')||'—')+' · set it in the list below',{fs:10,c:SDC.mu});
+ return sdSvg(360,290,h,'Track and conditions')}
+function sdTiresD(v,t,ctx){var h=sdT(10,16,'Tires, body & wing',{fs:11,w:700}),wp=sdV(v,'wingPos'),off={'0mm':0,'+7mm':7,'+12mm':12}[wp];off=off==null?0:off;
+ h+='<rect x="10" y="134" width="340" height="6" rx="2" fill="url(#g-dirt)"/><g transform="translate(150,98) scale(4)">'+truckSide(RED)+'</g>';
+ h+='<path d="M'+(60-off*2)+',40 h70" stroke="'+SDC.sel+'" stroke-dasharray="4 3"/>'+sdT(60-off*2,34,'wing '+(wp||'—'),{fs:10,c:SDC.sel});
+ h+=sdPillsRow(206,30,'wingPos',v,ctx,'Wing mount',46);
+ var tx=[['tBrand','Tire'],['tComp','Compound'],['tInsert','Insert'],['tWheel','Wheel']];tx.forEach(function(a,k){var x=10+k*86;h+='<rect x="'+x+'" y="150" width="80" height="40" rx="8" fill="'+SDC.part+'" stroke="'+(ctx.dif&&ctx.dif[a[0]]?SDC.acc:SDC.ps)+'"/>'+sdT(x+8,164,a[1],{fs:9.5,c:SDC.mu})+sdT(x+8,182,String(sdV(v,a[0])||'—').slice(0,12),{fs:11,w:700,c:'#fff'})});
+ h+=sdT(10,206,'Tekno lists no tire for either kit — blanks stay blank until you fill them.',{fs:9.5,c:SDC.mu});
+ return sdSvg(360,216,h,'Tires body and wing')}
+function sdElecD(v,t,ctx){var nt=t==='NT48',h=sdT(10,16,nt?'Electronics · engine & servos':'Electronics · power system',{fs:11,w:700}),L=nt?[['engine','Engine / pipe'],['fuel','Fuel / plug'],['sServo','Steering servo'],['tServo','Throttle servo']]:[['battery','Battery'],['esc','ESC'],['motor','Motor (kV)'],['sServo','Steering servo']];
+ L.forEach(function(a,k){var x=10+(k%2)*176,y=30+Math.floor(k/2)*58;h+='<rect x="'+x+'" y="'+y+'" width="164" height="46" rx="9" fill="'+SDC.part+'" stroke="'+(ctx.dif&&ctx.dif[a[0]]?SDC.acc:SDC.ps)+'"/>'+sdT(x+10,y+16,a[1],{fs:9.5,c:SDC.mu})+sdT(x+10,y+35,String(sdV(v,a[0])||'—').slice(0,22),{fs:12,w:700,c:'#fff'})});
+ h+='<path d="M174,53 H186 M174,111 H186" stroke="'+SDC.acc+'" stroke-width="2"/>';return sdSvg(360,150,h,'Electronics')}
+function sdRadioD(v,t,ctx){var h=sdT(10,16,'Radio · steering expo, servo speed, brake rate',{fs:11,w:700}),e=(+sdV(v,'expo')||0)/100,p='M20,130';
+ for(var x=0;x<=1.0001;x+=.05){var y=x*(1+e*(1-x)*-1.6);p+=' L'+(20+x*130).toFixed(1)+','+(130-Math.max(0,Math.min(1,y))*100).toFixed(1)}
+ h+='<rect x="20" y="30" width="130" height="100" fill="rgba(0,0,0,.25)" stroke="'+SDC.ps+'"/><path d="M20,130 L150,30" stroke="'+SDC.mu+'" stroke-dasharray="4 3"/><path d="'+p+'" fill="none" stroke="'+SDC.acc+'" stroke-width="2.6"/>'+sdT(24,46,'expo '+(sdV(v,'expo')==null?'—':sdV(v,'expo')+'%'),{fs:11,w:700,c:SDC.acc})+sdT(85,146,'stick →',{fs:9.5,a:'middle',c:SDC.mu});
+ [['servoSpd','Servo speed',1],['brakeDR','Brake dual rate',0]].forEach(function(a,k){var n=sdV(v,a[0]),fr=a[2]?1+(+n||0)/100:(+n||0)/100,y=44+k*56;h+='<text x="176" y="'+y+'" font-size="10" fill="'+SDC.mu+'">'+a[1]+'</text><rect x="176" y="'+(y+8)+'" width="170" height="12" rx="6" fill="rgba(255,255,255,.08)"/><rect x="176" y="'+(y+8)+'" width="'+(170*Math.max(0,Math.min(1,fr))).toFixed(1)+'" height="12" rx="6" fill="'+(ctx.dif&&ctx.dif[a[0]]?SDC.acc:SDC.sel)+'"/>'+sdT(346,y,n==null?'—':n+'%',{fs:11,w:700,a:'end'})});
+ h+=sdT(176,150,'Tekno suggested starts (manual p32/p29).',{fs:9,c:SDC.mu});return sdSvg(360,160,h,'Radio settings')}
+function sdNotesD(v,t,ctx){var d=difStock(v,t),ids=Object.keys(d),h=sdT(10,16,'Changes from Tekno box stock',{fs:11,w:700});
+ h+='<circle cx="46" cy="66" r="30" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="8"/><circle cx="46" cy="66" r="30" fill="none" stroke="'+(ids.length?SDC.acc:SDC.good)+'" stroke-width="8" pathLength="100" stroke-dasharray="'+Math.min(100,ids.length*8)+' 100" transform="rotate(-90 46 66)"/>'+sdT(46,72,String(ids.length),{fs:20,w:800,a:'middle'});
+ ids.slice(0,6).forEach(function(id,k){var f=FBY[id];h+=sdT(92,40+k*16,'• '+f.label+': '+shortVal(f,v[id]),{fs:10.5,c:k<6?SDC.tx:SDC.mu})});
+ if(!ids.length)h+=sdT(92,64,'Identical to the official Box Stock sheet.',{fs:11,c:SDC.good});else if(ids.length>6)h+=sdT(92,138,'+'+(ids.length-6)+' more (tick “Show only changed”)',{fs:10,c:SDC.mu});
+ return sdSvg(360,150,h,'Changes from stock')}
+SDP.unshift({id:'event',sec:'Event',t:'Track & conditions',fl:['track','size','traction','surface','type','condition'],fn:sdEventD});
+SDP.push({id:'tires',sec:'Tires & body',t:'Tires & body',fl:['tBrand','tComp','tInsert','tWheel','body','wing','wingPos'],fn:sdTiresD},
+ {id:'elec',sec:'Electronics',t:'Electronics',fl:['engine','fuel','esc','motor','battery','sServo','tServo'],fn:sdElecD},
+ {id:'radio',sec:'Radio',t:'Radio',fl:['expo','servoSpd','brakeDR'],fn:sdRadioD},
+ {id:'notes',sec:'Notes',t:'Changes vs stock',fl:[],fn:sdNotesD},
+ {id:'chas',sec:'Chassis',t:'Chassis',fl:['fBulk','rBulk','braceMid','braceRear'],fn:sdChasD});
+function sdChasD(v,t,ctx){var h=sdT(10,16,'Chassis · bulkheads & braces (top view)',{fs:11,w:700});
+ h+='<path d="M30,60 L60,40 L300,40 L330,60 L330,90 L300,110 L60,110 L30,90 Z" fill="url(#g-plate)" stroke="'+SDC.ps+'"/>';
+ [['fBulk',300,'front bulkhead'],['rBulk',60,'rear bulkhead']].forEach(function(a){h+='<rect x="'+(a[1]-18)+'" y="52" width="36" height="46" rx="6" fill="url(#g-alu)" stroke="'+(ctx.dif&&ctx.dif[a[0]]?SDC.acc:SDC.ps)+'"/>'+sdT(a[1],126,a[2]+': '+(String(sdV(v,a[0])||'—').replace(/^TKR/,'')),{fs:9.5,a:'middle',c:SDC.mu})});
+ [['braceMid',180,'middle brace'],['braceRear',110,'rear brace']].forEach(function(a){var on=sdV(v,a[0])!=='Removed';h+='<path d="M'+(a[1]-26)+',46 L'+a[1]+',75 L'+(a[1]+26)+',46" fill="none" stroke="'+(on?SDC.acc:SDC.mu)+'" stroke-width="4"'+(on?'':' stroke-dasharray="5 4"')+'/>'+sdT(a[1],140+(a[1]===110?12:0),a[2]+': '+(sdV(v,a[0])||'—'),{fs:9.5,a:'middle',c:on?SDC.tx:SDC.mu})});
+ h+=sdPillsRow(10,160,'braceMid',v,ctx,'Middle brace (tap)',78)+sdPillsRow(190,160,'braceRear',v,ctx,'Rear brace (tap)',78);return sdSvg(360,200,h,'Chassis')}
+SDBY={};SDP.forEach(function(p){SDBY[p.id]=p});
+function panelFor(fid,sec){var p=null;SDP.forEach(function(x){if(!p&&x.sec===sec&&x.fl.indexOf(fid)>=0)p=x});if(!p)SDP.forEach(function(x){if(!p&&x.sec===sec)p=x});return p}
+function openThumb(fid){var s=getSetup(editId);if(!s)return;var f=FBY[fid],p=panelFor(fid,f.sec),h='';
+ if(p){var pan=sdPanel(p,s.vals,s.truck,difStock(s.vals,s.truck));if(pan.indexOf('hidden')<0)h+=pan.replace('class="sdg"','class="sdg" style="margin:0;border:0"')}
+ var dg=f.adv&&DGF[f.adv]?diagram(f.adv,''):'';if(dg)h+='<div style="border-top:1px solid var(--line)">'+dg+'</div>';
+ if(!h)h='<div style="padding:16px;background:#0f131b">'+fThumb(f,s.vals[fid],s.truck)+'</div>';
+ openModal(h,f.label+': '+shortVal(f,s.vals[fid]),p?(p.t+' · tap “Close” and use the sheet to change it.'):'');}
+var OVP=['fend','fshk','rend','drive','steer','sway'];
+function ovHTML(s){var dif=difStock(s.vals,s.truck),h='';OVP.forEach(function(id){var p=SDBY[id];if(!p)return;var svg=p.fn(s.vals,s.truck,sdCtx(s.truck,dif));if(!svg)return;var n=p.fl.filter(function(f){return dif[f]}).length;
+ h+='<button type="button" class="ovc" data-ovsec="'+esc(p.sec)+'"><span class="ovs">'+svg+'</span><span class="ovt"><b>'+esc(p.t)+'</b>'+(n?'<i>'+n+' changed</i>':'<i class="ok">stock</i>')+'</span></button>'});return h}
+function thumbBtn(f,v,t){return '<button type="button" class="fth" data-th="'+f.id+'" aria-label="Diagram: '+esc(f.label)+'">'+fThumb(f,v,t)+'</button>'}
+/* ---------- Service worker: auto-update + "Update available" prompt ---------- */
+function swBanner(){if(document.getElementById('swUpd'))return;var b=document.createElement('button');b.id='swUpd';b.className='swupd';b.type='button';b.innerHTML='<b>Update available</b> · tap to refresh';b.onclick=function(){location.reload()};document.body.appendChild(b)}
+function swInit(){if(!('serviceWorker' in navigator)||!/^https?:/.test(location.protocol))return;var had=!!navigator.serviceWorker.controller,shown=false;
+ navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(function(reg){
+  function watch(w){if(!w)return;w.addEventListener('statechange',function(){if(w.state==='installed'&&navigator.serviceWorker.controller){w.postMessage('skipWaiting');}})}
+  if(reg.waiting&&navigator.serviceWorker.controller){reg.waiting.postMessage('skipWaiting')}
+  watch(reg.installing);reg.addEventListener('updatefound',function(){watch(reg.installing)});
+  var chk=function(){try{reg.update()}catch(e){}};document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});setInterval(chk,30*60*1000);
+ }).catch(function(){});
+ navigator.serviceWorker.addEventListener('message',function(e){if(e.data&&e.data.ver&&e.data.ver!==APP_VER&&!shown){shown=true;swBanner()}});
+ navigator.serviceWorker.addEventListener('controllerchange',function(){var was=had;had=true;if(!was||shown)return;var c=navigator.serviceWorker.controller;if(c)c.postMessage('ver')})}
+var APP_VER='rcsetup-v7';
+
 /* ---------- Init ---------- */
 renderSyms();renderLearn();setTruck(truck==='ET48'?'ET48':'NT48');
-if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(function(){})}
+swInit();
 })();
 </script>
 </body>
