@@ -34,7 +34,24 @@ nav button.on{color:var(--acc)}
 .note{background:#2a2112;border:1px solid #5a4012;color:#ffd9a8;border-radius:12px;padding:10px 12px;font-size:14px;margin:10px 0}
 .note.blue{background:#122133;border-color:#1e3e63;color:#cfe5ff}
 .grp{margin:14px 0 4px;color:var(--mut);font-size:13px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-.sym{display:block;width:100%;text-align:left;min-height:54px;margin:6px 0;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:16px;font-weight:600}
+.sym{display:flex;gap:12px;align-items:center;width:100%;text-align:left;min-height:54px;margin:6px 0;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:16px;font-weight:600;cursor:pointer}
+.stx{flex:1;min-width:0}
+.thumb{flex:0 0 104px;height:65px;border-radius:9px;overflow:hidden;border:1px solid var(--line)}
+.thumb svg,.bigv svg,.ba svg,.dgw svg,#mbody svg{display:block;width:100%;height:auto}
+.bigv{margin:12px 0 4px;border-radius:12px;overflow:hidden;border:1px solid var(--line);cursor:zoom-in}
+.leg{font-size:13px;color:var(--mut);margin:4px 0 8px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ba .zoom{border-radius:10px;overflow:hidden;border:1px solid var(--line);cursor:zoom-in}
+.bal{text-align:center;font-size:13px;font-weight:700;margin-top:4px;color:#ff9c6b}
+.dgw{margin:10px 0 2px;border-radius:10px;overflow:hidden;border:1px solid var(--line);max-width:420px;cursor:zoom-in}
+svg text.t{font:700 9px -apple-system,system-ui,sans-serif;fill:#e6e9ef}
+svg text.c{font:500 7.5px -apple-system,system-ui,sans-serif;fill:#aab3c2}
+.modal{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{width:100%;max-width:680px}
+#mbody{border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+#mcap{color:var(--tx);font-size:15px;margin:12px 0}
+#mcap span{color:var(--mut);font-size:14px}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important}}
 .sym small{display:block;color:var(--mut);font-weight:400;font-size:13px;margin-top:2px}
 .sym:active{background:var(--card2)}
 .btn{min-height:48px;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font-size:15px;font-weight:600}
@@ -133,7 +150,8 @@ details ul{padding-left:20px}
 
   <!-- LEARN -->
   <section id="tab-learn" class="hidden">
-    <div class="note blue">How each adjustment changes the truck. Rule of thumb: <b>softer / thinner = more grip &amp; more forgiving, but slower to react. Stiffer / thicker = more responsive &amp; stable on smooth high-grip, but less grip in rough or loose.</b></div>
+    <div class="card" style="padding:10px 12px"><div class="row" style="justify-content:space-between"><b>Animations</b><div class="seg" id="animSeg" style="flex:0 0 210px"><button data-a="auto">Auto</button><button data-a="on">On</button><button data-a="off">Off</button></div></div><div style="font-size:13px;color:var(--mut);margin-top:6px">Auto follows your phone's Reduce Motion setting. Animations pause when off-screen; Off saves a little more battery.</div></div>
+    <div class="note blue">How each adjustment changes the truck. Tap any diagram to enlarge it. Rule of thumb: <b>softer / thinner = more grip &amp; more forgiving, but slower to react. Stiffer / thicker = more responsive &amp; stable on smooth high-grip, but less grip in rough or loose.</b></div>
     <div id="learnList"></div>
   </section>
 </main>
@@ -144,6 +162,7 @@ details ul{padding-left:20px}
   <button data-tab="learn"><span>📘</span>Learn</button>
 </nav>
 <div class="toast" id="toast"></div>
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true"><div class="mbox"><div id="mbody"></div><p id="mcap"></p><button class="btn pri" id="mclose" style="width:100%">Close</button></div></div>
 
 <script>
 (function(){
@@ -341,6 +360,199 @@ var G=[
 ];
 var ALL={};G.forEach(function(g){g.s.forEach(function(s){s.group=g.g;ALL[s.id]=s})});
 
+/* ---------- Visuals (inline SVG + SMIL, paused offscreen / reduced-motion) ---------- */
+LEARN=Object.assign({transfer:{n:'Weight transfer (the big idea)',step:'—',
+ p:'Almost every adjustment works by changing how much and how fast weight moves between the tires. More load on a tire = more grip (up to a point).',
+ l:['Braking / lifting off: weight moves to the FRONT → more steering, lighter rear.','Accelerating: weight moves to the REAR → more rear traction, less steering.','Cornering: weight moves to the OUTSIDE tires. Too much on high grip = traction roll.','Softer springs, thinner shock oil and thinner sway bars let weight move more (or faster) at that end of the truck.']}},LEARN);
+var DUR=3.2, ANIM_KEY='rcsetup.anim', RED='#ff6b3d', GRN='#3ecf8e', ORG='#ff8a1f';
+var RM=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):{matches:false};
+var animPref=load(ANIM_KEY,'auto');
+function motionOff(){return animPref==='off'||(animPref==='auto'&&RM.matches)}
+function sc(v,a){return v.split(';').map(function(x){return +(x*a).toFixed(1)}).join(';')}
+function lerp(a,b,t){return a.map(function(v,i){return +(v+(b[i]-v)*t).toFixed(1)})}
+function svgW(vb,body,cls,still,label){return '<svg class="anim '+(cls||'')+'" viewBox="'+vb+'" data-still="'+(still||1.5)+'" role="img" aria-label="'+esc(label||'')+'" xmlns="http://www.w3.org/2000/svg">'+body+'</svg>'}
+function mot(path,o){o=o||{};return '<animateMotion dur="'+DUR+'s" repeatCount="indefinite" path="'+path+'" rotate="'+(o.rot==null?'auto':o.rot)+'" keyPoints="'+(o.kp||'0;1;1')+'" keyTimes="'+(o.kt||'0;.85;1')+'" calcMode="linear"/>'}
+function rotA(vals,kt,c,dur){var v=vals.split(';').map(function(x){return x+(c?' '+c:'')}).join(';');return '<animateTransform attributeName="transform" type="rotate" dur="'+(dur||DUR)+'s" repeatCount="indefinite" values="'+v+'" keyTimes="'+kt+'"/>'}
+function trA(vals,kt,dur){return '<animateTransform attributeName="transform" type="translate" dur="'+(dur||DUR)+'s" repeatCount="indefinite" values="'+vals+'" keyTimes="'+kt+'"/>'}
+function opA(vals,kt,dur){return '<animate attributeName="opacity" dur="'+(dur||DUR)+'s" repeatCount="indefinite" values="'+vals+'" keyTimes="'+kt+'"/>'}
+
+/* trucks: top view points +x, side view faces +x (wheel bottoms at y=9), rear view sits on y=0 */
+function truckTop(col,ghost,extra){var w=ghost?'fill="none" stroke="'+GRN+'" stroke-width="1"':'fill="#111" stroke="#999" stroke-width=".6"';
+ var b=ghost?'fill="rgba(62,207,142,.18)" stroke="'+GRN+'" stroke-width="1"':'fill="'+col+'"';
+ return '<g>'+[[-10,-8],[-10,8],[9,-8],[9,8]].map(function(p){return '<rect x="'+(p[0]-3.5)+'" y="'+(p[1]-2.2)+'" width="7" height="4.4" rx="1.2" '+w+'/>'}).join('')+
+ '<path d="M-12,-5.5 L9,-4.5 L14,0 L9,4.5 L-12,5.5 Z" '+b+'/><rect x="-15.5" y="-7.5" width="3" height="15" rx="1" '+(ghost?b:'fill="#e6e9ef"')+'/>'+(extra||'')+'</g>'}
+function truckSide(col,ghost,chAnim,extra,chT){var wf=ghost?'fill="none" stroke="'+GRN+'" stroke-width="1"':'fill="#111" stroke="#999" stroke-width="1"';
+ var bf=ghost?'fill="rgba(62,207,142,.18)" stroke="'+GRN+'" stroke-width="1"':'fill="'+col+'"';
+ return '<g><circle cx="-11" cy="4" r="5" '+wf+'/><circle cx="11" cy="4" r="5" '+wf+'/><g'+(chT?' transform="'+chT+'"':'')+'>'+(chAnim||'')+
+ '<path d="M-16,0 L-16,-4 L-6,-5.5 L-2,-11 L8,-11 L13,-5 L17,-3 L17,0 Z" '+bf+'/><path d="M-13,-5 L-16,-13 M-20,-13.5 L-11,-13.5" stroke="'+(ghost?GRN:'#e6e9ef')+'" stroke-width="1.6" fill="none"/>'+(extra||'')+'</g></g>'}
+function truckRear(col,ghost){var wf=ghost?'fill="none" stroke="'+GRN+'" stroke-width="1.2"':'fill="#111" stroke="#999"';
+ var bf=ghost?'fill="rgba(62,207,142,.18)" stroke="'+GRN+'" stroke-width="1.2"':'fill="'+col+'"';
+ return '<rect x="-40" y="-24" width="12" height="24" rx="3" '+wf+'/><rect x="28" y="-24" width="12" height="24" rx="3" '+wf+'/><rect x="-28" y="-15" width="56" height="5" '+(ghost?bf:'fill="#3b4558"')+'/>'+
+ '<path d="M-26,-14 L-18,-30 L18,-30 L26,-14 Z" '+bf+'/><path d="M-12,-30 L-12,-38 M12,-30 L12,-38" stroke="'+(ghost?GRN:'#e6e9ef')+'" stroke-width="1.5"/><rect x="-30" y="-41" width="60" height="4" rx="1" '+(ghost?bf:'fill="#e6e9ef"')+'/>'}
+function dust(a,ov,ok){var c='';[-8,8].forEach(function(y,i){c+='<circle cx="-15" cy="'+y+'" r="2" fill="#c9a77a"><animate attributeName="r" values="1;6" dur=".45s" begin="'+(i*.2)+'s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur=".45s" begin="'+(i*.2)+'s" repeatCount="indefinite"/></circle>'});
+ return '<g opacity="0">'+opA(sc(ov,a),ok)+c+'</g>'}
+
+var BG='<rect width="200" height="125" fill="#141a12"/>', SKY='<rect width="200" height="125" fill="#10141c"/>';
+function trackBg(d){return BG+'<path d="'+d+'" fill="none" stroke="#4d3d2b" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/><path d="'+d+'" fill="none" stroke="#3a2e22" stroke-width="35" stroke-linecap="round" stroke-linejoin="round"/>'}
+function lines(ideal,prob,show){return '<path d="'+ideal+'" fill="none" stroke="'+GRN+'" stroke-width="2" stroke-dasharray="5 4" opacity=".9"/>'+(show?'<path d="'+prob+'" fill="none" stroke="'+RED+'" stroke-width="1.6" stroke-dasharray="2 3" opacity=".9"/>':'')}
+var CI=[5,115,80,115,135,115,135,60,135,5];
+function cP(p){return 'M'+p[0]+','+p[1]+' L'+p[2]+','+p[3]+' Q'+p[4]+','+p[5]+' '+p[6]+','+p[7]+' L'+p[8]+','+p[9]}
+var HI=[5,95,50,95,60,35,100,35,150,95,195,95], HL=[5,95,70,95,88,26,120,24,172,104,198,104];
+function hP(p){return 'M'+p[0]+','+p[1]+' C'+p[2]+','+p[3]+' '+p[4]+','+p[5]+' '+p[6]+','+p[7]+' S'+p[8]+','+p[9]+' '+p[10]+','+p[11]}
+
+var SCN={
+ push_entry:{t:'c',p:[5,115,98,115,160,118,153,55,153,5],still:1.9},
+ loose_entry:{t:'c',yaw:'0;0;-35;-35;-10;0;0',kt:'0;.24;.36;.46;.58;.7;1',still:1.35},
+ push_mid:{t:'c',p:[5,115,80,115,168,122,154,58,152,5],still:1.8},
+ loose_mid:{t:'c',yaw:'0;0;-40;-40;0;0',kt:'0;.36;.46;.56;.68;1',still:1.65},
+ push_exit:{t:'c',p:[5,115,80,115,140,115,150,58,178,5],still:2.3},
+ loose_exit:{t:'c',yaw:'0;0;-40;-45;-15;0;0',kt:'0;.52;.62;.72;.8;.88;1',dust:1,dv:'0;0;1;1;0;0',dk:'0;.5;.55;.8;.85;1',still:2.25},
+ wheelspin:{t:'c',slow:1,yaw:'0;0;-8;6;-6;0;0',kt:'0;.55;.62;.69;.76;.83;1',dust:1,dv:'0;0;1;1;0;0',dk:'0;.5;.55;.9;.95;1',still:2.2},
+ toomuch:{t:'c',yaw:'0;-15;-60;-60;-25;0;0',kt:'0;.2;.38;.5;.62;.75;1',still:1.5},
+ twitchy:{t:'s',wig:1,still:1},
+ swap:{t:'s',bumps:1,yaw:'0;0;20;-20;18;-15;0;0',kt:'0;.15;.27;.39;.51;.63;.75;1',still:.9},
+ lazy:{t:'h',still:1.4},
+ nosedive:{t:'j',pitch:28,still:1.35},
+ nosehigh:{t:'j',pitch:-28,still:1.35},
+ bottom:{t:'d',still:1.76},
+ bounce:{t:'b',still:1.85},
+ bumps:{t:'w',still:1.1},
+ troll:{t:'r',still:1.9}
+};
+function legend(id){var s=SCN[id];if(!s)return '';return /[csh]/.test(s.t)?'Green dashed = the line you want · Orange = what your truck does':'Green outline = what you want · Orange = what your truck does'}
+function scene(id,a){var s=SCN[id];if(!s)return '';a=a==null?1:a;var b='';
+ if(s.t==='c'){var ideal=cP(CI),path=s.p?cP(lerp(CI,s.p,a)):ideal;
+  var ex=s.dust?dust(a,s.dv,s.dk):'';var o={},gh='';
+  if(s.slow){var x=(.85+.13*a).toFixed(2);o={kp:'0;.647;1;1',kt:'0;.55;'+x+';1'};gh='<g>'+mot(ideal)+truckTop(null,true)+'</g>'}
+  b=trackBg(ideal)+lines(ideal,path,!!s.p)+gh+'<g>'+mot(path,o)+'<g>'+(s.yaw?rotA(sc(s.yaw,a),s.kt):'')+truckTop(RED,false,ex)+'</g></g>';}
+ else if(s.t==='s'){var id2='M5,65 L198,65',p2=id2;
+  if(s.wig){var w=14*a;p2='M5,65 C35,'+(65-w)+' 55,'+(65+w)+' 85,65 S135,'+(65-w*.8)+' 160,65 S190,'+(65+w*.5)+' 198,65'}
+  b=BG+'<rect y="43" width="200" height="44" fill="#3a2e22"/><rect y="42" width="200" height="2" fill="#4d3d2b"/><rect y="86" width="200" height="2" fill="#4d3d2b"/>';
+  if(s.bumps)for(var bx=55;bx<=150;bx+=9)b+='<rect x="'+bx+'" y="47" width="3" height="36" rx="1.5" fill="#5e4c36"/>';
+  b+=lines(id2,p2,!!s.wig)+'<g>'+mot(p2)+'<g>'+(s.yaw?rotA(sc(s.yaw,a),s.kt):'')+truckTop(RED)+'</g></g>';}
+ else if(s.t==='h'){var hi=hP(HI),hl=hP(lerp(HI,HL,a));b=trackBg(hi)+lines(hi,hl,true)+'<g>'+mot(hl)+truckTop(RED)+'</g>';}
+ else if(s.t==='j'){var P='M5,91 L40,91 L66,65 Q100,5 134,65 L160,91 L198,91';
+   var jk='0;.12;.14;.25;.42;.585;.6;.71;.73;1',gv=[0,0,-45,-45,-5,40,40,40,0,0],pv=gv.map(function(v,i){return (i===4||i===5)?+(v+s.pitch*a).toFixed(1):v});
+  b=SKY+'<path d="M0,100 H40 L66,74 H70 V100 H130 V74 H134 L160,100 H200 V125 H0Z" fill="#3a2e22" stroke="#5a4833"/>'+
+   '<g>'+mot(P,{rot:0})+'<g>'+rotA(gv.join(';'),jk)+truckSide(null,true)+'</g></g><g>'+mot(P,{rot:0})+'<g>'+rotA(pv.join(';'),jk)+truckSide(RED)+'</g></g>';}
+ else if(s.t==='d'||s.t==='b'){var g0=SKY+'<path d="M0,60 H60 V100 H200 V125 H0Z" fill="#3a2e22" stroke="#5a4833"/>';
+  if(s.t==='d'){var P2='M5,51 L60,51 Q92,51 118,91 L198,91',kt='0;.5;.55;.66;1';
+   var spark='<g opacity="0">'+opA('0;0;'+a+';0;0','0;.5;.55;.62;1')+'<path d="M-6,9 L-2,5 M6,9 L2,5 M0,9 L0,4" stroke="#ffd34d" stroke-width="1.6"/></g>';
+   b=g0+'<g>'+mot(P2,{rot:0})+truckSide(null,true,trA('0,0;0,0;0,2.5;0,0;0,0',kt))+'</g><g>'+mot(P2,{rot:0})+truckSide(RED,false,trA('0,0;0,0;0,'+(8.5*a).toFixed(1)+';0,0;0,0',kt))+spark+'</g>';}
+  else{var bp=function(k){return 'M5,51 L60,51 Q92,51 112,91 Q121,'+(91-44*k).toFixed(1)+' 130,91 Q136,'+(91-22*k).toFixed(1)+' 142,91 L198,91'};
+   b=g0+'<g>'+mot(bp(0),{rot:0})+truckSide(null,true)+'</g><g>'+mot(bp(a),{rot:0})+truckSide(RED)+'</g>';}}
+ else if(s.t==='w'){var gp='M0,100 H40';for(var wx=40;wx<160;wx+=20)gp+=' Q'+(wx+10)+',84 '+(wx+20)+',100';gp+=' H200 V125 H0Z';
+  var MP='M5,91 L198,91',kw='0;.15;.24;.33;.42;.51;.6;.68;1';
+  var base=[0,0,-8,-8,-8,-8,-8,0,0],ext=[0,0,6,-3,8,-3,6,0,0],pit='0;0;18;-14;16;-12;14;0;0';
+  var bob=function(k){return base.map(function(v,i){return '0,'+(v-ext[i]*k).toFixed(1)}).join(';')};
+  b=SKY+'<path d="'+gp+'" fill="#3a2e22" stroke="#5a4833"/>'+
+   '<g>'+mot(MP,{rot:0})+'<g>'+trA(bob(0),kw)+truckSide(null,true)+'</g></g>'+
+   '<g>'+mot(MP,{rot:0})+'<g>'+trA(bob(a),kw)+'<g>'+rotA(sc(pit,a),kw)+truckSide(RED)+'</g></g></g>';}
+ else if(s.t==='r'){var kr='0;.3;.5;.7;.85;1';
+  b=SKY+'<rect y="105" width="200" height="20" fill="#3a2e22"/><text x="8" y="16" class="c">rear view · turning left ←</text>'+
+   '<text x="8" y="27" class="c">weight pushes outward →</text>'+
+   '<g transform="translate(100,105)"><g>'+rotA(sc('0;0;1;1;0;0',7),kr,'40 0')+truckRear(null,true)+'</g></g>'+
+   '<g transform="translate(100,105)"><g>'+rotA(sc('0;0;1;1;0;0',75*a),kr,'40 0')+truckRear(RED)+'</g></g>';}
+ return svgW('0 0 200 125',b,'scn',s.still,ALL[id]?ALL[id].n:'');}
+
+/* ---------- Adjustment diagrams ---------- */
+function T(x,y,s,c,cls){return '<text x="'+x+'" y="'+y+'" text-anchor="middle" class="'+(cls||'c')+'"'+(c?' style="fill:'+c+'"':'')+'>'+s+'</text>'}
+function two(t,c,draw,hl){var b='<rect width="200" height="100" fill="#11151c"/><line x1="100" y1="6" x2="100" y2="94" stroke="#2e3646"/>';
+ [0,1].forEach(function(i){var ox=i*100;b+=draw(ox,i)+T(ox+50,12,t[i],hl===i?ORG:null,'t');c[i].split('|').forEach(function(l,j){b+=T(ox+50,88+j*8,l)})});
+ if(hl===0||hl===1)b+='<rect x="'+(hl*100+2)+'" y="2" width="96" height="96" rx="7" fill="none" stroke="'+ORG+'" stroke-width="1.4" stroke-dasharray="4 3"/>';return b}
+function one(title,body){return '<rect width="200" height="100" fill="#11151c"/>'+T(100,12,title,null,'t')+body}
+var GND=function(ox,y){return '<line x1="'+(ox+6)+'" y1="'+y+'" x2="'+(ox+94)+'" y2="'+y+'" stroke="#5a4833" stroke-width="2"/>'};
+function diffDraw(d1,d2,l1,l2){return function(ox,i){var dd=i?[.7,.7]:[d1,d2],r='';
+ r+='<line x1="'+(ox+36)+'" y1="43" x2="'+(ox+64)+'" y2="43" stroke="#9aa4b5" stroke-width="3"/><rect x="'+(ox+43)+'" y="36" width="14" height="14" rx="2" fill="#3b4558" stroke="#5b6578"/>';
+ [[ox+22,dd[0],l1],[ox+64,dd[1],l2]].forEach(function(w){r+='<rect x="'+w[0]+'" y="20" width="14" height="46" rx="3" fill="#1b1b1b" stroke="#666"/>'+
+  '<line x1="'+(w[0]+7)+'" y1="22" x2="'+(w[0]+7)+'" y2="64" stroke="#ff8a1f" stroke-width="10" stroke-dasharray="2 4"><animate attributeName="stroke-dashoffset" values="0;-6" dur="'+w[1]+'s" repeatCount="indefinite"/></line>'+T(w[0]+7,75,w[2],'#5aa9ff')});return r}}
+var DGF={
+ transfer:function(){var kt='0;.28;.33;.61;.66;.95;1',C=[[81,24,'9;9;4;4;4;4;9'],[119,24,'9;9;4;4;10;10;9'],[81,70,'4;4;9;9;4;4;4'],[119,70,'4;4;9;9;10;10;4']],b='<rect width="200" height="100" fill="#11151c"/>';
+  b+='<g transform="translate(100,46) rotate(-90) scale(2.4)">'+truckTop('#3b4558')+'</g>';
+  C.forEach(function(c){b+='<circle cx="'+c[0]+'" cy="'+c[1]+'" r="4" fill="rgba(255,138,31,.5)" stroke="'+ORG+'"><animate attributeName="r" dur="6s" repeatCount="indefinite" values="'+c[2]+'" keyTimes="'+kt+'"/></circle>'});
+  [['BRAKING → load moves FRONT','1;1;0;0;0;0;1'],['ACCELERATING → load moves REAR','0;0;1;1;0;0;0'],['CORNERING LEFT → load moves OUTSIDE','0;0;0;0;1;1;0']].forEach(function(t){b+='<g opacity="0">'+opA(t[1],kt,6)+T(100,94,t[0],null,'t')+'</g>'});
+  b+=T(100,10,'top view · bigger circle = more load','','c');return b},
+ camber:function(hl){return two(['0° camber','Negative camber'],['flat tire:|more forward grip','top leans in:|more side grip'],function(ox,i){var a=i?9:0;
+  return GND(ox,78)+T(ox+50,22,'front view (exaggerated)')+'<rect x="'+(ox+38)+'" y="44" width="24" height="12" rx="2" fill="#3b4558"/>'+
+  '<line x1="'+(ox+38)+'" y1="50" x2="'+(ox+24)+'" y2="62" stroke="#9aa4b5" stroke-width="2"/><line x1="'+(ox+62)+'" y1="50" x2="'+(ox+76)+'" y2="62" stroke="#9aa4b5" stroke-width="2"/>'+
+  '<rect x="'+(ox+16)+'" y="48" width="12" height="30" rx="3" fill="#1b1b1b" stroke="'+ORG+'" transform="rotate('+a+' '+(ox+22)+' 77)"/>'+
+  '<rect x="'+(ox+72)+'" y="48" width="12" height="30" rx="3" fill="#1b1b1b" stroke="'+ORG+'" transform="rotate('+(-a)+' '+(ox+78)+' 77)"/>'},hl)},
+ toe:function(hl){return two(['Toe-in','Toe-out'],['calmer, more stable','sharper turn-in,|more nervous'],function(ox,i){var a=i?-12:12;
+  return T(ox+50,22,'top view, nose up ↑')+'<rect x="'+(ox+42)+'" y="28" width="16" height="50" rx="3" fill="#3b4558"/>'+
+  '<rect x="'+(ox+24)+'" y="28" width="8" height="18" rx="2" fill="#1b1b1b" stroke="'+ORG+'" transform="rotate('+a+' '+(ox+28)+' 37)"/>'+
+  '<rect x="'+(ox+68)+'" y="28" width="8" height="18" rx="2" fill="#1b1b1b" stroke="'+ORG+'" transform="rotate('+(-a)+' '+(ox+72)+' 37)"/>'+
+  '<rect x="'+(ox+24)+'" y="60" width="8" height="18" rx="2" fill="#1b1b1b" stroke="#666"/><rect x="'+(ox+68)+'" y="60" width="8" height="18" rx="2" fill="#1b1b1b" stroke="#666"/>'},hl)},
+ ride:function(hl){return two(['Low ride height','High ride height'],['lower CG,|less roll','more travel for|rough / ruts'],function(ox,i){var d=i?-5:1.5,yb=60+d*2;
+  return GND(ox,78)+'<g transform="translate('+(ox+52)+',60) scale(2)">'+truckSide(ORG,false,null,null,'translate(0,'+d+')')+'</g>'+
+  '<line x1="'+(ox+52)+'" y1="'+(yb+1)+'" x2="'+(ox+52)+'" y2="77" stroke="#5aa9ff" stroke-width="1.5"/>'+T(ox+18,(yb+78)/2+3,'gap','#5aa9ff')},hl)},
+ oil:function(hl){var sh=function(ox,kt,col){return '<rect x="'+(ox+40)+'" y="44" width="20" height="30" rx="3" fill="'+col+'" stroke="#5b6578"/><circle cx="'+(ox+50)+'" cy="78" r="3.5" fill="none" stroke="#cfd5df" stroke-width="2"/>'+
+  '<g>'+trA('0,0;0,14;0,14;0,0;0,0',kt,2.4)+'<rect x="'+(ox+48)+'" y="22" width="4" height="30" fill="#cfd5df"/><circle cx="'+(ox+50)+'" cy="19" r="4" fill="none" stroke="#cfd5df" stroke-width="2"/><rect x="'+(ox+41)+'" y="50" width="18" height="3" fill="'+ORG+'"/></g>'};
+  return two(['Thinner oil','Thicker oil'],['moves fast: follows|bumps, more grip','moves slow: controlled|on jumps, high bite'],function(ox,i){return sh(ox,i?'0;.42;.5;.92;1':'0;.1;.5;.6;1',i?'rgba(160,82,45,.6)':'rgba(217,164,65,.3)')},hl)},
+ spring:function(hl){var coil='<polyline vector-effect="non-scaling-stroke" points="0,0';for(var j=0;j<10;j++)coil+=' '+(j%2?8:-8)+','+(-(2+j*4));coil+=' 0,-40" fill="none" stroke="'+ORG+'" stroke-width="2"/>';
+  return two(['Softer spring','Stiffer spring'],['squishes more:|more grip, more roll','squishes less:|quicker, less grip'],function(ox,i){var s=i?.85:.55,D=(40*(1-s)).toFixed(1),kt='0;.35;.6;1';
+  return '<line x1="'+(ox+30)+'" y1="78" x2="'+(ox+70)+'" y2="78" stroke="#9aa4b5" stroke-width="2"/><g transform="translate('+(ox+50)+',78)"><g><animateTransform attributeName="transform" type="scale" dur="2.4s" repeatCount="indefinite" values="1,1;1,'+s+';1,'+s+';1,1" keyTimes="'+kt+'"/>'+coil+'</g></g>'+
+  '<g>'+trA('0,0;0,'+D+';0,'+D+';0,0',kt,2.4)+'<rect x="'+(ox+32)+'" y="24" width="36" height="14" rx="2" fill="#3b4558" stroke="#5b6578"/>'+T(ox+50,34,'same load')+'</g>'},hl)},
+ piston:function(hl){return two(['Smaller / fewer holes','Bigger / more holes'],['more “pack” on|big landings','plusher in|choppy bumps'],function(ox,i){var n=i?4:2,w=i?4:2,du=i?.7:1.6,r='',col='rgba(217,164,65,.3)';
+  r+='<rect x="'+(ox+28)+'" y="22" width="44" height="56" rx="4" fill="'+col+'" stroke="#5b6578"/><rect x="'+(ox+48)+'" y="14" width="4" height="32" fill="#cfd5df"/><rect x="'+(ox+29)+'" y="46" width="42" height="6" fill="#9aa4b5"/>';
+  for(var k=0;k<n;k++){var hx=ox+30+(k+.5)*(40/n);r+='<rect x="'+(hx-w/2)+'" y="46" width="'+w+'" height="6" fill="#2a2a1e"/><circle cx="'+hx+'" cy="30" r="1.8" fill="#ffd34d"><animate attributeName="cy" values="28;74" dur="'+du+'s" begin="'+(k*.15)+'s" repeatCount="indefinite"/></circle>'}return r},hl)},
+ rc:function(hl){return two(['Higher roll center','Lower roll center'],['less roll, quicker,|less grip','more roll,|more grip'],function(ox,i){var ry=i?72:48,A=i?11:4,r=GND(ox,78);
+  r+='<rect x="'+(ox+12)+'" y="48" width="12" height="30" rx="3" fill="#1b1b1b" stroke="#666"/><rect x="'+(ox+76)+'" y="48" width="12" height="30" rx="3" fill="#1b1b1b" stroke="#666"/>';
+  r+='<g>'+rotA('0;'+A+';'+A+';0;0','0;.3;.6;.85;1',(ox+50)+' '+ry,3)+'<rect x="'+(ox+28)+'" y="42" width="44" height="10" rx="2" fill="#3b4558"/><path d="M'+(ox+32)+',42 L'+(ox+40)+',26 L'+(ox+60)+',26 L'+(ox+68)+',42 Z" fill="'+ORG+'"/>'+
+   '<circle cx="'+(ox+50)+'" cy="36" r="2.5" fill="#fff"/>'+T(ox+50,33,'CG')+'</g>';
+  r+='<circle cx="'+(ox+50)+'" cy="'+ry+'" r="3" fill="#5aa9ff"/><text x="'+(ox+56)+'" y="'+(ry+3)+'" class="c" style="fill:#5aa9ff">RC</text>';return r},hl)},
+ sway:function(hl){return two(['Thinner sway bar','Thicker sway bar'],['sides independent:|more grip','sides linked:|less roll, less grip'],function(ox,i){var f=i?8:2,kt='0;.25;.6;.85;1',r=GND(ox,78);
+  r+='<rect x="'+(ox+36)+'" y="42" width="28" height="12" rx="2" fill="#3b4558"/>';
+  r+='<g>'+trA('0,0;0,-12;0,-12;0,0;0,0',kt,2.6)+'<rect x="'+(ox+12)+'" y="47" width="12" height="30" rx="3" fill="#1b1b1b" stroke="#666"/></g>';
+  r+='<g>'+trA('0,0;0,-'+f+';0,-'+f+';0,0;0,0',kt,2.6)+'<rect x="'+(ox+76)+'" y="47" width="12" height="30" rx="3" fill="#1b1b1b" stroke="#666"/></g>';
+  r+='<line x1="'+(ox+24)+'" y1="62" x2="'+(ox+76)+'" y2="62" stroke="'+ORG+'" stroke-width="'+(i?4:1.6)+'"><animate attributeName="y1" values="62;50;50;62;62" keyTimes="'+kt+'" dur="2.6s" repeatCount="indefinite"/><animate attributeName="y2" values="62;'+(62-f)+';'+(62-f)+';62;62" keyTimes="'+kt+'" dur="2.6s" repeatCount="indefinite"/></line>';
+  r+=T(ox+18,30,'bump ↑');return r},hl)},
+ fdiff:function(hl){return two(['Thinner diff oil','Thicker diff oil'],['wheels split speed:|rotates easier','wheels locked together:|stable, pulls on power'],diffDraw(1,.45,'inner','outer'),hl)},
+ rdiff:function(hl){return DGF.fdiff(hl)},
+ cdiff:function(hl){return two(['Thinner center diff','Thicker center diff'],['front & rear split:|smoother, forgiving','front & rear locked:|harder, direct drive'],diffDraw(.4,1,'front','rear'),hl)},
+ tires:function(){return two(['Taller pins','Low / small pins'],['loose or soft dirt','hard-pack, blue groove'],function(ox,i){var r=GND(ox,78)+'<rect x="'+(ox+14)+'" y="34" width="72" height="30" rx="10" fill="#1b1b1b" stroke="#666"/>';
+  if(!i)for(var x=ox+18;x<ox+82;x+=12)r+='<rect x="'+x+'" y="64" width="6" height="12" rx="1" fill="#555"/>';else for(var x2=ox+17;x2<ox+84;x2+=6)r+='<rect x="'+x2+'" y="64" width="3.5" height="5" fill="#555"/>';
+  return r+T(ox+50,26,i?'(harder compound: lasts)':'(softer compound: grip)')},-1)},
+ wing:function(hl){return two(['Flatter wing','Steeper wing'],['more high-speed|steering','more rear grip|at speed'],function(ox,i){var a=i?-28:-8,L=i?16:6,r=GND(ox,78);
+  r+='<g transform="translate('+(ox+56)+',60) scale(1.6)">'+truckSide('#3b4558')+'</g>';
+  r+='<rect x="'+(ox+18)+'" y="36" width="26" height="3" rx="1" fill="'+ORG+'" transform="rotate('+a+' '+(ox+31)+' 37)"/>';
+  [24,30].forEach(function(y){r+='<line x1="'+(ox+95)+'" y1="'+y+'" x2="'+(ox+40)+'" y2="'+y+'" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="4 4"><animate attributeName="stroke-dashoffset" values="0;-8" dur=".6s" repeatCount="indefinite"/></line>'});
+  r+='<path d="M'+(ox+31)+',42 L'+(ox+31)+','+(42+L)+' M'+(ox+28)+','+(39+L)+' L'+(ox+31)+','+(42+L)+' L'+(ox+34)+','+(39+L)+'" stroke="#ffd34d" stroke-width="1.6" fill="none"/>';return r},hl)},
+ weight:function(){return DGF.transfer()},
+ power:function(){return one('Throttle curve (ESC / radio)','<path d="M30,80 H182 M30,80 V18" stroke="#5b6578" stroke-width="1.5"/><path d="M30,80 L180,20" stroke="#9aa4b5" stroke-dasharray="4 3" fill="none"/>'+
+  '<path d="M30,80 Q130,80 180,20" stroke="'+ORG+'" stroke-width="2.2" fill="none"/><circle r="3.5" fill="#ffd34d"><animateMotion dur="3s" repeatCount="indefinite" path="M30,80 Q130,80 180,20"/></circle>'+
+  '<text x="38" y="26" class="c" style="fill:'+ORG+'">— softer curve = easier traction</text><text x="38" y="35" class="c" style="fill:#9aa4b5">- - linear / high punch</text>'+T(106,93,'trigger →')+'<text x="22" y="52" class="c" transform="rotate(-90 22 52)" text-anchor="middle">power</text>')},
+ drive:function(){var kt='0;.15;.4;.5;.65;.9;1';return one('In the air','<g transform="translate(100,52) scale(2.2)"><g>'+rotA('0;-22;-22;0;22;22;0',kt,null,4)+truckSide(ORG)+'</g></g>'+
+  '<g opacity="0">'+opA('0;1;1;0;0;0;0',kt,4)+T(100,92,'THROTTLE in air → nose UP',GRN,'t')+'</g><g opacity="0">'+opA('0;0;0;0;1;1;0',kt,4)+T(100,92,'BRAKE in air → nose DOWN','#ff8a8a','t')+'</g>')}
+};
+function hlFor(k,d){d=(d||'').toLowerCase();
+ if(/^(fdiff|rdiff|cdiff|oil|sway)$/.test(k)){if(/thinner/.test(d))return 0;if(/thicker/.test(d))return 1}
+ if(k==='spring'){if(/softer/.test(d))return 0;if(/stiffer/.test(d))return 1}
+ if(k==='piston'){if(/smaller|fewer/.test(d))return 0;if(/larger|more/.test(d))return 1}
+ if(k==='ride'){if(/lower/.test(d))return 0;if(/raise|higher/.test(d))return 1}
+ if(k==='camber'){if(/less negative/.test(d))return 0;if(/negative/.test(d))return 1}
+ if(k==='toe'){if(/more (front )?toe-out/.test(d))return 1;if(/toe-in|less front toe-out/.test(d))return 0}
+ if(k==='rc'){if(/raise|higher/.test(d))return 0;if(/lower/.test(d))return 1}
+ if(k==='wing'){if(/more/.test(d))return 1;if(/less/.test(d))return 0}
+ return -1}
+function diagram(k,dir){var f=DGF[k];if(!f)return '';return svgW('0 0 200 100',f(hlFor(k,dir)),'dg',1.3,(LEARN[k]||{}).n)}
+
+/* ---------- Animation control: pause offscreen, hidden tab, reduced motion ---------- */
+var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){var s=e.target;if(!s.isConnected){io.unobserve(s);return}s._vis=e.isIntersecting;applyOne(s)})},{rootMargin:'40px'}):null;
+function applyOne(s){if(!s.pauseAnimations)return;try{if(motionOff()){s.pauseAnimations();s.setCurrentTime(+s.getAttribute('data-still')||1.5)}else if(s._vis===false||document.hidden){s.pauseAnimations()}else{s.unpauseAnimations()}}catch(e){}}
+function initAnims(root){Array.prototype.forEach.call((root||document).querySelectorAll('svg.anim'),function(s){if(s._init)return;s._init=1;applyOne(s);if(io)io.observe(s)})}
+function applyAll(){Array.prototype.forEach.call(document.querySelectorAll('svg.anim'),applyOne)}
+document.addEventListener('visibilitychange',applyAll);
+if(RM.addEventListener)RM.addEventListener('change',applyAll);else if(RM.addListener)RM.addListener(applyAll);
+function paintAnimSeg(){$$('#animSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.a===animPref)})}
+$$('#animSeg button').forEach(function(b){b.addEventListener('click',function(){animPref=b.dataset.a;save(ANIM_KEY,animPref);paintAnimSeg();applyAll()})});paintAnimSeg();
+
+/* ---------- Zoom modal ---------- */
+function openModal(html,cap,leg){$('#mbody').innerHTML=html;$('#mcap').innerHTML='<b>'+esc(cap||'')+'</b>'+(leg?'<br><span>'+esc(leg)+'</span>':'');$('#modal').classList.remove('hidden');initAnims($('#mbody'))}
+function closeModal(){$('#modal').classList.add('hidden');$('#mbody').innerHTML=''}
+document.addEventListener('click',function(e){var z=e.target.closest&&e.target.closest('.zoom');if(z&&!z.closest('#modal')){e.preventDefault();e.stopPropagation();openModal(z.innerHTML,z.getAttribute('data-cap'),z.getAttribute('data-leg'))}},true);
+$('#modal').addEventListener('click',function(e){if(e.target.id==='modal'||e.target.id==='mclose')closeModal()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
+
 /* ---------- Truck ---------- */
 var truck=load(LS_TRUCK,'NT48');
 function setTruck(t){truck=t;save(LS_TRUCK,t);
@@ -357,22 +569,27 @@ $$('nav button').forEach(function(b){b.addEventListener('click',function(){showT
 /* ---------- Advisor ---------- */
 var curSym=null;
 function renderSyms(){var h='';G.forEach(function(g){h+='<div class="grp">'+esc(g.g)+'</div>';
- g.s.forEach(function(s){h+='<button class="sym" data-sym="'+s.id+'">'+esc(s.n)+'<small>'+esc(s.d)+'</small></button>'})});
+ g.s.forEach(function(s){h+='<div class="sym" role="button" tabindex="0" data-sym="'+s.id+'"><div class="thumb zoom" data-cap="'+esc(s.n)+'" data-leg="'+esc(legend(s.id))+'" aria-label="Enlarge animation">'+scene(s.id,1)+'</div><div class="stx">'+esc(s.n)+'<small>'+esc(s.d)+'</small></div></div>'})});
  $('#symGroups').innerHTML=h;
- $$('#symGroups .sym').forEach(function(b){b.addEventListener('click',function(){showSym(b.dataset.sym)})});}
+ $$('#symGroups .sym').forEach(function(b){b.addEventListener('click',function(){showSym(b.dataset.sym)});b.addEventListener('keydown',function(e){if(e.key==='Enter')showSym(b.dataset.sym)})});
+ initAnims($('#symGroups'));}
 function showSym(id){curSym=id;var s=ALL[id];if(!s)return;
  var tn=truck==='NT48'?'NT48 2.2 (nitro)':'ET48 2.2 (electric)';
  var tnote=truck==='NT48'?s.nt:s.et;
  var h='<button class="btn sm" id="backBtn" style="margin-top:10px">← All problems</button>';
  h+='<h2>'+esc(s.n)+'</h2><div><span class="tag">'+esc(s.group)+'</span><span class="tag">'+tn+'</span></div>';
+ var lg=legend(id);
+ h+='<div class="bigv zoom" data-cap="'+esc(s.n)+'" data-leg="'+esc(lg)+'">'+scene(id,1)+'</div><div class="leg">'+esc(lg)+' · tap to enlarge</div>';
+ h+='<h3>Before → after a good fix</h3><div class="ba"><div><div class="zoom" data-cap="Before: '+esc(s.n)+'" data-leg="'+esc(lg)+'">'+scene(id,1)+'</div><div class="bal">Before</div></div><div><div class="zoom" data-cap="After (goal): closer to the line you want" data-leg="'+esc(lg)+'">'+scene(id,.3)+'</div><div class="bal" style="color:var(--good)">After (goal)</div></div></div>';
+ h+='<p class="leg">One step usually gives a small improvement like this, not a total cure. Keep it, step again, or try the next fix. In each diagram the <b style="color:var(--acc)">dashed orange box</b> marks the direction of that change.</p>';
  h+='<p style="color:var(--mut)">'+esc(s.d)+' Try these in order — <b style="color:var(--tx)">one at a time</b>:</p>';
  s.f.forEach(function(f,i){var L=LEARN[f.k];
   h+='<div class="fix"><div class="rank">'+(i+1)+'</div><div style="flex:1"><div class="t">'+esc(L.n)+'</div><div class="d">→ '+esc(f.dir)+'</div>'+
    (L.step&&L.step!=='—'?'<div class="s">Step: '+esc(L.step)+'</div>':'')+'<div class="w">Why: '+esc(f.why)+'</div>'+
-   '<div class="row"><button class="lk" data-learn="'+f.k+'">Learn more</button><button class="lk" data-log="'+i+'">Log this change</button></div></div></div>'});
+   '<div class="dgw zoom" data-cap="'+esc(L.n+': '+f.dir)+'">'+diagram(f.k,f.dir)+'</div>'+'<div class="row"><button class="lk" data-learn="'+f.k+'">Learn more</button><button class="lk" data-log="'+i+'">Log this change</button></div></div></div>'});
  if(tnote)h+='<div class="note blue"><b>'+(truck==='NT48'?'Nitro':'Electric')+' note:</b> '+esc(tnote)+'</div>';
  h+='<div class="note">Change ONE thing, test 3–5 laps, log it. Starting values: see your Tekno manual baseline. If a change made it worse, go back before trying the next item.</div>';
- $('#symDetail').innerHTML=h;$('#symList').classList.add('hidden');$('#symDetail').classList.remove('hidden');window.scrollTo(0,0);
+ $('#symDetail').innerHTML=h;initAnims($('#symDetail'));$('#symList').classList.add('hidden');$('#symDetail').classList.remove('hidden');window.scrollTo(0,0);
  $('#backBtn').addEventListener('click',function(){curSym=null;$('#symDetail').classList.add('hidden');$('#symList').classList.remove('hidden');window.scrollTo(0,0)});
  $$('#symDetail [data-learn]').forEach(function(b){b.addEventListener('click',function(){openLearn(b.dataset.learn)})});
  $$('#symDetail [data-log]').forEach(function(b){b.addEventListener('click',function(){var f=s.f[+b.dataset.log];
@@ -381,7 +598,7 @@ function openLearn(k){showTab('learn');var d=document.getElementById('learn-'+k)
 
 /* ---------- Learn ---------- */
 function renderLearn(){var h='';Object.keys(LEARN).forEach(function(k){var L=LEARN[k];
- h+='<details id="learn-'+k+'"><summary>'+esc(L.n)+'</summary><p>'+esc(L.p)+'</p><ul>'+L.l.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+ h+='<details id="learn-'+k+'"><summary>'+esc(L.n)+'</summary>'+(DGF[k]?'<div class="dgw zoom" data-cap="'+esc(L.n)+'">'+diagram(k,'')+'</div>':'')+'<p>'+esc(L.p)+'</p><ul>'+L.l.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
  (L.step!=='—'?'<p style="color:var(--blue)">Typical step: '+esc(L.step)+'</p>':'')+'</details>'});
  h+='<details><summary>Conditions cheat-sheet</summary><ul>'+
  '<li><b>Dry / dusty / loose:</b> go softer and thinner (shock oil, sway bars, springs), slightly thinner diffs, more aggressive tires, maybe a bit higher ride height.</li>'+
@@ -396,7 +613,7 @@ function renderLearn(){var h='';Object.keys(LEARN).forEach(function(k){var L=LEA
  '<li><b>Braking:</b> nitro uses mechanical brakes (radio EPA/balance); electric uses ESC brake and drag brake settings.</li>'+
  '<li>Don\'t copy one truck\'s setup to the other — start each from its own Tekno manual baseline.</li></ul></details>';
  h+='<details><summary>How to test a change</summary><ul><li>Start from your Tekno manual baseline and write it down.</li><li>Change ONE thing by ONE step.</li><li>Run 3–5 laps on the same tires/fuel/battery state.</li><li>Rate before vs after honestly; note lap times if you have them.</li><li>Keep it or revert, then try the next item in the list.</li><li>If it changes nothing you can feel, try a bigger step — or put it back and try a different adjustment.</li></ul></details>';
- $('#learnList').innerHTML=h;}
+ $('#learnList').innerHTML=h;initAnims($('#learnList'));}
 
 /* ---------- Log ---------- */
 var log=load(LS_LOG,[]);if(!Array.isArray(log))log=[];
