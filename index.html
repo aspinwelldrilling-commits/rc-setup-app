@@ -232,6 +232,19 @@ body.printing{background:#fff}
 #printArea .pi{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted #999;padding:2px 0}
 #printArea .pi.pd{border:2px solid #000;padding:2px 4px}
 #printArea .pf{margin-top:10px;font-size:10px;color:#444}
+
+/* Photo Setup entry points (v9) */
+nav button{font-size:10.5px;letter-spacing:.02em}
+nav button .ic{width:46px}
+@media (max-width:370px){nav{gap:2px;padding-left:4px;padding-right:4px}nav button{font-size:10px;letter-spacing:0}nav button .ic{width:40px}}
+.fab{position:fixed;right:calc(14px + env(safe-area-inset-right));bottom:calc(86px + env(safe-area-inset-bottom));z-index:5;display:flex;align-items:center;gap:8px;min-height:52px;padding:0 18px 0 14px;border:0;border-radius:999px;background:linear-gradient(180deg,#ff8a33,#ff6a00);color:#140a02;font:800 15px/1 inherit;font-family:inherit;letter-spacing:.01em;box-shadow:0 10px 26px -8px rgba(255,106,0,.75),0 2px 6px rgba(0,0,0,.45);transition:transform .15s}
+.fab:active{transform:scale(.95)}
+.fab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.fab.hidden{display:none}
+.phbtn{display:inline-flex;align-items:center;gap:6px}
+.phbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#tab-setup{padding-bottom:70px}
+@media print{.fab{display:none!important}}
 </style>
 </head>
 <body>
@@ -257,7 +270,7 @@ body.printing{background:#fff}
 <linearGradient id="lg-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc07a"/><stop offset=".4" stop-color="#ff7a1a"/><stop offset="1" stop-color="#c2410c"/></linearGradient>
 <symbol id="logo" viewBox="0 0 64 64"><g stroke-linecap="round"><path d="M3 30h9M1 35h10M5 40h6" stroke="#38c6ff" stroke-width="2" opacity=".85"/></g><path d="M5.5 16.5 L23 17.6 L23 20.4 L5.5 19.4 Z" fill="#e8ecf2"/><path d="M15 20 L19 30" stroke="#9aa4b5" stroke-width="2"/><path d="M9 39 L10 31.5 C17 30 23 29.5 27 29 L33 20.5 C39 19 47 19.2 51 20.5 L56 28.5 C60 29.5 62 31.5 62.5 35 L61.5 40 Z" fill="url(#lg-body)"/><path d="M35 22 L49.5 22.4 L53.6 28.4 L32 28.4 Z" fill="#0d1520"/><path d="M12 33.5 L60 34.2" stroke="#fff" stroke-opacity=".35" stroke-width="1"/><g><circle cx="20" cy="44" r="9" fill="#0b0b0b"/><circle cx="20" cy="44" r="7.6" fill="none" stroke="#2f2f2f" stroke-width="2.2" stroke-dasharray="1.8 1.4"/><circle cx="20" cy="44" r="4" fill="url(#g-rim)"/><circle cx="50" cy="44" r="9" fill="#0b0b0b"/><circle cx="50" cy="44" r="7.6" fill="none" stroke="#2f2f2f" stroke-width="2.2" stroke-dasharray="1.8 1.4"/><circle cx="50" cy="44" r="4" fill="url(#g-rim)"/></g></symbol>
 <symbol id="ic-adv" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.3 5.2l-5.6 5.6a1.6 1.6 0 0 0 2.3 2.3l5.6-5.6a4 4 0 0 0 5.2-5.3l-2.5 2.5-2.3-.4-.4-2.3z"/></symbol>
-<symbol id="ic-set" viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+<symbol id="ic-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13.5" r="3.6"/></symbol><symbol id="ic-set" viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
 <symbol id="ic-log" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7"/><path d="M12 13.5V10M10 3h4M12 3v3.5M18.2 7.3l1.4-1.4"/></symbol>
 <symbol id="ic-learn" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 4 5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V5c-3-.5-6 0-8 1.5zM12 6.5v13"/></symbol>
 </defs></svg>
@@ -345,9 +358,11 @@ body.printing{background:#fff}
   </section>
 </main>
 
+<button id="photoFab" class="fab hidden" type="button" aria-label="Photo Setup"><svg aria-hidden="true"><use href="#ic-cam"/></svg><span>Photo Setup</span></button>
 <nav aria-label="Main">
   <button data-tab="advisor" class="on"><span class="ic"><svg aria-hidden="true"><use href="#ic-adv"/></svg></span>Advisor</button>
   <button data-tab="setup"><span class="ic"><svg aria-hidden="true"><use href="#ic-set"/></svg></span>My Setup</button>
+  <button data-tab="photos" aria-label="Photo Setup"><span class="ic"><svg aria-hidden="true"><use href="#ic-cam"/></svg></span>Photos</button>
   <button data-tab="log"><span class="ic"><svg aria-hidden="true"><use href="#ic-log"/></svg></span>Log</button>
   <button data-tab="learn"><span class="ic"><svg aria-hidden="true"><use href="#ic-learn"/></svg></span>Learn</button>
 </nav>
@@ -762,8 +777,12 @@ function setTruck(t){if(VEHS.indexOf(t)<0)t='NT48';truck=t;save(LS_TRUCK,t);appl
 $$('#truckSeg button').forEach(function(b){b.addEventListener('click',function(){setTruck(b.dataset.truck)})});
 
 /* ---------- Tabs ---------- */
-function showTab(t){$$('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===t)});
- ['advisor','setup','log','learn'].forEach(function(x){$('#tab-'+x).classList.toggle('hidden',x!==t)});if(t==='setup'&&!editId&&!photoOpen)openSetupDefault();window.scrollTo(0,0)}
+function navOn(t){$$('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===t)})}
+function syncFab(){var f=$('#photoFab');if(!f)return;var on=!$('#tab-setup').classList.contains('hidden')&&!(typeof photoOpen!=='undefined'&&photoOpen);f.classList.toggle('hidden',!on);if(!$('#tab-setup').classList.contains('hidden'))navOn(photoOpen?'photos':'setup')}
+function showTab(t){var ph=t==='photos';if(ph)t='setup';navOn(ph?'photos':t);
+ ['advisor','setup','log','learn'].forEach(function(x){$('#tab-'+x).classList.toggle('hidden',x!==t)});
+ if(ph)openPhoto();else if(t==='setup'){if(photoOpen){closePhoto();if(editId&&getSetup(editId))openSetup(editId);else openSetupDefault()}else if(!editId)openSetupDefault()}
+ syncFab();window.scrollTo(0,0)}
 function openSetupDefault(){var s=ensureActive();openSetup(s.id)}
 $$('nav button').forEach(function(b){b.addEventListener('click',function(){showTab(b.dataset.tab)})});
 
@@ -990,7 +1009,7 @@ function openSetup(id){var s=getSetup(id);if(!s)return;applyVeh(s.truck);editId=
  var isA=active[s.truck]===s.id;
  var h='<div class="row" style="margin-top:8px;justify-content:space-between"><button class="btn sm" id="seBack">← All setups</button><span class="leg" style="margin:0">'+(isA?'The Advisor reads this sheet':'Not the active setup')+'</span></div>';
  h+='<div class="card shead"><div class="row" style="justify-content:space-between;align-items:flex-start;flex-wrap:nowrap"><div style="min-width:0;flex:1"><h2 style="margin:0">'+esc(s.name)+'</h2><div class="leg" style="margin:4px 0 0">'+esc(truckName(s.truck))+' setup sheet · '+esc(s.date||'')+' · '+esc(s.track||'')+' · '+esc(s.cond||'')+'</div></div>'+(isA?'<span class="badge">ACTIVE</span>':'')+'</div>'+
-  '<div class="acts">'+(isA?'':'<button class="btn sm pri" id="seAct">Set active</button>')+'<button class="btn sm" id="seStock">Load Tekno stock</button><button class="btn sm" id="seDup">Duplicate</button><button class="btn sm" id="sePrint">Print</button><button class="btn sm" id="seShare">Export / share</button></div>'+
+  '<div class="acts"><button class="btn sm pri phbtn" id="sePhoto"><svg aria-hidden="true"><use href="#ic-cam"/></svg>Photo Setup</button>'+(isA?'':'<button class="btn sm pri" id="seAct">Set active</button>')+'<button class="btn sm" id="seStock">Load Tekno stock</button><button class="btn sm" id="seDup">Duplicate</button><button class="btn sm" id="sePrint">Print</button><button class="btn sm" id="seShare">Export / share</button></div>'+
   '<details class="meta"><summary>Setup info · name, date, track, conditions</summary><label for="sm_name" style="margin-top:0">Setup name</label><input id="sm_name" value="'+esc(s.name)+'">'+
   '<div class="two"><div><label for="sm_date">Date</label><input id="sm_date" type="date" value="'+esc(s.date)+'"></div><div><label for="sm_temp">Temp (°F)</label><input id="sm_temp" type="number" inputmode="numeric" value="'+esc(s.temp==null?'':s.temp)+'"></div></div>'+
   '<label for="sm_track">Track</label><input id="sm_track" value="'+esc(s.track||'')+'"><label for="sm_cond">Conditions</label><select id="sm_cond">'+COND_OPTS.map(function(c){return '<option'+(c===s.cond?' selected':'')+'>'+esc(c)+'</option>'}).join('')+'</select><label style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><input type="checkbox" id="seOnly" style="width:auto;min-height:0"> Show only settings changed from Tekno stock</label></details></div>';
@@ -1456,8 +1475,8 @@ function makeZip(files){var parts=[],cen=[],off=0,d=new Date(),dt=((d.getHours()
 function shotListText(t,got){var L=shotList(t),s='RC Setup Helper — Photo Setup — Tekno '+truckName(t)+'\nCreated '+new Date().toString()+'\n\nSend these to RC Racing in chat and it will build your sheet.\nImport the returned JSON in the app: My Setup → Photo Setup → Import setup.\n\n';
  L.forEach(function(x,i){s+=(i+1)+'. '+shotFile(t,x)+(got[x.id]?'':'  [NOT TAKEN]')+'\n   '+x.n+'\n   Shows: '+x.see.join('; ')+'\n   Sheet fields: '+x.f.filter(function(id){return FBY[id]}).join(', ')+'\n'});return s}
 /* ----- UI ----- */
-function openPhoto(){photoOpen=true;['setupHome','setupEdit','setupCmp'].forEach(function(i){$('#'+i).classList.add('hidden')});var P=$('#setupPhoto');P.classList.remove('hidden');if(!P.children.length)P.innerHTML='<div class="skel" style="height:44px;margin:12px 0"></div><div class="skel" style="height:180px"></div><div class="skel" style="height:120px;margin-top:12px"></div>';renderPhoto();window.scrollTo(0,0)}
-function closePhoto(){photoOpen=false;$('#setupPhoto').classList.add('hidden');phURLs.forEach(function(u){URL.revokeObjectURL(u)});phURLs=[]}
+function openPhoto(){photoOpen=true;['setupHome','setupEdit','setupCmp'].forEach(function(i){$('#'+i).classList.add('hidden')});var P=$('#setupPhoto');P.classList.remove('hidden');if(!P.children.length)P.innerHTML='<div class="skel" style="height:44px;margin:12px 0"></div><div class="skel" style="height:180px"></div><div class="skel" style="height:120px;margin-top:12px"></div>';renderPhoto();syncFab();window.scrollTo(0,0)}
+function closePhoto(){photoOpen=false;$('#setupPhoto').classList.add('hidden');phURLs.forEach(function(u){URL.revokeObjectURL(u)});phURLs=[];syncFab()}
 function renderPhoto(){var t=truck,L=shotList(t);phAll(t).then(function(got){phURLs.forEach(function(u){URL.revokeObjectURL(u)});phURLs=[];
  var req=L.filter(function(x){return !x.opt}),done=req.filter(function(x){return got[x.id]}).length,tot=0;Object.keys(got).forEach(function(k){tot+=got[k].blob.size});
  var h='<button class="btn sm" id="phBack" style="margin-top:10px">← My setups</button><h2 class="ttl"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13.5" r="3.6"/></svg>Photo Setup · '+truckName(t)+'</h2>';
@@ -1526,7 +1545,7 @@ function showImport(rep){var o=$('#phImpOut');if(!o)return;var h='';
  if(!rep.ok.length&&!rep.err)h+='<div class="note">Nothing imported.</div>';
  o.innerHTML=h;$$('#phImpOut [data-open]').forEach(function(b){b.onclick=function(){var s=getSetup(b.dataset.open);if(!s)return;if(s.truck!==truck)setTruck(s.truck);closePhoto();showTab('setup');openSetup(s.id)}});
  if(rep.ok.length)toast('Imported '+rep.ok.length+' setup'+(rep.ok.length>1?'s':''))}
-$('#photoBtn').addEventListener('click',openPhoto);
+$('#photoBtn').addEventListener('click',openPhoto);$('#photoFab').addEventListener('click',function(){openPhoto()});document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#sePhoto');if(b)openPhoto()});
 
 /* ---------- Premium graphics layer (gradients/patterns live in #gdefs; shapes animate via transform/opacity only) ---------- */
 var PB='url(#g-body)';
@@ -1741,7 +1760,7 @@ function swInit(){if(!('serviceWorker' in navigator)||!/^https?:/.test(location.
  }).catch(function(){});
  navigator.serviceWorker.addEventListener('message',function(e){if(e.data&&e.data.ver&&e.data.ver!==APP_VER&&!shown){shown=true;swBanner()}});
  navigator.serviceWorker.addEventListener('controllerchange',function(){var was=had;had=true;if(!was||shown)return;var c=navigator.serviceWorker.controller;if(c)c.postMessage('ver')})}
-var APP_VER='rcsetup-v8';
+var APP_VER='rcsetup-v9';
 
 /* ---------- Realistic vehicle art (original vector illustration; proportions from Tekno manual drawings, NOT official dimensions) ----------
    Authored in millimetres per vehicle, scaled into the legacy unit systems:

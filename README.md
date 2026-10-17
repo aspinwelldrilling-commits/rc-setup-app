@@ -11,7 +11,7 @@ Live: https://aspinwelldrilling-commits.github.io/rc-setup-app/
 
 ## Photo Setup
 
-My Setup → **Photo Setup** walks through a shot list per truck. It stores each photo locally as a ≤1600 px JPEG and shares them as files named `nt48_<shot>.jpg` / `et48_<shot>.jpg` / `nb48_<shot>.jpg` / `eb48_<shot>.jpg` (Web Share API, or a .zip download with `<truck>_shotlist.txt`).
+**Photo Setup** (camera icon) can be opened three ways: the **Photos** tab in the bottom bar, the orange **Photo Setup** button at the bottom right of My Setup, or the **Photo Setup** button in the setup sheet's action row. It walks through a shot list per vehicle. It stores each photo locally as a ≤1600 px JPEG and shares them as files named `nt48_<shot>.jpg` / `et48_<shot>.jpg` / `nb48_<shot>.jpg` / `eb48_<shot>.jpg` (Web Share API, or a .zip download with `<truck>_shotlist.txt`).
 Send the photos to RC Racing in chat. It replies with a setup JSON file, which you import from **Photo Setup → Import setup** (file or paste) or from **My Setup → Import**.
 
 Shot ids: `front_straight, rear_straight, front_tower, rear_tower, front_camber_link, rear_camber_link, front_spindle, front_arm_lower, rear_arm_lower, blocks_ab, blocks_cd, rear_hub, sway_front, sway_rear, shocks, steering, clutch_spur` (NT48) or `pinion_spur` (ET48), `tires`, `notes_card` (optional).
