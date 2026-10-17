@@ -25,6 +25,14 @@
   "GEN": {
    "title": "Generic viscosity / value list (not a Tekno spec) - used only for dropdown choices",
    "url": ""
+  },
+  "MIP": {
+   "title": "MIP official site (miponline.com) - Bypass1 product pages",
+   "url": "https://www.miponline.com/bypass1-pistons.html"
+  },
+  "MIPI": {
+   "title": "MIP Bypass1 Kit Instruction Sheet (01-592, 2018)",
+   "url": "https://www.miponline.com/assets/images/Bypass1-Instructions.pdf"
   }
  },
  "fields": [
@@ -1326,6 +1334,168 @@
    }
   },
   {
+   "id": "fPisType",
+   "sec": "Front suspension",
+   "label": "Front piston type",
+   "kind": "select",
+   "unit": "",
+   "trucks": "both",
+   "opts": [
+    [
+     "tekno",
+     "Tekno stock pistons"
+    ],
+    [
+     "b1",
+     "MIP Bypass1 (16mm)"
+    ],
+    [
+     "hf",
+     "MIP Bypass1 Hi-Flow"
+    ],
+    [
+     "thf",
+     "MIP Bypass1 Tapered Hi-Flow"
+    ]
+   ],
+   "end": "F",
+   "stock": {
+    "NT48": {
+     "v": "tekno",
+     "src": "Kit uses Tekno pistons (NTM p17/p18)"
+    },
+    "ET48": {
+     "v": "tekno",
+     "src": "Kit uses Tekno pistons (ETM p17/p18)"
+    }
+   }
+  },
+  {
+   "id": "fMipPiston",
+   "sec": "Front suspension",
+   "label": "Front MIP Bypass1 piston",
+   "kind": "select",
+   "unit": "",
+   "trucks": "both",
+   "opts": [
+    [
+     "19021",
+     "#19021 – 6+6 hole × 1.3mm, 16mm (2)",
+     "b1"
+    ],
+    [
+     "19011",
+     "#19011 – 5 hole × 1.3mm, 16mm (2)",
+     "b1"
+    ],
+    [
+     "23401",
+     "#23401 – Hi-Flow 5 hole × 1.3mm (2)",
+     "hf"
+    ],
+    [
+     "23402",
+     "#23402 – Hi-Flow 6 hole × 1.3mm (2)",
+     "hf"
+    ],
+    [
+     "23403",
+     "#23403 – Hi-Flow 8 hole × 1.2mm (2)",
+     "hf"
+    ],
+    [
+     "23404",
+     "#23404 – Hi-Flow 10 hole × blank (2)",
+     "hf"
+    ],
+    [
+     "24401",
+     "#24401 – Tapered Hi-Flow 5 hole × 1.3mm (2)",
+     "thf"
+    ],
+    [
+     "24402",
+     "#24402 – Tapered Hi-Flow 6 hole × 1.3mm (2)",
+     "thf"
+    ],
+    [
+     "24403",
+     "#24403 – Tapered Hi-Flow 8 hole × 1.2mm (2)",
+     "thf"
+    ],
+    [
+     "24404",
+     "#24404 – Tapered Hi-Flow 10 hole × blank (2)",
+     "thf"
+    ],
+    [
+     "24406",
+     "#24406 – Tapered Hi-Flow 24 hole × blank (2)",
+     "thf"
+    ]
+   ],
+   "end": "F",
+   "stock": {
+    "NT48": {
+     "v": null,
+     "src": null
+    },
+    "ET48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "MIP official pages; only shown when a MIP piston type is selected. Hi-Flow & Tapered Hi-Flow pages list Tekno fitment; #19021/#19011 pages do not state a vehicle (they are the replacement pistons for the Tekno set #19010)."
+  },
+  {
+   "id": "fMipValve",
+   "sec": "Front suspension",
+   "label": "Front MIP rebound valve",
+   "kind": "select",
+   "unit": "",
+   "trucks": "both",
+   "opts": [
+    [
+     "G",
+     "Green .003\" – fast rebound",
+     1
+    ],
+    [
+     "TG",
+     "Tan .004\" under Green .003\" – between fast & medium (MIP Fig 2)",
+     2
+    ],
+    [
+     "B",
+     "Blue .005\" – medium rebound (MIP initial setup)",
+     3
+    ],
+    [
+     "C",
+     "Clear/Matte .007\" – slow rebound",
+     4
+    ],
+    [
+     "N",
+     "Brown .010\" – neutral rebound",
+     5
+    ]
+   ],
+   "adv": "mipvalve",
+   "end": "F",
+   "stock": {
+    "NT48": {
+     "v": null,
+     "src": null
+    },
+    "ET48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "MIP #19005 valve chart and Bypass1 instruction sheet: thinner = faster rebound (“rough”), thicker = slower (“smooth”). Installed piston → valve → stop washer (#18402) → locknut."
+  },
+  {
    "id": "fSpring",
    "sec": "Front suspension",
    "label": "Front springs",
@@ -2001,6 +2171,168 @@
      "src": "ETM p30; ETM p18"
     }
    }
+  },
+  {
+   "id": "rPisType",
+   "sec": "Rear suspension",
+   "label": "Rear piston type",
+   "kind": "select",
+   "unit": "",
+   "trucks": "both",
+   "opts": [
+    [
+     "tekno",
+     "Tekno stock pistons"
+    ],
+    [
+     "b1",
+     "MIP Bypass1 (16mm)"
+    ],
+    [
+     "hf",
+     "MIP Bypass1 Hi-Flow"
+    ],
+    [
+     "thf",
+     "MIP Bypass1 Tapered Hi-Flow"
+    ]
+   ],
+   "end": "R",
+   "stock": {
+    "NT48": {
+     "v": "tekno",
+     "src": "Kit uses Tekno pistons (NTM p17/p18)"
+    },
+    "ET48": {
+     "v": "tekno",
+     "src": "Kit uses Tekno pistons (ETM p17/p18)"
+    }
+   }
+  },
+  {
+   "id": "rMipPiston",
+   "sec": "Rear suspension",
+   "label": "Rear MIP Bypass1 piston",
+   "kind": "select",
+   "unit": "",
+   "trucks": "both",
+   "opts": [
+    [
+     "19021",
+     "#19021 – 6+6 hole × 1.3mm, 16mm (2)",
+     "b1"
+    ],
+    [
+     "19011",
+     "#19011 – 5 hole × 1.3mm, 16mm (2)",
+     "b1"
+    ],
+    [
+     "23401",
+     "#23401 – Hi-Flow 5 hole × 1.3mm (2)",
+     "hf"
+    ],
+    [
+     "23402",
+     "#23402 – Hi-Flow 6 hole × 1.3mm (2)",
+     "hf"
+    ],
+    [
+     "23403",
+     "#23403 – Hi-Flow 8 hole × 1.2mm (2)",
+     "hf"
+    ],
+    [
+     "23404",
+     "#23404 – Hi-Flow 10 hole × blank (2)",
+     "hf"
+    ],
+    [
+     "24401",
+     "#24401 – Tapered Hi-Flow 5 hole × 1.3mm (2)",
+     "thf"
+    ],
+    [
+     "24402",
+     "#24402 – Tapered Hi-Flow 6 hole × 1.3mm (2)",
+     "thf"
+    ],
+    [
+     "24403",
+     "#24403 – Tapered Hi-Flow 8 hole × 1.2mm (2)",
+     "thf"
+    ],
+    [
+     "24404",
+     "#24404 – Tapered Hi-Flow 10 hole × blank (2)",
+     "thf"
+    ],
+    [
+     "24406",
+     "#24406 – Tapered Hi-Flow 24 hole × blank (2)",
+     "thf"
+    ]
+   ],
+   "end": "R",
+   "stock": {
+    "NT48": {
+     "v": null,
+     "src": null
+    },
+    "ET48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "MIP official pages; only shown when a MIP piston type is selected. Hi-Flow & Tapered Hi-Flow pages list Tekno fitment; #19021/#19011 pages do not state a vehicle (they are the replacement pistons for the Tekno set #19010)."
+  },
+  {
+   "id": "rMipValve",
+   "sec": "Rear suspension",
+   "label": "Rear MIP rebound valve",
+   "kind": "select",
+   "unit": "",
+   "trucks": "both",
+   "opts": [
+    [
+     "G",
+     "Green .003\" – fast rebound",
+     1
+    ],
+    [
+     "TG",
+     "Tan .004\" under Green .003\" – between fast & medium (MIP Fig 2)",
+     2
+    ],
+    [
+     "B",
+     "Blue .005\" – medium rebound (MIP initial setup)",
+     3
+    ],
+    [
+     "C",
+     "Clear/Matte .007\" – slow rebound",
+     4
+    ],
+    [
+     "N",
+     "Brown .010\" – neutral rebound",
+     5
+    ]
+   ],
+   "adv": "mipvalve",
+   "end": "R",
+   "stock": {
+    "NT48": {
+     "v": null,
+     "src": null
+    },
+    "ET48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "MIP #19005 valve chart and Bypass1 instruction sheet: thinner = faster rebound (“rough”), thicker = slower (“smooth”). Installed piston → valve → stop washer (#18402) → locknut."
   },
   {
    "id": "rSpring",
@@ -3476,5 +3808,202 @@
   "Roll-center numbers (mm) are not published; only directional notes.",
   "Rear hub (15-hole) and tower hole numbering beyond the \"2/5\" and \"3/B\" stock notes is inferred from the drawings.",
   "Shock oil and diff oil dropdown lists are generic viscosities (Tekno does not publish an option list)."
- ]
+ ],
+ "mip": {
+  "about": "MIP Bypass1 piston system for 16mm 1/8 shocks, from OFFICIAL MIP sources only (miponline.com product pages + Bypass1 instruction sheet PDF). Fetched 2026-10-17. Nothing here is a Tekno spec.",
+  "sources": {
+   "MIP": {
+    "title": "MIP official site (miponline.com) - Bypass1 product pages",
+    "url": "https://www.miponline.com/bypass1-pistons.html"
+   },
+   "MIPI": {
+    "title": "MIP Bypass1 Kit Instruction Sheet (01-592, 2018)",
+    "url": "https://www.miponline.com/assets/images/Bypass1-Instructions.pdf"
+   }
+  },
+  "tekno_kits": [
+   {
+    "pn": "19010",
+    "name": "MIP Bypass1 Pistons, 6+6 Hole Set, 16mm, Tekno 1/8th",
+    "status": "Not currently listed on miponline.com (only in MIP release text quoted by press/dealers). Its replacement pistons #19021 (6+6 × 1.3mm) and #19011 (5 × 1.3mm) ARE listed on miponline.com.",
+    "src": "Not on miponline.com Bypass1 catalog (checked 2026-10-17)"
+   },
+   {
+    "pn": "23405",
+    "name": "Bypass1 Hi-Flow Piston Kit, 5-Hole x 1.3mm, 1/8th",
+    "fit": "Page lists Mugen, TLR, Associated, Tekno, Hot Bodies, Kyosho, Sparko, XRAY",
+    "includes": "pistons + Green/Blue/Clear valves (Brown/Tan optional via #19005)",
+    "src": "https://www.miponline.com/23405-mip-bypass1-hi-flow-piston-kit-5-hole-x-13mm-18th-scale.html"
+   },
+   {
+    "pn": "23400",
+    "name": "Bypass1 Hi-Flow Pistons, 6-Hole x 1.3mm, 1/8th (kit)",
+    "fit": "Page lists Tekno",
+    "includes": "pistons + Green/Blue/Clear valves",
+    "src": "https://www.miponline.com/23400--MIP-Bypass1™-Hi-Flow™-Pistons-6-Hole-x-13mm-18th-Scale_p_731.html"
+   },
+   {
+    "pn": "23410",
+    "name": "Bypass1 Hi-Flow Pistons, 8-Hole x 1.2mm, 1/8th (kit)",
+    "fit": "Page lists Tekno",
+    "includes": "pistons + Green/Blue/Clear valves",
+    "src": "https://www.miponline.com/23410-mip-bypass1-high-flow-pistons-8-hole-x-12mm-18th-scale.html"
+   },
+   {
+    "pn": "24400",
+    "name": "Bypass1 Tapered Hi-Flow Piston Kit, 6-Hole x 1.3mm, 1/8th",
+    "fit": "Page lists Tekno",
+    "includes": "4 × 6-hole × 1.3mm tapered pistons, 5 Green, 5 Blue, 5 Matte valves",
+    "src": "https://www.miponline.com/24400-mip-bypass1-tapered-hi-flow-piston-kit-6-hole-x-13mm-18th-scale.html"
+   }
+  ],
+  "pistons": [
+   {
+    "pn": "19021",
+    "label": "#19021 – 6+6 hole × 1.3mm, 16mm (2)",
+    "type": "b1"
+   },
+   {
+    "pn": "19011",
+    "label": "#19011 – 5 hole × 1.3mm, 16mm (2)",
+    "type": "b1"
+   },
+   {
+    "pn": "23401",
+    "label": "#23401 – Hi-Flow 5 hole × 1.3mm (2)",
+    "type": "hf"
+   },
+   {
+    "pn": "23402",
+    "label": "#23402 – Hi-Flow 6 hole × 1.3mm (2)",
+    "type": "hf"
+   },
+   {
+    "pn": "23403",
+    "label": "#23403 – Hi-Flow 8 hole × 1.2mm (2)",
+    "type": "hf"
+   },
+   {
+    "pn": "23404",
+    "label": "#23404 – Hi-Flow 10 hole × blank (2)",
+    "type": "hf"
+   },
+   {
+    "pn": "24401",
+    "label": "#24401 – Tapered Hi-Flow 5 hole × 1.3mm (2)",
+    "type": "thf"
+   },
+   {
+    "pn": "24402",
+    "label": "#24402 – Tapered Hi-Flow 6 hole × 1.3mm (2)",
+    "type": "thf"
+   },
+   {
+    "pn": "24403",
+    "label": "#24403 – Tapered Hi-Flow 8 hole × 1.2mm (2)",
+    "type": "thf"
+   },
+   {
+    "pn": "24404",
+    "label": "#24404 – Tapered Hi-Flow 10 hole × blank (2)",
+    "type": "thf"
+   },
+   {
+    "pn": "24406",
+    "label": "#24406 – Tapered Hi-Flow 24 hole × blank (2)",
+    "type": "thf"
+   }
+  ],
+  "valves": [
+   {
+    "id": "G",
+    "color": "Green",
+    "thk_in": 0.003,
+    "role": "Fast rebound",
+    "part": "#7 valve, .003\"x.140x.45"
+   },
+   {
+    "id": "T",
+    "color": "Tan",
+    "thk_in": 0.004,
+    "role": "Gap valve (for stacking)",
+    "part": "#8 valve, .004\"x.140x.45"
+   },
+   {
+    "id": "B",
+    "color": "Blue",
+    "thk_in": 0.005,
+    "role": "Medium rebound (MIP initial setup)",
+    "part": "#9 valve, .005\"x.140x.45"
+   },
+   {
+    "id": "C",
+    "color": "Clear / Matte",
+    "thk_in": 0.007,
+    "role": "Slow rebound",
+    "part": "#10 valve, .007\"x.140x.45"
+   },
+   {
+    "id": "N",
+    "color": "Brown",
+    "thk_in": 0.01,
+    "role": "Neutral rebound",
+    "part": "#11 valve, .010\"x.140x.45"
+   }
+  ],
+  "valve_src": "#19005 Tuning Valves Kit page (\"What's included\"), Hi-Flow product pages, Bypass1 instruction sheet valve chart",
+  "stacks": [
+   {
+    "id": "TG",
+    "desc": "Tan .004\" placed below the Green .003\" (fast) valve gives damping between Fast and Medium",
+    "src": "MIPI p2 Fig 2"
+   }
+  ],
+  "support_parts": [
+   {
+    "pn": "19005",
+    "name": "Bypass1 Tuning Valves Kit, 1/8th (4 each Green/Tan/Blue/Clear/Brown)"
+   },
+   {
+    "pn": "18402",
+    "name": "Bypass1 Stop Washers, Mugen / AE / Kyosho / Tekno 1/8th (4)"
+   }
+  ],
+  "assembly": "Piston, then valve, then stop washer, secured with the locknut. Start with the Blue (medium) valve. Keep the oil, piston-hole setup, springs and ride height you ran before (MIPI p1).",
+  "tuning_notes": [
+   {
+    "t": "Valves tune REBOUND (return) speed without changing shock oil weight; on impact the valve shims open to let oil bypass the primary holes (MIP: reduces shock packing in rapid bumps).",
+    "src": "MIP Bypass1 category page (miponline.com/bypass1-pistons.html)"
+   },
+   {
+    "t": "Valve chart: FAST (rough) = thin Green .003\", MEDIUM = Blue .005\", SLOW (smooth) = Clear/Matte .007\".",
+    "src": "MIPI p1 valve chart"
+   },
+   {
+    "t": "If Medium rebounds too fast but Slow is too slow, stack valves (e.g. Tan .004\" under Green .003\") to fine-tune.",
+    "src": "MIPI p2"
+   },
+   {
+    "t": "Hi-Flow pistons have a smaller outer diameter: more blow-by at slow shaft speeds; MIP claims better jumping, landing and bump recovery. They can be mixed front/rear with standard Bypass1.",
+    "src": "MIP #23400/#23405 pages"
+   },
+   {
+    "t": "High-grip, rutted tracks: high-flow setup with faster rebound valves so the suspension drops into ruts and keeps cornering traction.",
+    "src": "MIP Bypass1 category page"
+   },
+   {
+    "t": "High-speed chop & big jumps: firmer valve stacks to prevent bottoming over big jumps while soaking up small chatter.",
+    "src": "MIP Bypass1 category page"
+   }
+  ],
+  "oil": "MIP publishes no oil range for Bypass1: the instructions say to keep the oil you ran before (MIPI p1).",
+  "gaps": [
+   "#19010 Tekno-specific set is not listed on miponline.com right now; fitment of #19021/#19011 to Tekno is not stated on their pages (inferred from the #19010 set they replace).",
+   "MIP publishes no bleed/bypass hole diameters for the valve-covered ports, no recommended oil range, and no shock-dyno numbers.",
+   "Tapered Hi-Flow #24400 page says both “6-Hole x 1.3mm” and “4 precision-drilled 1.3mm holes”.",
+   "MIP does not publish the internal port/flow layout or how valve thickness affects compression; the app's flow diagram is a simplified illustration of MIP's wording (valve opens on impact; thickness sets rebound speed).",
+   "Dealer listings quote MIP saying Bypass1 is dyno-tuned to match stock-piston compression and that Tekno pistons can be drilled out; not found on miponline.com, so not used.",
+   "No MIP guidance for Tekno-specific front vs rear valve choices."
+  ]
+ }
 }
