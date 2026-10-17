@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-17",
- "about": "Values extracted from the OFFICIAL Tekno RC NT48 2.2 and ET48 2.2 instruction manuals (Box Stock setup sheet pages + assembly steps + setup notes) and teknorc.com product pages. No pro-driver setups used. Blank = not stated in official docs.",
+ "about": "Values extracted from the OFFICIAL Tekno RC NT48 2.2, ET48 2.2, NB48 2.2 and EB48 2.2 instruction manuals (Box Stock setup sheet pages + assembly steps + setup notes) and teknorc.com product pages. No pro-driver setups used. Blank = not stated in official docs.",
  "sources": {
   "NTM": {
    "title": "Tekno NT48 2.2 Instruction Manual (rev 02)",
@@ -33,6 +33,30 @@
   "MIPI": {
    "title": "MIP Bypass1 Kit Instruction Sheet (01-592, 2018)",
    "url": "https://www.miponline.com/assets/images/Bypass1-Instructions.pdf"
+  },
+  "NBM": {
+   "title": "Tekno NB48 2.2 Instruction Manual (rev 02)",
+   "url": "https://www.teknorc.com/wp-content/uploads/2024/07/NB48_2.2_instructions_all_compressed-rev_02-compressed.pdf"
+  },
+  "EBM": {
+   "title": "Tekno EB48 2.2 Instruction Manual",
+   "url": "https://www.teknorc.com/wp-content/uploads/2024/07/EB48-2.2-Instructions.pdf"
+  },
+  "NBS": {
+   "title": "Tekno NB48 2.2 blank fillable setup sheet",
+   "url": "https://www.teknorc.com/wp-content/uploads/2024/07/NB48-2.2-Fillable-Setup-Sheet.pdf"
+  },
+  "EBS": {
+   "title": "Tekno EB48 2.2 blank fillable setup sheet (v3)",
+   "url": "https://www.teknorc.com/wp-content/uploads/2024/07/EB48-2.2-Setup-Sheet-Fillable-v3.pdf"
+  },
+  "NBW": {
+   "title": "teknorc.com TKR9305 NB48 2.2 kit page",
+   "url": "https://www.teknorc.com/shop/tkr9305-nb48-2-2-1-8th-4wd-competition-nitro-buggy-kit/"
+  },
+  "EBW": {
+   "title": "teknorc.com TKR9005 EB48 2.2 kit page",
+   "url": "https://www.teknorc.com/shop/tkr9005-eb48-2-2-1-8th-4wd-competition-electric-buggy-kit/"
   }
  },
  "fields": [
@@ -51,8 +75,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "date",
@@ -69,8 +107,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "event",
@@ -87,8 +139,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "temp",
@@ -105,8 +171,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "track",
@@ -127,8 +207,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "size",
@@ -150,8 +244,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "traction",
@@ -173,8 +281,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "surface",
@@ -196,8 +318,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "type",
@@ -221,8 +357,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "condition",
@@ -245,8 +395,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "ackHole",
@@ -267,9 +431,27 @@
     "ET48": {
      "v": "Hole 2 (lower on sheet)",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "Hole 1 (upper on sheet)",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "Hole 1 (upper on sheet)",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "Manual setup notes: good starting point is \"forward on the bellcrank plate\" (NTM p30 / ETM p27). Plate TKR8100C."
+   "note": "Manual setup notes: good starting point is \"forward on the bellcrank plate\" (NTM p30 / ETM p27). Plate TKR8100C.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "noteV": {
+    "NB48": "Buggy Box Stock sheets mark the UPPER bellcrank hole (truggy sheets mark the lower one). Setup notes: “forward on the … bellcrank plate” (NBM p30 / EBM p27).",
+    "EB48": "Buggy Box Stock sheets mark the UPPER bellcrank hole (truggy sheets mark the lower one). Setup notes: “forward on the … bellcrank plate” (NBM p30 / EBM p27)."
+   }
   },
   {
    "id": "ackWash",
@@ -287,8 +469,22 @@
     "ET48": {
      "v": 4,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 4,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 4,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "spPlate",
@@ -335,9 +531,23 @@
     "ET48": {
      "v": "F",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "F",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "F",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "More Ackermann = smoother, less overall steering, better on fast flowing tracks; less = more direct, more steering, better on tight tracks (NTM p30 / ETM p27)."
+   "note": "More Ackermann = smoother, less overall steering, better on fast flowing tracks; less = more direct, more steering, better on tight tracks (NTM p30 / ETM p27).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "spWash",
@@ -355,9 +565,23 @@
     "ET48": {
      "v": 4,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 1,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 1,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "Start with zero bump steer or slight bump out (NTM p30)."
+   "note": "Start with zero bump steer or slight bump out (NTM p30).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "spHeight",
@@ -380,9 +604,23 @@
     "ET48": {
      "v": "H",
      "src": "ETM p30; ETM p11"
+    },
+    "NB48": {
+     "v": "H",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p12 \"Stock Position is HIGH\""
+    },
+    "EB48": {
+     "v": "H",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p11 \"Stock Position is HIGH\""
     }
    },
-   "note": "Must use same colour sleeve/pins together. Lower front axle = more steering (loose tracks); higher = less steering (high grip, very bumpy) (NTM p31)."
+   "note": "Must use same colour sleeve/pins together. Lower front axle = more steering (loose tracks); higher = less steering (high grip, very bumpy) (NTM p31).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "spPart",
@@ -409,8 +647,22 @@
     "ET48": {
      "v": "TKR9141B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9141B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9141B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "caster",
@@ -441,8 +693,22 @@
     "ET48": {
      "v": "18",
      "src": "ETM p30; ETM p11"
+    },
+    "NB48": {
+     "v": "21",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p12 (TKR9142C 21°)"
+    },
+    "EB48": {
+     "v": "21",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p11 (TKR9142C 21°)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "saver",
@@ -460,7 +726,25 @@
     "ET48": {
      "v": 1,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 2,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 2,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "noteV": {
+    "NB48": "Servo saver: 2 full turns from fully tight on both buggy Box Stock sheets (truggies: 1).",
+    "EB48": "Servo saver: 2 full turns from fully tight on both buggy Box Stock sheets (truggies: 1)."
    }
   },
   {
@@ -546,7 +830,111 @@
     "ET48": {
      "v": "2.3",
      "src": "ETM p30; ETM p10"
+    },
+    "NB48": {
+     "v": "2.3",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p11 (TKR9083 2.3mm)"
+    },
+    "EB48": {
+     "v": "2.3",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p10 (TKR9083 2.3mm)"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "none",
+      "No bar"
+     ],
+     [
+      "2.0",
+      "2.0 mm (TKR9080)"
+     ],
+     [
+      "2.1",
+      "2.1 mm (TKR9081)"
+     ],
+     [
+      "2.2",
+      "2.2 mm (TKR9082)"
+     ],
+     [
+      "2.3",
+      "2.3 mm (TKR9083 – kit)"
+     ],
+     [
+      "2.4",
+      "2.4 mm (TKR9084)"
+     ],
+     [
+      "2.5",
+      "2.5 mm (TKR9085)"
+     ],
+     [
+      "2.6",
+      "2.6 mm (TKR9086)"
+     ],
+     [
+      "2.7",
+      "2.7 mm (TKR9088)"
+     ],
+     [
+      "2.8",
+      "2.8 mm (TKR9089)"
+     ]
+    ],
+    "EB48": [
+     [
+      "none",
+      "No bar"
+     ],
+     [
+      "2.0",
+      "2.0 mm (TKR9080)"
+     ],
+     [
+      "2.1",
+      "2.1 mm (TKR9081)"
+     ],
+     [
+      "2.2",
+      "2.2 mm (TKR9082)"
+     ],
+     [
+      "2.3",
+      "2.3 mm (TKR9083 – kit)"
+     ],
+     [
+      "2.4",
+      "2.4 mm (TKR9084)"
+     ],
+     [
+      "2.5",
+      "2.5 mm (TKR9085)"
+     ],
+     [
+      "2.6",
+      "2.6 mm (TKR9086)"
+     ],
+     [
+      "2.7",
+      "2.7 mm (TKR9088)"
+     ],
+     [
+      "2.8",
+      "2.8 mm (TKR9089)"
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "Front bar options per NBM p11 / EBM p10 (TKR9080–TKR9089). Note: the 2.7mm bar is TKR9088 and 2.8mm TKR9089 (no TKR9087 bar – that number is the front uni driveshaft).",
+    "EB48": "Front bar options per NBM p11 / EBM p10 (TKR9080–TKR9089). Note: the 2.7mm bar is TKR9088 and 2.8mm TKR9089 (no TKR9087 bar – that number is the front uni driveshaft)."
    }
   },
   {
@@ -632,7 +1020,111 @@
     "ET48": {
      "v": "2.5",
      "src": "ETM p30; ETM p7"
+    },
+    "NB48": {
+     "v": "2.5",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p8 (TKR9194 2.5mm)"
+    },
+    "EB48": {
+     "v": "2.5",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p7 (TKR9194 2.5mm)"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "none",
+      "No bar"
+     ],
+     [
+      "2.2",
+      "2.2 mm (TKR9190)"
+     ],
+     [
+      "2.3",
+      "2.3 mm (TKR9192)"
+     ],
+     [
+      "2.4",
+      "2.4 mm (TKR9193)"
+     ],
+     [
+      "2.5",
+      "2.5 mm (TKR9194 – kit)"
+     ],
+     [
+      "2.6",
+      "2.6 mm (TKR9195)"
+     ],
+     [
+      "2.7",
+      "2.7 mm (TKR9196)"
+     ],
+     [
+      "2.8",
+      "2.8 mm (TKR9197)"
+     ],
+     [
+      "2.9",
+      "2.9 mm (TKR9198)"
+     ],
+     [
+      "3.0",
+      "3.0 mm (TKR9199)"
+     ]
+    ],
+    "EB48": [
+     [
+      "none",
+      "No bar"
+     ],
+     [
+      "2.2",
+      "2.2 mm (TKR9190)"
+     ],
+     [
+      "2.3",
+      "2.3 mm (TKR9192)"
+     ],
+     [
+      "2.4",
+      "2.4 mm (TKR9193)"
+     ],
+     [
+      "2.5",
+      "2.5 mm (TKR9194 – kit)"
+     ],
+     [
+      "2.6",
+      "2.6 mm (TKR9195)"
+     ],
+     [
+      "2.7",
+      "2.7 mm (TKR9196)"
+     ],
+     [
+      "2.8",
+      "2.8 mm (TKR9197)"
+     ],
+     [
+      "2.9",
+      "2.9 mm (TKR9198)"
+     ],
+     [
+      "3.0",
+      "3.0 mm (TKR9199)"
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "Rear bar options per NBM p8 / EBM p7 (TKR9190–TKR9199, no 2.1mm listed).",
+    "EB48": "Rear bar options per NBM p8 / EBM p7 (TKR9190–TKR9199, no 2.1mm listed)."
    }
   },
   {
@@ -656,9 +1148,23 @@
     "ET48": {
      "v": "2.7",
      "src": "ETM p30; ETM p10"
+    },
+    "NB48": {
+     "v": "2.7",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p11 \"Stock Bushing - 2.7\""
+    },
+    "EB48": {
+     "v": "2.7",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p10 \"Stock Bushing - 2.7\""
     }
    },
-   "note": "More dead-band (larger bushing) for rough tracks; bushing ~0.3–0.6 mm larger than bar (NTM p32)."
+   "note": "More dead-band (larger bushing) for rough tracks; bushing ~0.3–0.6 mm larger than bar (NTM p32).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rBush",
@@ -681,8 +1187,22 @@
     "ET48": {
      "v": "3.0",
      "src": "ETM p30; ETM p7"
+    },
+    "NB48": {
+     "v": "3.0",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p8 \"Stock Bushing - 3.0\""
+    },
+    "EB48": {
+     "v": "3.0",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p7 \"Stock Bushing - 3.0\""
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fTower",
@@ -699,8 +1219,22 @@
     "ET48": {
      "v": "TKR9428B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9268E",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p29; teknorc.com TKR9268E (split, 7075, EB/NB48 2.x)"
+    },
+    "EB48": {
+     "v": "TKR9268E",
+     "src": "EBM p30 (Box Stock setup sheet); teknorc.com TKR9268E"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fUpper",
@@ -723,7 +1257,35 @@
     "ET48": {
      "v": "Hole 2",
      "src": "ETM p17; ETM p30"
+    },
+    "NB48": {
+     "v": "Hole 2 (inner)",
+     "src": "NBM p35 (Box Stock setup sheet) (marks the inner of the 2 holes drawn); NBM p17 text says \"middle hole on the tower\""
+    },
+    "EB48": {
+     "v": "Hole 2 (inner)",
+     "src": "EBM p30 (Box Stock setup sheet) (inner of 2 holes drawn); EBM p17 text says \"middle hole on the tower\""
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "Hole 1 (outer)",
+     "Hole 2 (inner)"
+    ],
+    "EB48": [
+     "Hole 1 (outer)",
+     "Hole 2 (inner)"
+    ]
+   },
+   "noteV": {
+    "NB48": "The buggy sheet draws only 2 upper holes on the TKR9268E tower and marks the inner one; the build step text says “middle hole on the tower”. Tekno does not state the tower’s hole count – check your tower.",
+    "EB48": "The buggy sheet draws only 2 upper holes on the TKR9268E tower and marks the inner one; the build step text says “middle hole on the tower”. Tekno does not state the tower’s hole count – check your tower."
    }
   },
   {
@@ -746,9 +1308,27 @@
     "ET48": {
      "v": "+2mm",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "+2mm",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p6 (front standoffs TKR8777B are the longer ones)"
+    },
+    "EB48": {
+     "v": "+2mm",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "TKR8777 (+0mm) / TKR8777B (+2mm) listed; +4mm part number not listed in the manual."
+   "note": "TKR8777 (+0mm) / TKR8777B (+2mm) listed; +4mm part number not listed in the manual.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "noteV": {
+    "NB48": "Front standoffs TKR8777B (longer), rear TKR8777 (shorter) – NBM p6/p7. NBM p6: “Stock standoff location is the center hole”. +4mm part number not listed.",
+    "EB48": "Front standoffs TKR8777B (longer), rear TKR8777 (shorter) – NBM p6/p7. NBM p6: “Stock standoff location is the center hole”. +4mm part number not listed."
+   }
   },
   {
    "id": "fLower",
@@ -770,7 +1350,31 @@
     "ET48": {
      "v": "Outside",
      "src": "ETM p17; ETM p30"
+    },
+    "NB48": {
+     "v": "Inside",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p17 \"Stock shock position is inside hole on the arm\""
+    },
+    "EB48": {
+     "v": "Inside",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p17 \"inside hole on the arm\""
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "Inside",
+     "Outside"
+    ],
+    "EB48": [
+     "Inside",
+     "Outside"
+    ]
    }
   },
   {
@@ -798,9 +1402,39 @@
     "ET48": {
      "v": "3",
      "src": "ETM p12"
+    },
+    "NB48": {
+     "v": "3",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p13 \"Stock position is 3/B\""
+    },
+    "EB48": {
+     "v": "3",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p12 \"Stock position is 3/B\""
     }
    },
-   "note": "Turnbuckle length 82.50 mm stock (NTM p13). Holes 1–3 = one column, 4–6 = the other, as numbered in the manual."
+   "note": "Turnbuckle length 82.50 mm stock (NTM p13). Holes 1–3 = one column, 4–6 = the other, as numbered in the manual.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "1",
+     "2",
+     "3"
+    ],
+    "EB48": [
+     "1",
+     "2",
+     "3"
+    ]
+   },
+   "noteV": {
+    "NB48": "Buggy front: one column of 3 inner camber-link holes on the tower/bulkhead (sheet graphic); stock 3 = bottom hole on the sheet. Turnbuckle length is not printed as a number for the buggies.",
+    "EB48": "Buggy front: one column of 3 inner camber-link holes on the tower/bulkhead (sheet graphic); stock 3 = bottom hole on the sheet. Turnbuckle length is not printed as a number for the buggies."
+   }
   },
   {
    "id": "fOutCam",
@@ -822,8 +1456,22 @@
     "ET48": {
      "v": "B",
      "src": "ETM p12"
+    },
+    "NB48": {
+     "v": "B",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p13 \"3/B\""
+    },
+    "EB48": {
+     "v": "B",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p12 \"3/B\""
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fCvd",
@@ -844,7 +1492,31 @@
     "ET48": {
      "v": "U - TKR9487",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "U - TKR9087",
+     "src": "NBM p35 (Box Stock setup sheet); teknorc.com TKR9087 (uni driveshaft F/R 96.5mm)"
+    },
+    "EB48": {
+     "v": "U - TKR9087",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "U - TKR9087",
+     "C - TKR8072"
+    ],
+    "EB48": [
+     "U - TKR9087",
+     "C - TKR8072"
+    ]
    }
   },
   {
@@ -867,7 +1539,37 @@
     "ET48": {
      "v": "4mm",
      "src": "ETM p30"
+    },
+    "NB48": {
+     "v": "1mm",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "1mm",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "0mm",
+     "1mm",
+     "2mm"
+    ],
+    "EB48": [
+     "0mm",
+     "1mm",
+     "2mm"
+    ]
+   },
+   "noteV": {
+    "NB48": "Buggy wheel-hub offset choices on the sheet: 0 / 1 / 2mm (truggies: 2 / 3 / 4mm).",
+    "EB48": "Buggy wheel-hub offset choices on the sheet: 0 / 1 / 2mm (truggies: 2 / 3 / 4mm)."
    }
   },
   {
@@ -895,7 +1597,43 @@
     "ET48": {
      "v": "TKR9461B",
      "src": "ETM p30"
+    },
+    "NB48": {
+     "v": "TKR9161B",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p11 (TKR9161B, *TKR9161 option)"
+    },
+    "EB48": {
+     "v": "TKR9161B",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p10"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9161",
+      "TKR9161 (0mm)"
+     ],
+     [
+      "TKR9161B",
+      "TKR9161B (-1mm)"
+     ]
+    ],
+    "EB48": [
+     [
+      "TKR9161",
+      "TKR9161 (0mm)"
+     ],
+     [
+      "TKR9161B",
+      "TKR9161B (-1mm)"
+     ]
+    ]
    }
   },
   {
@@ -924,9 +1662,23 @@
     "ET48": {
      "v": "Center",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "Center",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p11 \"Arm Sweep = 0°\" with center dot inserts"
+    },
+    "EB48": {
+     "v": "Center",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p10"
     }
    },
-   "note": "Center dot inserts: arm sweep = 0° (NTM p11)."
+   "note": "Center dot inserts: arm sweep = 0° (NTM p11).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "bBlock",
@@ -953,7 +1705,43 @@
     "ET48": {
      "v": "TKR9462B",
      "src": "ETM p30"
+    },
+    "NB48": {
+     "v": "TKR9162B",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p11"
+    },
+    "EB48": {
+     "v": "TKR9162B",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p10"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9162",
+      "TKR9162 (0mm)"
+     ],
+     [
+      "TKR9162B",
+      "TKR9162B (-1mm)"
+     ]
+    ],
+    "EB48": [
+     [
+      "TKR9162",
+      "TKR9162 (0mm)"
+     ],
+     [
+      "TKR9162B",
+      "TKR9162B (-1mm)"
+     ]
+    ]
    }
   },
   {
@@ -982,9 +1770,23 @@
     "ET48": {
      "v": "Center",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "Center",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p11 \"Kick Up = 10°\" with center dot inserts"
+    },
+    "EB48": {
+     "v": "Center",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p10"
     }
    },
-   "note": "Center dot inserts: kick-up = 10° (NTM p11)."
+   "note": "Center dot inserts: kick-up = 10° (NTM p11).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "insertType",
@@ -1005,9 +1807,23 @@
     "ET48": {
      "v": "TKR5165 / TKR9055C inserts (kit)",
      "src": "ETM p26; TKR31565 product page"
+    },
+    "NB48": {
+     "v": "TKR5165 / TKR9055C inserts (kit)",
+     "src": "NBM p8/p11 (TKR5165, TKR9055C in the build steps)"
+    },
+    "EB48": {
+     "v": "TKR5165 / TKR9055C inserts (kit)",
+     "src": "EBM p7/p10"
     }
    },
-   "note": "TKR31565 (new) lets you run 5mm hinge pins TKR9620 without sleeves in the A/B/C/D blocks. Not included in any kit (teknorc.com)."
+   "note": "TKR31565 (new) lets you run 5mm hinge pins TKR9620 without sleeves in the A/B/C/D blocks. Not included in any kit (teknorc.com).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fRH",
@@ -1027,9 +1843,27 @@
     "ET48": {
      "v": 34,
      "src": "ETM p30; ETM p17; ETM p27"
+    },
+    "NB48": {
+     "v": 24,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p17 \"Stock front ride height is 24mm\""
+    },
+    "EB48": {
+     "v": 23,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "NTM p30 text says \"23mm front / 25mm rear is a good starting point\" – conflicts with the NT48 2.2 sheet & assembly step (34mm); ET manual p27 says 34/38."
+   "note": "NTM p30 text says \"23mm front / 25mm rear is a good starting point\" – conflicts with the NT48 2.2 sheet & assembly step (34mm); ET manual p27 says 34/38.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "noteV": {
+    "NB48": "NB48 2.2: sheet & build step say 24mm, but the setup notes (NBM p30) say “23mm front and 25mm rear is a good starting point”.",
+    "EB48": "Setup notes: “23mm front and 25mm rear is a good starting point” (EBM p27)."
+   }
   },
   {
    "id": "fCam",
@@ -1049,9 +1883,23 @@
     "ET48": {
      "v": -2,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": -2,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": -2,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "Manual: good starting camber 1–2° front (NTM p30)."
+   "note": "Manual: good starting camber 1–2° front (NTM p30).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fCaster",
@@ -1069,8 +1917,22 @@
     "ET48": {
      "v": 18,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 21,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 21,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fSweep",
@@ -1088,8 +1950,22 @@
     "ET48": {
      "v": 0,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 0,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 0,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fKick",
@@ -1107,8 +1983,22 @@
     "ET48": {
      "v": 10,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 10,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 10,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fToe",
@@ -1128,9 +2018,23 @@
     "ET48": {
      "v": 2,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 2,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 2,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "Sheet: 2° out. Manual text: good starting point ~0.5–1° out per side (NTM p30). More toe-out = more off-power, less on-power steering."
+   "note": "Sheet: 2° out. Manual text: good starting point ~0.5–1° out per side (NTM p30). More toe-out = more off-power, less on-power steering.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fShockLen",
@@ -1148,8 +2052,22 @@
     "ET48": {
      "v": 121,
      "src": "ETM p17"
+    },
+    "NB48": {
+     "v": 115.5,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p17 \"Shock length (droop) is 115.5mm\""
+    },
+    "EB48": {
+     "v": 115.5,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p17"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fUpTravel",
@@ -1167,8 +2085,22 @@
     "ET48": {
      "v": 0,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 0,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 0,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fDroop",
@@ -1186,9 +2118,23 @@
     "ET48": {
      "v": 0,
      "src": "ETM p30; ETM p27"
+    },
+    "NB48": {
+     "v": 4,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p17 \"If using a Droop Gauge, +4mm\""
+    },
+    "EB48": {
+     "v": 4,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p17 & p27"
     }
    },
-   "note": "NTM p30 text suggests +4mm front / -4mm rear and 115.5mm/125mm – conflicts with NT sheet; ETM p27 says ±0 / -8mm."
+   "note": "NTM p30 text suggests +4mm front / -4mm rear and 115.5mm/125mm – conflicts with NT sheet; ETM p27 says ±0 / -8mm.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fOil",
@@ -1277,9 +2223,23 @@
     "ET48": {
      "v": 550,
      "src": "ETM p30; ETM p17"
+    },
+    "NB48": {
+     "v": 500,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p17 \"Use #500 CST oil\""
+    },
+    "EB48": {
+     "v": 500,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p17 \"Use #500 CST oil\""
     }
    },
-   "note": "Kit oil is a good start at ~75°F; change ~1 step per 10°F / 5°C (NTM p17, p32)."
+   "note": "Kit oil is a good start at ~75°F; change ~1 step per 10°F / 5°C (NTM p17, p32).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fPiston",
@@ -1330,7 +2290,91 @@
     "ET48": {
      "v": "TKR6136",
      "src": "ETM p30; ETM p17"
+    },
+    "NB48": {
+     "v": "TKR6138",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p17"
+    },
+    "EB48": {
+     "v": "TKR6138",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p17"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR6138",
+      "TKR6138 flat/flat set: 2× 1.5mm-hole + 2× 1.6mm-hole pistons",
+      null
+     ],
+     [
+      "TKR6139",
+      "TKR6139 flat/flat set: 2× 1.6mm-hole + 2× 1.7mm-hole pistons",
+      null
+     ],
+     [
+      "TKR6130",
+      "TKR6130 blank flat/taper (drill your own)",
+      null
+     ],
+     [
+      "TKR6131",
+      "TKR6131 blank flat/flat (drill your own)",
+      null
+     ],
+     [
+      "TKR6160",
+      "TKR6160 CNC blank flat/taper",
+      null
+     ],
+     [
+      "TKR6163",
+      "TKR6163 CNC blank flat/flat",
+      null
+     ]
+    ],
+    "EB48": [
+     [
+      "TKR6138",
+      "TKR6138 flat/flat set: 2× 1.5mm-hole + 2× 1.6mm-hole pistons",
+      null
+     ],
+     [
+      "TKR6139",
+      "TKR6139 flat/flat set: 2× 1.6mm-hole + 2× 1.7mm-hole pistons",
+      null
+     ],
+     [
+      "TKR6130",
+      "TKR6130 blank flat/taper (drill your own)",
+      null
+     ],
+     [
+      "TKR6131",
+      "TKR6131 blank flat/flat (drill your own)",
+      null
+     ],
+     [
+      "TKR6160",
+      "TKR6160 CNC blank flat/taper",
+      null
+     ],
+     [
+      "TKR6163",
+      "TKR6163 CNC blank flat/flat",
+      null
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "TKR6138 contains two hole sizes (1.5 and 1.6mm, teknorc.com); the manuals do not say which one goes front – ask/check your build.",
+    "EB48": "TKR6138 contains two hole sizes (1.5 and 1.6mm, teknorc.com); the manuals do not say which one goes front – ask/check your build."
    }
   },
   {
@@ -1367,8 +2411,22 @@
     "ET48": {
      "v": "tekno",
      "src": "Kit uses Tekno pistons (ETM p17/p18)"
+    },
+    "NB48": {
+     "v": "tekno",
+     "src": "Kit uses Tekno pistons (NBM p17/p18)"
+    },
+    "EB48": {
+     "v": "tekno",
+     "src": "Kit uses Tekno pistons (EBM p17/p18)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fMipPiston",
@@ -1443,9 +2501,23 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
    },
-   "note": "MIP official pages; only shown when a MIP piston type is selected. Hi-Flow & Tapered Hi-Flow pages list Tekno fitment; #19021/#19011 pages do not state a vehicle (they are the replacement pistons for the Tekno set #19010)."
+   "note": "MIP official pages; only shown when a MIP piston type is selected. Hi-Flow & Tapered Hi-Flow pages list Tekno fitment; #19021/#19011 pages do not state a vehicle (they are the replacement pistons for the Tekno set #19010).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fMipValve",
@@ -1491,9 +2563,23 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
    },
-   "note": "MIP #19005 valve chart and Bypass1 instruction sheet: thinner = faster rebound (“rough”), thicker = slower (“smooth”). Installed piston → valve → stop washer (#18402) → locknut."
+   "note": "MIP #19005 valve chart and Bypass1 instruction sheet: thinner = faster rebound (“rough”), thicker = slower (“smooth”). Installed piston → valve → stop washer (#18402) → locknut.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fSpring",
@@ -1534,7 +2620,251 @@
     "ET48": {
      "v": "TKR6090",
      "src": "ETM p30 & p17 print TKR6090 – but ETM p26 parts list and teknorc.com list TKR6091 (green 5.17 lb/in) as the ET48 2.2 kit spring"
+    },
+    "NB48": {
+     "v": "TKR6032B",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p17; teknorc.com TKR6032B yellow 3.59 lb/in"
+    },
+    "EB48": {
+     "v": "TKR6032B",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p17 & p26"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR6030B",
+      "TKR6030B pink 1.5×10.5T 83mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6030C",
+      "TKR6030C pink 1.5×10.5T 78mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6030D",
+      "TKR6030D pink 1.5×10.5T 73mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6031B",
+      "TKR6031B green 1.5×10.25T 83mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6031C",
+      "TKR6031C green 1.5×10.25T 78mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6031D",
+      "TKR6031D green 1.5×10.25T 73mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6032B",
+      "TKR6032B yellow 1.5×10.0T 83mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6032C",
+      "TKR6032C yellow 1.5×10.0T 78mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6032D",
+      "TKR6032D yellow 1.5×10.0T 73mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6033B",
+      "TKR6033B orange 1.5×9.75T 83mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6033C",
+      "TKR6033C orange 1.5×9.75T 78mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6033D",
+      "TKR6033D orange 1.5×9.75T 73mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6034B",
+      "TKR6034B red 1.5×9.5T 83mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6034C",
+      "TKR6034C red 1.5×9.5T 78mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6034D",
+      "TKR6034D red 1.5×9.5T 73mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6035",
+      "TKR6035 1.5×9.0T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6036",
+      "TKR6036 1.5×8.5T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6037",
+      "TKR6037 1.5×8.0T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6038",
+      "TKR6038 orange 1.5×7.5T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6039",
+      "TKR6039 1.5×7.0T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6040",
+      "TKR6040 blue 1.5×6.75T 70mm – 5.65 lb/in (front)",
+      5.65
+     ],
+     [
+      "TKR6045",
+      "TKR6045 purple 1.5×6.5T 70mm – 6.0 lb/in (front)",
+      5.96
+     ]
+    ],
+    "EB48": [
+     [
+      "TKR6030B",
+      "TKR6030B pink 1.5×10.5T 83mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6030C",
+      "TKR6030C pink 1.5×10.5T 78mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6030D",
+      "TKR6030D pink 1.5×10.5T 73mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6031B",
+      "TKR6031B green 1.5×10.25T 83mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6031C",
+      "TKR6031C green 1.5×10.25T 78mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6031D",
+      "TKR6031D green 1.5×10.25T 73mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6032B",
+      "TKR6032B yellow 1.5×10.0T 83mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6032C",
+      "TKR6032C yellow 1.5×10.0T 78mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6032D",
+      "TKR6032D yellow 1.5×10.0T 73mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6033B",
+      "TKR6033B orange 1.5×9.75T 83mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6033C",
+      "TKR6033C orange 1.5×9.75T 78mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6033D",
+      "TKR6033D orange 1.5×9.75T 73mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6034B",
+      "TKR6034B red 1.5×9.5T 83mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6034C",
+      "TKR6034C red 1.5×9.5T 78mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6034D",
+      "TKR6034D red 1.5×9.5T 73mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6035",
+      "TKR6035 1.5×9.0T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6036",
+      "TKR6036 1.5×8.5T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6037",
+      "TKR6037 1.5×8.0T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6038",
+      "TKR6038 orange 1.5×7.5T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6039",
+      "TKR6039 1.5×7.0T 70mm (front)",
+      null
+     ],
+     [
+      "TKR6040",
+      "TKR6040 blue 1.5×6.75T 70mm – 5.65 lb/in (front)",
+      5.65
+     ],
+     [
+      "TKR6045",
+      "TKR6045 purple 1.5×6.5T 70mm – 6.0 lb/in (front)",
+      5.96
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "Options from NBM/EBM p17 (TKR6030B–6034B/C/D, TKR6035–6045). Rates/colours from teknorc.com product titles; 70mm TKR6035/6036/6037/6039 have no published rate/colour.",
+    "EB48": "Options from NBM/EBM p17 (TKR6030B–6034B/C/D, TKR6035–6045). Rates/colours from teknorc.com product titles; 70mm TKR6035/6036/6037/6039 have no published rate/colour."
    }
   },
   {
@@ -1553,8 +2883,22 @@
     "ET48": {
      "v": 0,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 0,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p20 \"0% rebound (stock)\""
+    },
+    "EB48": {
+     "v": 0,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p20"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fBuild",
@@ -1575,9 +2919,23 @@
     "ET48": {
      "v": "Emulsion",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "Emulsion",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p17 (stock emulsion build)"
+    },
+    "EB48": {
+     "v": "Emulsion",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p17"
     }
    },
-   "note": "Bladder build optional, requires 2× TKR6009 (NTM p20)."
+   "note": "Bladder build optional, requires 2× TKR6009 (NTM p20).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rTower",
@@ -1594,8 +2952,22 @@
     "ET48": {
      "v": "TKR9429B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9269E",
+     "src": "NBM p35 (Box Stock setup sheet); teknorc.com TKR9269E (rear split, 7075)"
+    },
+    "EB48": {
+     "v": "TKR9269E",
+     "src": "EBM p30 (Box Stock setup sheet); teknorc.com TKR9269E"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rUpper",
@@ -1618,7 +2990,25 @@
     "ET48": {
      "v": "Hole 3",
      "src": "ETM p18 \"second from the inside on the tower\" (Box Stock sheet graphic looks identical to NT – verify)"
+    },
+    "NB48": {
+     "v": "Hole 2",
+     "src": "NBM p35 (Box Stock setup sheet) (2nd hole from the outside of 4); NBM p18 text says \"middle hole on the tower\""
+    },
+    "EB48": {
+     "v": "Hole 2",
+     "src": "EBM p30 (Box Stock setup sheet) (2nd from outside of 4); EBM p18 \"middle hole on the tower\""
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "noteV": {
+    "NB48": "Sheet graphic: 4 holes, the 2nd from the outside is marked. Build text says “middle hole” (a 4-hole tower has no single middle).",
+    "EB48": "Sheet graphic: 4 holes, the 2nd from the outside is marked. Build text says “middle hole” (a 4-hole tower has no single middle)."
    }
   },
   {
@@ -1641,8 +3031,22 @@
     "ET48": {
      "v": "0mm",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "0mm",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p7 (rear standoffs TKR8777, shorter)"
+    },
+    "EB48": {
+     "v": "0mm",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rLower",
@@ -1664,7 +3068,31 @@
     "ET48": {
      "v": "Inside",
      "src": "ETM p18; ETM p30"
+    },
+    "NB48": {
+     "v": "Inside",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p18 \"inside hole on the arm\""
+    },
+    "EB48": {
+     "v": "Inside",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p18"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "Inside",
+     "Outside"
+    ],
+    "EB48": [
+     "Inside",
+     "Outside"
+    ]
    }
   },
   {
@@ -1694,9 +3122,45 @@
     "ET48": {
      "v": "2",
      "src": "ETM p9"
+    },
+    "NB48": {
+     "v": "2",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p10 \"Stock position is 2/5\""
+    },
+    "EB48": {
+     "v": "2",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p9 \"2/5\""
     }
    },
-   "note": "Turnbuckle length 86.00 mm stock (NTM p10). Holes 1–4 / 5–8 as numbered in the manual."
+   "note": "Turnbuckle length 86.00 mm stock (NTM p10). Holes 1–4 / 5–8 as numbered in the manual.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6"
+    ],
+    "EB48": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6"
+    ]
+   },
+   "noteV": {
+    "NB48": "Buggy rear: 2 columns × 3 inner holes (sheet graphic); stock 2 = middle of the outer column, per “Stock position is 2/5” (NBM p10 / EBM p9). Turnbuckle length not printed as a number.",
+    "EB48": "Buggy rear: 2 columns × 3 inner holes (sheet graphic); stock 2 = middle of the outer column, per “Stock position is 2/5” (NBM p10 / EBM p9). Turnbuckle length not printed as a number."
+   }
   },
   {
    "id": "rOutCam",
@@ -1730,9 +3194,23 @@
     "ET48": {
      "v": "5",
      "src": "ETM p9"
+    },
+    "NB48": {
+     "v": "5",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p10 \"2/5\" (sheet marks top-row outer hole)"
+    },
+    "EB48": {
+     "v": "5",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p9"
     }
    },
-   "note": "Hub-hole numbering inferred from the manual \"2/5\" note; Box Stock sheet marks the top-row outer hole. Move the link with the pin when changing axle height (NTM p31)."
+   "note": "Hub-hole numbering inferred from the manual \"2/5\" note; Box Stock sheet marks the top-row outer hole. Move the link with the pin when changing axle height (NTM p31).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rCvd",
@@ -1754,9 +3232,41 @@
     "ET48": {
      "v": "U - TKR9687",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "U - TKR9287",
+     "src": "NBM p35 (Box Stock setup sheet); NBW \"New 93.5mm Rear Universal Driveshafts\" (TKR9287)"
+    },
+    "EB48": {
+     "v": "U - TKR9287",
+     "src": "EBM p30 (Box Stock setup sheet); EBW (TKR9287 93.5mm)"
     }
    },
-   "note": "TKR9687 (shorter shaft/longer stub axle): more forward drive & on-power rear grip; TKR9487: more off-power rear grip & braking stability (ETM p28)."
+   "note": "TKR9687 (shorter shaft/longer stub axle): more forward drive & on-power rear grip; TKR9487: more off-power rear grip & braking stability (ETM p28).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "U - TKR9087",
+     "U - TKR9287",
+     "U - TKR9287B",
+     "C - TKR8072"
+    ],
+    "EB48": [
+     "U - TKR9087",
+     "U - TKR9287",
+     "U - TKR9287B",
+     "C - TKR8072"
+    ]
+   },
+   "noteV": {
+    "NB48": "TKR9287 = 93.5mm (kit, new for 2.2), TKR9287B = 94.5mm, TKR9087 = 96.5mm (teknorc.com titles). The manuals do not explain the handling effect for the buggies.",
+    "EB48": "TKR9287 = 93.5mm (kit, new for 2.2), TKR9287B = 94.5mm, TKR9087 = 96.5mm (teknorc.com titles). The manuals do not explain the handling effect for the buggies."
+   }
   },
   {
    "id": "rHub",
@@ -1778,7 +3288,33 @@
     "ET48": {
      "v": "2mm",
      "src": "ETM p30"
+    },
+    "NB48": {
+     "v": "1mm",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "1mm",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "0mm",
+     "1mm",
+     "2mm"
+    ],
+    "EB48": [
+     "0mm",
+     "1mm",
+     "2mm"
+    ]
    }
   },
   {
@@ -1803,9 +3339,23 @@
     "ET48": {
      "v": "-2mm",
      "src": "ETM p30"
+    },
+    "NB48": {
+     "v": "-2mm",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p9 \"Stock Rear Hub Position\""
+    },
+    "EB48": {
+     "v": "-2mm",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p8"
     }
    },
-   "note": "Lower axle (higher pin position) = more roll & rear traction, slower direction change; higher axle = less roll, quicker (NTM p31)."
+   "note": "Lower axle (higher pin position) = more roll & rear traction, slower direction change; higher axle = less roll, quicker (NTM p31).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "cPill",
@@ -1833,9 +3383,59 @@
     "ET48": {
      "v": "Center",
      "src": "ETM p7; ETM p30"
+    },
+    "NB48": {
+     "v": "Center",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p8 \"Anti-Squat = 2°\" with center dot inserts"
+    },
+    "EB48": {
+     "v": "Center",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p7 \"Anti-Squat = 2°\""
     }
    },
-   "note": "Center dot inserts: anti-squat = 3.0° (NTM p8). Kit C block TKR9463B (-1mm)."
+   "note": "Center dot inserts: anti-squat = 3.0° (NTM p8). Kit C block TKR9463B (-1mm).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "noteV": {
+    "NB48": "Center dot inserts: anti-squat = 2° on the buggies (truggies: 3°) – NBM p8 / EBM p7.",
+    "EB48": "Center dot inserts: anti-squat = 2° on the buggies (truggies: 3°) – NBM p8 / EBM p7."
+   }
+  },
+  {
+   "id": "cBlock",
+   "sec": "Rear end",
+   "label": "“C” block (rear arm, front)",
+   "kind": "select",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48",
+    "EB48"
+   ],
+   "opts": [
+    [
+     "TKR9163B",
+     "TKR9163B (-1mm)"
+    ],
+    [
+     "TKR9163C",
+     "TKR9163C (-2mm)"
+    ]
+   ],
+   "stock": {
+    "NB48": {
+     "v": "TKR9163B",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p8"
+    },
+    "EB48": {
+     "v": "TKR9163B",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p7"
+    }
+   }
   },
   {
    "id": "cScrew",
@@ -1856,9 +3456,23 @@
     "ET48": {
      "v": "In",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "In",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "In",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "Screws in: less torsional flex, more on-power rear grip; out: more flex, more off-power rear grip (NTM p31)."
+   "note": "Screws in: less torsional flex, more on-power rear grip; out: more flex, more off-power rear grip (NTM p31).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "dPill",
@@ -1886,9 +3500,55 @@
     "ET48": {
      "v": "Center",
      "src": "ETM p7; ETM p30"
+    },
+    "NB48": {
+     "v": "Center",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p8 \"Rear Toe = 2.5°\""
+    },
+    "EB48": {
+     "v": "Center",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p7"
     }
    },
-   "note": "Center dot inserts: rear toe = 2.5° (NTM p8). Kit D block TKR9464B (-1mm)."
+   "note": "Center dot inserts: rear toe = 2.5° (NTM p8). Kit D block TKR9464B (-1mm).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
+  },
+  {
+   "id": "dBlock",
+   "sec": "Rear end",
+   "label": "“D” block (rear arm, rear)",
+   "kind": "select",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48",
+    "EB48"
+   ],
+   "opts": [
+    [
+     "TKR9164B",
+     "TKR9164B (-1mm)"
+    ],
+    [
+     "TKR9164C",
+     "TKR9164C (-2mm)"
+    ]
+   ],
+   "stock": {
+    "NB48": {
+     "v": "TKR9164C",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p8"
+    },
+    "EB48": {
+     "v": "TKR9164C",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p7"
+    }
+   }
   },
   {
    "id": "rRH",
@@ -1908,8 +3568,22 @@
     "ET48": {
      "v": 38,
      "src": "ETM p30; ETM p18"
+    },
+    "NB48": {
+     "v": 26,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p18 \"Stock rear ride height is 26mm\""
+    },
+    "EB48": {
+     "v": 25,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rCam",
@@ -1929,9 +3603,23 @@
     "ET48": {
      "v": -2,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": -2,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": -2,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "Manual: good starting rear camber 1.5–2.5° (NTM p30)."
+   "note": "Manual: good starting rear camber 1.5–2.5° (NTM p30).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rAS",
@@ -1949,8 +3637,22 @@
     "ET48": {
      "v": 3,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 2,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p8"
+    },
+    "EB48": {
+     "v": 2,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p7"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rToe",
@@ -1970,8 +3672,22 @@
     "ET48": {
      "v": 2.5,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 2.5,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 2.5,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rShockLen",
@@ -1989,8 +3705,22 @@
     "ET48": {
      "v": 134,
      "src": "ETM p18"
+    },
+    "NB48": {
+     "v": 125,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p18 \"Shock length (droop) is 125mm\""
+    },
+    "EB48": {
+     "v": 125,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p18"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rUpTravel",
@@ -2008,8 +3738,22 @@
     "ET48": {
      "v": 0,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 0,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 0,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rDroop",
@@ -2027,8 +3771,22 @@
     "ET48": {
      "v": -8,
      "src": "ETM p30; ETM p27"
+    },
+    "NB48": {
+     "v": -4,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p18 \"-4mm\""
+    },
+    "EB48": {
+     "v": -4,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p18 & p27"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rOil",
@@ -2117,8 +3875,22 @@
     "ET48": {
      "v": 650,
      "src": "ETM p30; ETM p18"
+    },
+    "NB48": {
+     "v": 600,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p18 \"Use #600 CST oil\""
+    },
+    "EB48": {
+     "v": 600,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p18"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rPiston",
@@ -2169,7 +3941,91 @@
     "ET48": {
      "v": "TKR6137",
      "src": "ETM p30; ETM p18"
+    },
+    "NB48": {
+     "v": "TKR6139",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p18"
+    },
+    "EB48": {
+     "v": "TKR6139",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p18"
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR6138",
+      "TKR6138 flat/flat set: 2× 1.5mm-hole + 2× 1.6mm-hole pistons",
+      null
+     ],
+     [
+      "TKR6139",
+      "TKR6139 flat/flat set: 2× 1.6mm-hole + 2× 1.7mm-hole pistons",
+      null
+     ],
+     [
+      "TKR6130",
+      "TKR6130 blank flat/taper (drill your own)",
+      null
+     ],
+     [
+      "TKR6131",
+      "TKR6131 blank flat/flat (drill your own)",
+      null
+     ],
+     [
+      "TKR6160",
+      "TKR6160 CNC blank flat/taper",
+      null
+     ],
+     [
+      "TKR6163",
+      "TKR6163 CNC blank flat/flat",
+      null
+     ]
+    ],
+    "EB48": [
+     [
+      "TKR6138",
+      "TKR6138 flat/flat set: 2× 1.5mm-hole + 2× 1.6mm-hole pistons",
+      null
+     ],
+     [
+      "TKR6139",
+      "TKR6139 flat/flat set: 2× 1.6mm-hole + 2× 1.7mm-hole pistons",
+      null
+     ],
+     [
+      "TKR6130",
+      "TKR6130 blank flat/taper (drill your own)",
+      null
+     ],
+     [
+      "TKR6131",
+      "TKR6131 blank flat/flat (drill your own)",
+      null
+     ],
+     [
+      "TKR6160",
+      "TKR6160 CNC blank flat/taper",
+      null
+     ],
+     [
+      "TKR6163",
+      "TKR6163 CNC blank flat/flat",
+      null
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "TKR6139 contains 1.6 and 1.7mm-hole pistons; which one is used rear is not stated.",
+    "EB48": "TKR6139 contains 1.6 and 1.7mm-hole pistons; which one is used rear is not stated."
    }
   },
   {
@@ -2206,8 +4062,22 @@
     "ET48": {
      "v": "tekno",
      "src": "Kit uses Tekno pistons (ETM p17/p18)"
+    },
+    "NB48": {
+     "v": "tekno",
+     "src": "Kit uses Tekno pistons (NBM p17/p18)"
+    },
+    "EB48": {
+     "v": "tekno",
+     "src": "Kit uses Tekno pistons (EBM p17/p18)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rMipPiston",
@@ -2282,9 +4152,23 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
    },
-   "note": "MIP official pages; only shown when a MIP piston type is selected. Hi-Flow & Tapered Hi-Flow pages list Tekno fitment; #19021/#19011 pages do not state a vehicle (they are the replacement pistons for the Tekno set #19010)."
+   "note": "MIP official pages; only shown when a MIP piston type is selected. Hi-Flow & Tapered Hi-Flow pages list Tekno fitment; #19021/#19011 pages do not state a vehicle (they are the replacement pistons for the Tekno set #19010).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rMipValve",
@@ -2330,9 +4214,23 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
    },
-   "note": "MIP #19005 valve chart and Bypass1 instruction sheet: thinner = faster rebound (“rough”), thicker = slower (“smooth”). Installed piston → valve → stop washer (#18402) → locknut."
+   "note": "MIP #19005 valve chart and Bypass1 instruction sheet: thinner = faster rebound (“rough”), thicker = slower (“smooth”). Installed piston → valve → stop washer (#18402) → locknut.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rSpring",
@@ -2393,9 +4291,183 @@
     "ET48": {
      "v": "TKR6090",
      "src": "ETM p30; ETM p18 (ETM p26 parts list shows TKR6091 – verify your kit)"
+    },
+    "NB48": {
+     "v": "TKR6032B",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p18"
+    },
+    "EB48": {
+     "v": "TKR6032B",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p18 & p26"
     }
    },
-   "note": "Options per manual step M-4: TKR6080–6083 (90mm) and TKR6090–6093 (80mm). Different free lengths change preload/ride height."
+   "note": "Options per manual step M-4: TKR6080–6083 (90mm) and TKR6090–6093 (80mm). Different free lengths change preload/ride height.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR6030B",
+      "TKR6030B pink 1.5×10.5T 83mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6030C",
+      "TKR6030C pink 1.5×10.5T 78mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6030D",
+      "TKR6030D pink 1.5×10.5T 73mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6031B",
+      "TKR6031B green 1.5×10.25T 83mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6031C",
+      "TKR6031C green 1.5×10.25T 78mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6031D",
+      "TKR6031D green 1.5×10.25T 73mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6032B",
+      "TKR6032B yellow 1.5×10.0T 83mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6032C",
+      "TKR6032C yellow 1.5×10.0T 78mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6032D",
+      "TKR6032D yellow 1.5×10.0T 73mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6033B",
+      "TKR6033B orange 1.5×9.75T 83mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6033C",
+      "TKR6033C orange 1.5×9.75T 78mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6033D",
+      "TKR6033D orange 1.5×9.75T 73mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6034B",
+      "TKR6034B red 1.5×9.5T 83mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6034C",
+      "TKR6034C red 1.5×9.5T 78mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6034D",
+      "TKR6034D red 1.5×9.5T 73mm – 3.83 lb/in",
+      3.83
+     ]
+    ],
+    "EB48": [
+     [
+      "TKR6030B",
+      "TKR6030B pink 1.5×10.5T 83mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6030C",
+      "TKR6030C pink 1.5×10.5T 78mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6030D",
+      "TKR6030D pink 1.5×10.5T 73mm – 3.38 lb/in",
+      3.38
+     ],
+     [
+      "TKR6031B",
+      "TKR6031B green 1.5×10.25T 83mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6031C",
+      "TKR6031C green 1.5×10.25T 78mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6031D",
+      "TKR6031D green 1.5×10.25T 73mm – 3.48 lb/in",
+      3.48
+     ],
+     [
+      "TKR6032B",
+      "TKR6032B yellow 1.5×10.0T 83mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6032C",
+      "TKR6032C yellow 1.5×10.0T 78mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6032D",
+      "TKR6032D yellow 1.5×10.0T 73mm – 3.59 lb/in",
+      3.59
+     ],
+     [
+      "TKR6033B",
+      "TKR6033B orange 1.5×9.75T 83mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6033C",
+      "TKR6033C orange 1.5×9.75T 78mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6033D",
+      "TKR6033D orange 1.5×9.75T 73mm – 3.71 lb/in",
+      3.71
+     ],
+     [
+      "TKR6034B",
+      "TKR6034B red 1.5×9.5T 83mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6034C",
+      "TKR6034C red 1.5×9.5T 78mm – 3.83 lb/in",
+      3.83
+     ],
+     [
+      "TKR6034D",
+      "TKR6034D red 1.5×9.5T 73mm – 3.83 lb/in",
+      3.83
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "Options from NBM/EBM p18. B = 83mm, C = 78mm, D = 73mm free length (teknorc.com); shorter spring = less preload at the same collar.",
+    "EB48": "Options from NBM/EBM p18. B = 83mm, C = 78mm, D = 73mm free length (teknorc.com); shorter spring = less preload at the same collar."
+   }
   },
   {
    "id": "rRebound",
@@ -2413,8 +4485,22 @@
     "ET48": {
      "v": 0,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 0,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p20"
+    },
+    "EB48": {
+     "v": 0,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p20"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rBuild",
@@ -2435,8 +4521,22 @@
     "ET48": {
      "v": "Emulsion",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "Emulsion",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p18"
+    },
+    "EB48": {
+     "v": "Emulsion",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p18"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fDiffOil",
@@ -2512,9 +4612,27 @@
     "ET48": {
      "v": 10000,
      "src": "ETM p34; ETM p4 \"Fill with #10,000 CST oil FRONT\""
+    },
+    "NB48": {
+     "v": 7000,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p4 \"Fill with #7,000 CST oil FRONT\""
+    },
+    "EB48": {
+     "v": 7000,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p4 \"Fill with #7,000 CST oil FRONT\""
     }
    },
-   "note": "Tekno setup notes recommend 7k front / 5k center / 5k rear (NTM p31, ETM p28); the Box Stock sheet & build steps use 10k / 10k / 5k."
+   "note": "Tekno setup notes recommend 7k front / 5k center / 5k rear (NTM p31, ETM p28); the Box Stock sheet & build steps use 10k / 10k / 5k.",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "noteV": {
+    "NB48": "Buggy sheet, build steps and setup notes all agree: 7k front / 5k center / 5k rear (NBM p3–4, p31; EBM p3–4).",
+    "EB48": "Buggy sheet, build steps and setup notes all agree: 7k front / 5k center / 5k rear (NBM p3–4, p31; EBM p3–4)."
+   }
   },
   {
    "id": "cDiffOil",
@@ -2590,8 +4708,22 @@
     "ET48": {
      "v": 10000,
      "src": "ETM p34; ETM p3 \"Fill with #10,000 CST\""
+    },
+    "NB48": {
+     "v": 5000,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p3 \"Fill with #5,000 CST oil\""
+    },
+    "EB48": {
+     "v": 5000,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p3"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rDiffOil",
@@ -2667,8 +4799,22 @@
     "ET48": {
      "v": 5000,
      "src": "ETM p34; ETM p4 \"Fill with #5,000 CST oil REAR\""
+    },
+    "NB48": {
+     "v": 5000,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p4 \"#5,000 CST oil REAR\""
+    },
+    "EB48": {
+     "v": 5000,
+     "src": "EBM p30 (Box Stock setup sheet); EBM p4"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fOring",
@@ -2695,8 +4841,22 @@
     "ET48": {
      "v": "TKR5144B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR5144B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR5144B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fShim",
@@ -2723,8 +4883,22 @@
     "ET48": {
      "v": "TKR5145B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR5145B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR5145B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fOutdrive",
@@ -2745,8 +4919,22 @@
     "ET48": {
      "v": "Standard (TKR9114/TKR9112)",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "Standard (TKR9114/TKR9112)",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "Standard (TKR9114/TKR9112)",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fGears",
@@ -2773,9 +4961,23 @@
     "ET48": {
      "v": "TKR9150B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9150B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9150B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "TKR9150B recommended for most conditions (NTM p31)."
+   "note": "TKR9150B recommended for most conditions (NTM p31).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fCase",
@@ -2802,8 +5004,22 @@
     "ET48": {
      "v": "TKR9115B",
      "src": "ETM p30 (sheet marks TKR9115B); ETM p26"
+    },
+    "NB48": {
+     "v": "TKR9115C",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9115C",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fPin",
@@ -2834,8 +5050,22 @@
     "ET48": {
      "v": "TKR9149",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9149",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9149",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "cOring",
@@ -2862,8 +5092,22 @@
     "ET48": {
      "v": "TKR5144B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR5144B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR5144B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "cShim",
@@ -2890,8 +5134,22 @@
     "ET48": {
      "v": "TKR5145B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR5145B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR5145B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "cOutdrive",
@@ -2912,8 +5170,22 @@
     "ET48": {
      "v": "Standard (TKR9114/TKR9112)",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "Standard (TKR9114/TKR9112)",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "Standard (TKR9114/TKR9112)",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "cGears",
@@ -2940,8 +5212,22 @@
     "ET48": {
      "v": "TKR9150B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9150B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9150B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "cCase",
@@ -2968,8 +5254,22 @@
     "ET48": {
      "v": "TKR9115B",
      "src": "ETM p30 (sheet marks TKR9115B); ETM p26"
+    },
+    "NB48": {
+     "v": "TKR9115C",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9115C",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "cPin",
@@ -3000,8 +5300,22 @@
     "ET48": {
      "v": "TKR9149",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9149",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9149",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rOring",
@@ -3028,8 +5342,22 @@
     "ET48": {
      "v": "TKR5144B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR5144B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR5144B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rShim",
@@ -3056,8 +5384,22 @@
     "ET48": {
      "v": "TKR5145B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR5145B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR5145B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rOutdrive",
@@ -3078,8 +5420,22 @@
     "ET48": {
      "v": "Standard (TKR9114/TKR9112)",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "Standard (TKR9114/TKR9112)",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "Standard (TKR9114/TKR9112)",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rGears",
@@ -3106,8 +5462,22 @@
     "ET48": {
      "v": "TKR9150B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9150B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9150B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rCase",
@@ -3134,8 +5504,22 @@
     "ET48": {
      "v": "TKR9115B",
      "src": "ETM p30 (sheet marks TKR9115B); ETM p26"
+    },
+    "NB48": {
+     "v": "TKR9115C",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9115C",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rPin",
@@ -3166,8 +5550,22 @@
     "ET48": {
      "v": "TKR9149",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9149",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9149",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "fBulk",
@@ -3194,8 +5592,22 @@
     "ET48": {
      "v": "TKR9416B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9416B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9416B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "rBulk",
@@ -3222,8 +5634,22 @@
     "ET48": {
      "v": "TKR9416B",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "TKR9416B",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "TKR9416B",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "braceMid",
@@ -3244,8 +5670,17 @@
     "ET48": {
      "v": "Installed",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "Installed",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "EB48"
+   ]
   },
   {
    "id": "braceRear",
@@ -3266,8 +5701,39 @@
     "ET48": {
      "v": "Installed",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "Installed",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "EB48"
+   ]
+  },
+  {
+   "id": "braceNB",
+   "sec": "Chassis",
+   "label": "Rear chassis brace",
+   "kind": "select",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48"
+   ],
+   "opts": [
+    "Rear-short",
+    "Rear-long"
+   ],
+   "stock": {
+    "NB48": {
+     "v": "Rear-long",
+     "src": "NBM p35 (Box Stock setup sheet) (\"REAR-SHORT / REAR-LONG\", long marked)"
+    }
+   },
+   "note": "The NB48 2.2 sheet offers a short or long rear brace (no middle-brace option on the nitro buggy sheet)."
   },
   {
    "id": "wbRear",
@@ -3285,9 +5751,27 @@
     "ET48": {
      "v": 3,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 1,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 1,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "Shims: thick 2mm, thin 1mm. Shorter rear wheelbase = more steering into turns/off-power; longer = better on open/bumpy tracks (NTM p31)."
+   "note": "Shims: thick 2mm, thin 1mm. Shorter rear wheelbase = more steering into turns/off-power; longer = better on open/bumpy tracks (NTM p31).",
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "noteV": {
+    "NB48": "Buggy sheets: 1mm rear / 2mm front of spacer (truggies: 3mm rear). Shims: thick 2mm, thin 1mm.",
+    "EB48": "Buggy sheets: 1mm rear / 2mm front of spacer (truggies: 3mm rear). Shims: thick 2mm, thin 1mm."
+   }
   },
   {
    "id": "wbFront",
@@ -3305,8 +5789,22 @@
     "ET48": {
      "v": 2,
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 2,
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": 2,
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "tBrand",
@@ -3323,8 +5821,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "tComp",
@@ -3341,8 +5853,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "tInsert",
@@ -3359,8 +5885,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "tWheel",
@@ -3377,8 +5917,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "body",
@@ -3395,8 +5949,22 @@
     "ET48": {
      "v": "Stock (TKR9645A)",
      "src": "ETM p30; ETM p26"
+    },
+    "NB48": {
+     "v": "Stock (TKR9345B)",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p29 parts list (TKR9345B body, NB48 2.1)"
+    },
+    "EB48": {
+     "v": "Stock (TKR9045)",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p26 parts list (TKR9045 body, EB48 2.0)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "wing",
@@ -3413,8 +5981,22 @@
     "ET48": {
      "v": "Stock (TKR8292W)",
      "src": "ETM p30; ETM p26"
+    },
+    "NB48": {
+     "v": "Stock (TKR8292W)",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p29 (TKR8292W lightweight wing)"
+    },
+    "EB48": {
+     "v": "Stock (TKR8292W)",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p26"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "wingPos",
@@ -3437,7 +6019,31 @@
     "ET48": {
      "v": "+12mm",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "+7mm",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p7 \"+ 7mm (stock)\""
+    },
+    "EB48": {
+     "v": "+7mm",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p6 \"Stock position is + 7mm\""
     }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ],
+   "optsV": {
+    "NB48": [
+     "0mm",
+     "+7mm"
+    ],
+    "EB48": [
+     "0mm",
+     "+7mm"
+    ]
    }
   },
   {
@@ -3452,8 +6058,16 @@
     "NT48": {
      "v": 13,
      "src": "NTM p34; NTM p29 (TKR4213 13t)"
+    },
+    "NB48": {
+     "v": 13,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p29 (TKR4213 13t)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "NB48"
+   ]
   },
   {
    "id": "spurNT",
@@ -3467,7 +6081,18 @@
     "NT48": {
      "v": 48,
      "src": "NTM p34; NTM p29 (TKR9419 48t)"
+    },
+    "NB48": {
+     "v": 48,
+     "src": "NBM p35 (Box Stock setup sheet); NBM p29 (TKR9419 48t)"
     }
+   },
+   "veh": [
+    "NT48",
+    "NB48"
+   ],
+   "noteV": {
+    "NB48": "NBM p29 lists TKR9419 (48t, kit), with TKR9420 47t / TKR9421 46t as options. No gearing chart in the NB48 manual."
    }
   },
   {
@@ -3481,8 +6106,16 @@
     "NT48": {
      "v": "Aluminum (TKR5351)",
      "src": "NTM p34 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "Aluminum (TKR5351)",
+     "src": "NBM p35 (Box Stock setup sheet); NBM p29 (TKR5351 7075 shoes)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "NB48"
+   ]
   },
   {
    "id": "clutchSprings",
@@ -3495,8 +6128,16 @@
     "NT48": {
      "v": "2× red, 2× gold (sheet)",
      "src": "NTM p34 – NOTE NTM p23 says kit has 2× 1.0mm yellow + 2× 1.1mm red; tuning set TKR5353"
+    },
+    "NB48": {
+     "v": "2× green, 2× gold (sheet)",
+     "src": "NBM p35 (Box Stock setup sheet) – NOTE NBM p23 says \"(2x) 0.9mm green springs, (2x) 1.0mm yellow springs\""
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "NB48"
+   ]
   },
   {
    "id": "brakeF",
@@ -3510,8 +6151,16 @@
     "NT48": {
      "v": 60,
      "src": "NTM p34 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 60,
+     "src": "NBM p35 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "NB48"
+   ]
   },
   {
    "id": "brakeR",
@@ -3525,8 +6174,16 @@
     "NT48": {
      "v": 40,
      "src": "NTM p34 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": 40,
+     "src": "NBM p35 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "NB48"
+   ]
   },
   {
    "id": "pinion",
@@ -3547,8 +6204,16 @@
     "ET48": {
      "v": "15",
      "src": "ETM p30; ETM p22 chart (4-cell): 14t small / 14–15t medium / 15–17t large track"
+    },
+    "EB48": {
+     "v": "16",
+     "src": "EBM p30 (Box Stock setup sheet); EBM p22 chart (4-cell, 1900–2050kv: 15–16t small, 16–17t medium, 17–18t large)"
     }
-   }
+   },
+   "veh": [
+    "ET48",
+    "EB48"
+   ]
   },
   {
    "id": "spurET",
@@ -3565,8 +6230,16 @@
     "ET48": {
      "v": "44t composite TKR9237",
      "src": "ETM p30 (44t); ETM p26 lists TKR9237 composite in kit, TKR9117 steel as option"
+    },
+    "EB48": {
+     "v": "44t composite TKR9237",
+     "src": "EBM p30 (Box Stock setup sheet) (44t); EBM p26 parts list TKR9237 composite (TKR9117 steel listed with options)"
     }
-   }
+   },
+   "veh": [
+    "ET48",
+    "EB48"
+   ]
   },
   {
    "id": "engine",
@@ -3579,8 +6252,16 @@
     "NT48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "NB48"
+   ]
   },
   {
    "id": "fuel",
@@ -3593,8 +6274,16 @@
     "NT48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "NB48"
+   ]
   },
   {
    "id": "esc",
@@ -3607,8 +6296,16 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "ET48",
+    "EB48"
+   ]
   },
   {
    "id": "motor",
@@ -3621,8 +6318,16 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "ET48",
+    "EB48"
+   ]
   },
   {
    "id": "battery",
@@ -3635,8 +6340,16 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "ET48",
+    "EB48"
+   ]
   },
   {
    "id": "sServo",
@@ -3653,8 +6366,22 @@
     "ET48": {
      "v": "300 oz min",
      "src": "ETM p30 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "300 oz min",
+     "src": "NBM p35 (Box Stock setup sheet)"
+    },
+    "EB48": {
+     "v": "300 oz min",
+     "src": "EBM p30 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "tServo",
@@ -3667,8 +6394,16 @@
     "NT48": {
      "v": "300 oz min",
      "src": "NTM p34 (Box Stock setup sheet)"
+    },
+    "NB48": {
+     "v": "300 oz min",
+     "src": "NBM p35 (Box Stock setup sheet)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "NB48"
+   ]
   },
   {
    "id": "expo",
@@ -3686,8 +6421,22 @@
     "ET48": {
      "v": -10,
      "src": "ETM p29"
+    },
+    "NB48": {
+     "v": -10,
+     "src": "NBM p32 (suggested start)"
+    },
+    "EB48": {
+     "v": -10,
+     "src": "EBM p29 (suggested start)"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "servoSpd",
@@ -3705,8 +6454,22 @@
     "ET48": {
      "v": -10,
      "src": "ETM p29"
+    },
+    "NB48": {
+     "v": -10,
+     "src": "NBM p32"
+    },
+    "EB48": {
+     "v": -10,
+     "src": "EBM p29"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "brakeDR",
@@ -3724,8 +6487,22 @@
     "ET48": {
      "v": 80,
      "src": "ETM p29"
+    },
+    "NB48": {
+     "v": 80,
+     "src": "NBM p32"
+    },
+    "EB48": {
+     "v": 80,
+     "src": "EBM p29"
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   },
   {
    "id": "notes",
@@ -3742,8 +6519,22 @@
     "ET48": {
      "v": null,
      "src": null
+    },
+    "NB48": {
+     "v": null,
+     "src": null
+    },
+    "EB48": {
+     "v": null,
+     "src": null
     }
-   }
+   },
+   "veh": [
+    "NT48",
+    "ET48",
+    "NB48",
+    "EB48"
+   ]
   }
  ],
  "gearingET": {
@@ -3797,7 +6588,13 @@
   "ET48 2.2 rear upper shock: ETM p18 text says \"second from the inside on the tower\"; NTM p18 says \"second from the outside\"; both Box Stock sheet graphics look the same.",
   "NT clutch springs: sheet \"2× Red, 2× Gold\" vs NTM p23 \"kit contains 2× 1.0mm yellow and 2× 1.1mm red springs\".",
   "NTM p31 rear axle text names TKR9287/TKR9087 (not in the NT48 2.2 parts list); ETM p28 names TKR9687/TKR9487, which match the kit parts.",
-  "Front toe: sheet 2° out vs setup notes \"approximately 0.5–1 degree of toe out per side\"."
+  "Front toe: sheet 2° out vs setup notes \"approximately 0.5–1 degree of toe out per side\".",
+  "NB48 2.2 ride height: Box Stock sheet (NBM p35) and build steps (NBM p17/p18) say 24mm front / 26mm rear; the setup notes (NBM p30) say 23mm / 25mm. EB48 2.2 uses 23 / 25 everywhere.",
+  "Buggy upper shock holes: sheets mark the inner of 2 drawn front holes and the 2nd-from-outside of 4 rear holes; build text (NBM/EBM p17–18) says “middle hole on the tower” for both.",
+  "NB48 2.2 clutch springs: sheet “2x Green, 2x Gold” vs NBM p23 “(2x) 0.9mm green springs, (2x) 1.0mm yellow springs”.",
+  "EB48 2.2 parts list page (EBM p26) is headed “TKR9003 – EB48 2.1 … Kit”; the kit body is listed as TKR9045 (EB48 2.0) and the NB48 body as TKR9345B (NB48 2.1) – carry-over parts, not 2.2-specific.",
+  "teknorc.com titles TKR6032B “rear” spring, but both buggy kits use TKR6032B front AND rear (sheet + build steps).",
+  "Buggy setup notes (NBM p30 / EBM p27) suggest a good starting point of the “F” plate and TKR9047F spindle arm – the Box Stock sheet also marks F, consistent."
  ],
  "gaps": [
   "Tires/inserts/wheels: not specified for either kit (sheet blank).",
@@ -3807,7 +6604,13 @@
   "Achievable kick-up / anti-squat / toe / sweep values for non-center insert positions are not tabulated (only center-dot values: kick-up 10°, sweep 0°, anti-squat 3°, rear toe 2.5°).",
   "Roll-center numbers (mm) are not published; only directional notes.",
   "Rear hub (15-hole) and tower hole numbering beyond the \"2/5\" and \"3/B\" stock notes is inferred from the drawings.",
-  "Shock oil and diff oil dropdown lists are generic viscosities (Tekno does not publish an option list)."
+  "Shock oil and diff oil dropdown lists are generic viscosities (Tekno does not publish an option list).",
+  "NB48/EB48: no overall dimensions or weight published (teknorc.com lists them as not specified), so the buggy artwork proportions are illustrative only.",
+  "NB48/EB48: which hole size of the mixed TKR6138 / TKR6139 piston sets is used front vs rear is not stated.",
+  "NB48/EB48: no camber-link turnbuckle lengths printed; no published spring rate/colour for TKR6035/6036/6037/6039.",
+  "NB48 2.2: no nitro gearing chart (only 13t bell / 48t spur stock, 46t/47t optional spurs listed).",
+  "NB48/EB48: TKR9268E front tower hole count not stated (sheet draws 2 upper holes).",
+  "Tires, wheels, inserts, engine/pipe, ESC/motor/battery: not included in the buggy kits / left blank on the sheets."
  ],
  "mip": {
   "about": "MIP Bypass1 piston system for 16mm 1/8 shocks, from OFFICIAL MIP sources only (miponline.com product pages + Bypass1 instruction sheet PDF). Fetched 2026-10-17. Nothing here is a Tekno spec.",
@@ -4004,6 +6807,65 @@
    "MIP does not publish the internal port/flow layout or how valve thickness affects compression; the app's flow diagram is a simplified illustration of MIP's wording (valve opens on impact; thickness sets rebound speed).",
    "Dealer listings quote MIP saying Bypass1 is dyno-tuned to match stock-piston compression and that Tekno pistons can be drilled out; not found on miponline.com, so not used.",
    "No MIP guidance for Tekno-specific front vs rear valve choices."
+  ]
+ },
+ "vehicles": {
+  "NT48": {
+   "name": "NT48 2.2",
+   "kit": "TKR9505",
+   "type": "truggy",
+   "power": "nitro",
+   "manual": "NTM",
+   "sheetPage": 34
+  },
+  "ET48": {
+   "name": "ET48 2.2",
+   "kit": "TKR9605",
+   "type": "truggy",
+   "power": "electric",
+   "manual": "ETM",
+   "sheetPage": 30
+  },
+  "NB48": {
+   "name": "NB48 2.2",
+   "kit": "TKR9305",
+   "type": "buggy",
+   "power": "nitro",
+   "manual": "NBM",
+   "sheetPage": 35,
+   "released": "2024 (teknorc.com: \"seventh revision of the NB48 series\")"
+  },
+  "EB48": {
+   "name": "EB48 2.2",
+   "kit": "TKR9005",
+   "type": "buggy",
+   "power": "electric",
+   "manual": "EBM",
+   "sheetPage": 30,
+   "released": "2024 (teknorc.com: \"eighth iteration of the EB48 series\")"
+  }
+ },
+ "gearingEB": {
+  "src": "EBM p22 (4-cell, 44t spur)",
+  "cols": [
+   "Motor",
+   "Small track (50–100 ft straight)",
+   "Medium (100–150 ft)",
+   "Large (150–200 ft)"
+  ],
+  "rows": [
+   [
+    "1900–2050kv",
+    "15–16t",
+    "16–17t",
+    "17–18t"
+   ],
+   [
+    "2050–2200kv",
+    "14–15t",
+    "15–16t",
+    "16–17t"
+   ]
   ]
  }
 }

@@ -1,0 +1,26 @@
+{
+  "app": "rc-setup-helper",
+  "kind": "setups",
+  "version": 2,
+  "setups": [
+    {
+      "truck": "NB48",
+      "name": "NB48 from photos (example)",
+      "date": "2026-10-17",
+      "track": "Speed Lot (Ramona, CA)",
+      "cond": "Medium bite",
+      "base": "stock",
+      "source": "photos",
+      "vals": {
+        "fUpper": "Hole 1 (outer)",
+        "rInCam": "3",
+        "fHub": "2mm",
+        "cBlock": "TKR9163C",
+        "braceNB": "Rear-short",
+        "wingPos": "0mm",
+        "fOil": 550,
+        "notes": "Example only - values are illustrative choices among Tekno's listed options."
+      }
+    }
+  ]
+}
