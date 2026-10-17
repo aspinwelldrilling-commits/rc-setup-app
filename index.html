@@ -128,6 +128,11 @@ body.printing #printArea{display:block}
 .sdpair{margin:12px 0}
 .sdleg{font-size:12px;margin:2px 0 8px}
 .fld.na{opacity:.5}
+.pbar{height:8px;border-radius:5px;background:#10151d;margin:8px 0;overflow:hidden}.pbar i{display:block;height:100%;background:var(--good)}
+.chk{display:flex;flex-wrap:wrap;gap:6px}.chk a{font-size:12.5px;padding:6px 9px;border-radius:999px;border:1px solid var(--line);color:var(--mut);text-decoration:none}.chk a.ok{border-color:#2f6b4f;color:var(--good)}
+.shot .shh{display:flex;gap:10px;align-items:center}.shot.done{border-color:#2f6b4f}.shot.done .rank{background:var(--good)}
+.phimg img{display:block;width:100%;border-radius:10px;border:1px solid var(--line)}
+ol.see{margin:2px 0 6px;padding-left:20px;font-size:14px}
 .toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--good);color:#111;font-weight:700;padding:10px 16px;border-radius:12px;z-index:9;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
 </style>
@@ -157,11 +162,13 @@ body.printing #printArea{display:block}
       <h2>My setups · <span id="setupTruck"></span></h2>
       <div class="row"><button class="btn pri" id="newStock" style="flex:1">＋ New from Tekno stock</button><button class="btn" id="newBlank">Blank</button></div>
       <div class="row" style="margin-top:8px"><button class="btn sm" id="cmpBtn">Compare</button><button class="btn sm" id="expAllSetups">Export all</button><button class="btn sm" id="impSetups">Import</button><input type="file" id="impSetupFile" accept="application/json,.json" class="hidden"></div>
+      <div class="card" style="margin-top:12px"><b>📷 Photo Setup</b><p class="leg" style="margin:4px 0 8px">Guided photos of your truck → share them → get a setup file back → import it.</p><button class="btn sm pri" id="photoBtn">Open Photo Setup</button></div>
       <div id="setupList"></div>
       <div class="note blue" style="font-size:13px">“Tekno stock” = the official <b>Box Stock</b> setup sheet in the Tekno manual (NT48 2.2 p34 / ET48 2.2 p30) plus build-step values. The <b>ACTIVE</b> setup is what the Advisor reads your current values from.</div>
     </div>
     <div id="setupEdit" class="hidden"></div>
     <div id="setupCmp" class="hidden"></div>
+    <div id="setupPhoto" class="hidden"></div>
   </section>
 
   <!-- LOG -->
@@ -616,12 +623,12 @@ var truck=load(LS_TRUCK,'NT48');
 function setTruck(t){truck=t;save(LS_TRUCK,t);
  $$('#truckSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.truck===t)});
  $('#hdrTruck').textContent=t==='NT48'?'· Nitro truggy':'· Electric truggy';
- if(curSym)showSym(curSym);renderLog();if(typeof showSetupHome==='function'&&setups)showSetupHome();}
+ if(curSym)showSym(curSym);renderLog();if(typeof showSetupHome==='function'&&setups){if(photoOpen)renderPhoto();else showSetupHome()}}
 $$('#truckSeg button').forEach(function(b){b.addEventListener('click',function(){setTruck(b.dataset.truck)})});
 
 /* ---------- Tabs ---------- */
 function showTab(t){$$('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===t)});
- ['advisor','setup','log','learn'].forEach(function(x){$('#tab-'+x).classList.toggle('hidden',x!==t)});if(t==='setup'&&!editId)showSetupHome();window.scrollTo(0,0)}
+ ['advisor','setup','log','learn'].forEach(function(x){$('#tab-'+x).classList.toggle('hidden',x!==t)});if(t==='setup'&&!editId&&!photoOpen)showSetupHome();window.scrollTo(0,0)}
 $$('nav button').forEach(function(b){b.addEventListener('click',function(){showTab(b.dataset.tab)})});
 
 /* ---------- Advisor ---------- */
@@ -816,7 +823,7 @@ function newVersion(base,fid,val,why){var n=JSON.parse(JSON.stringify(base));n.i
 
 /* ---------- My Setup UI ---------- */
 var editId=null;
-function showSetupHome(){editId=null;$('#setupEdit').classList.add('hidden');$('#setupCmp').classList.add('hidden');$('#setupHome').classList.remove('hidden');renderSetupList()}
+function showSetupHome(){editId=null;if(typeof photoOpen!=='undefined'&&photoOpen){closePhoto()}$('#setupEdit').classList.add('hidden');$('#setupCmp').classList.add('hidden');$('#setupHome').classList.remove('hidden');renderSetupList()}
 function renderSetupList(){var list=setups.filter(function(s){return s.truck===truck});
  $('#setupTruck').textContent=truckName(truck);
  if(!list.length){$('#setupList').innerHTML='<div class="empty">No setups for the '+truckName(truck)+' yet.<br>Tap <b>New from Tekno stock</b> to load the official Box Stock baseline.</div>';return}
@@ -843,7 +850,7 @@ function fieldInput(f,v){var id='sf_'+f.id,val=v==null?'':v;
  if(f.kind==='textarea')return '<textarea id="'+id+'" data-f="'+f.id+'">'+esc(val)+'</textarea>';
  return '<input id="'+id+'" data-f="'+f.id+'" type="'+(f.kind==='date'?'date':'text')+'" value="'+esc(val)+'">'}
 function isChanged(f,v){var st=stockOf(f,truck);if(!st)return false;return String(v==null?'':v)!==String(st.v)}
-function openSetup(id){var s=getSetup(id);if(!s)return;editId=id;$('#setupHome').classList.add('hidden');$('#setupCmp').classList.add('hidden');var E=$('#setupEdit');E.classList.remove('hidden');
+function openSetup(id){var s=getSetup(id);if(!s)return;editId=id;if(photoOpen)closePhoto();$('#setupHome').classList.add('hidden');$('#setupCmp').classList.add('hidden');var E=$('#setupEdit');E.classList.remove('hidden');
  var isA=active[s.truck]===s.id;
  var h='<button class="btn sm" id="seBack" style="margin-top:10px">← All setups</button><h2>'+esc(truckName(s.truck))+' setup sheet</h2>';
  h+='<div class="card"><label for="sm_name" style="margin-top:0">Setup name</label><input id="sm_name" value="'+esc(s.name)+'">'+
@@ -873,7 +880,7 @@ function openSetup(id){var s=getSetup(id);if(!s)return;editId=id;$('#setupHome')
 
 /* compare */
 $('#cmpBtn').addEventListener('click',function(){openCompare()});
-function openCompare(a,b){$('#setupHome').classList.add('hidden');$('#setupEdit').classList.add('hidden');var C=$('#setupCmp');C.classList.remove('hidden');
+function openCompare(a,b){if(photoOpen)closePhoto();$('#setupHome').classList.add('hidden');$('#setupEdit').classList.add('hidden');var C=$('#setupCmp');C.classList.remove('hidden');
  var list=setups.filter(function(s){return s.truck===truck});
  var opts='<option value="__stock">Tekno box stock</option>'+list.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+' ('+esc(s.date)+')</option>'}).join('');
  C.innerHTML='<button class="btn sm" id="cmBack" style="margin-top:10px">← All setups</button><h2>Compare setups · '+truckName(truck)+'</h2>'+
@@ -896,8 +903,7 @@ function shareSetups(arr){arr=arr.filter(Boolean);if(!arr.length)return;var name
  download(name,txt);toast('Exported '+arr.length+' setup'+(arr.length>1?'s':''))}
 $('#expAllSetups').addEventListener('click',function(){shareSetups(setups.filter(function(s){return s.truck===truck}))});
 $('#impSetups').addEventListener('click',function(){$('#impSetupFile').click()});
-$('#impSetupFile').addEventListener('change',function(){var file=this.files[0];if(!file)return;var r=new FileReader();r.onload=function(){try{var d=JSON.parse(r.result),arr=Array.isArray(d)?d:d.setups;if(!Array.isArray(arr))throw 0;var n=0;
-  arr.forEach(function(s){if(!s||!s.truck||typeof s.vals!=='object')return;if(!s.id)s.id=uid('s');var i=setups.findIndex(function(x){return x.id===s.id});if(i>=0)setups[i]=s;else setups.push(s);n++});saveSetups();renderSetupList();toast('Imported '+n+' setups')}catch(e){alert('That file is not a setup export.')}};r.readAsText(file);this.value=''});
+$('#impSetupFile').addEventListener('change',function(){var file=this.files[0];if(!file)return;var r=new FileReader();r.onload=function(){var rep=importSetupsText(r.result);if(rep.err)alert(rep.err);else{toast('Imported '+rep.ok.length+' setup'+(rep.ok.length===1?'':'s')+(rep.warn.length?' · '+rep.warn.length+' warning(s)':''));if(rep.warn.length)alert('Imported with warnings:\n'+rep.warn.slice(0,20).join('\n'))}};r.readAsText(file);this.value=''});
 function printSetup(id){var s=getSetup(id);if(!s)return;var st=stockVals(s.truck),h='<h1>Tekno '+esc(truckName(s.truck))+' — '+esc(s.name)+'</h1><p>'+esc(s.date)+' · '+esc(s.track||'')+' · '+esc(s.cond||'')+(s.temp!=null&&s.temp!==''?' · '+esc(s.temp)+'°F':'')+'</p>',sec='';
  fieldsFor(s.truck).forEach(function(f){if(f.sec!==sec){if(sec)h+='</div>';sec=f.sec;h+='<h2>'+esc(sec)+'</h2><div class="pg">'}var v=s.vals[f.id],d=String(v==null?'':v)!==String(st[f.id]==null?'':st[f.id]);
   h+='<div class="pi'+(d&&st[f.id]!=null?' pd':'')+'"><span>'+esc(f.label)+'</span><b>'+esc(shortVal(f,v))+'</b></div>'});
@@ -938,7 +944,7 @@ function sdEnd(v,t,ctx,R){var P=R?'r':'f',h='',W=360,H=R?352:270;
  // upper shock holes: Hole 1 outermost (right/top) … Hole 4 innermost
  var UH={};for(var i=1;i<=4;i++){var ux=148-(i-1)*21,uy=33+(i-1)*12.5;UH[i]=[ux,uy]}
  // standoff
- var so=parseFloat(String(sdV(v,P+'Stand')||'0').replace('+',''))||0,un=holeNum(sdV(v,P+'Upper'))||2,up=UH[un];
+ var so=parseFloat(String(sdV(v,P+'Stand')||'0').replace('+',''))||0,un=holeNum(sdV(v,P+'Upper'))||2,up=UH[un]||UH[2];
  // lower holes on arm (Inside/Middle/Outside)
  var LO={Inside:[196,182],Middle:[214,180],Outside:[232,178]},lw=LO[sdV(v,P+'Lower')]||LO[R?'Inside':'Outside'];
  // arm + spindle/hub carrier
@@ -1220,6 +1226,161 @@ function mipHintHTML(id){var L=MIPHINT[id];if(!L)return '';var s=activeSetup(),v
  return h+'<div class="stk">Source: miponline.com Bypass1 pages & instruction sheet. MIP gives no oil range — keep your current oil.</div></div>'}
 
 setups.forEach(function(s){['f','r'].forEach(function(P){if(s.vals&&s.vals[P+'PisType']==null)s.vals[P+'PisType']='tekno'})});
+
+/* ---------- Photo Setup (local only: IndexedDB) ---------- */
+var PH_MAX=1600,PH_Q=0.82,photoOpen=false,phURLs=[];
+/* shot list: k = guide scene, see = must be visible, f = sheet fields the photo lets you read */
+function shotList(t){var nt=t==='NT48',L=[
+ {id:'front_straight',n:'Front end, straight-on',k:'front',i:'Truck on a flat bench at ride height (fuel/battery in), wheels straight. Camera at axle height, square to the front.',see:['Both front shock towers','Both camber links','Both front wheels (camber)','The bench surface'],f:['fCam','fRH','fBar']},
+ {id:'rear_straight',n:'Rear end, straight-on',k:'rear',i:'Same height, square to the rear. Wing can stay on if it doesn’t block the towers.',see:['Rear shock tower','Both rear camber links','Both rear wheels','The bench surface'],f:['rCam','rRH','rBar']},
+ {id:'front_tower',n:'Front shock tower close-up',k:'tower',i:'Close-up of the LEFT front tower from the front. Fill the frame with the top of the tower.',see:['All 4 upper shock holes','Which hole the shock bolt is in','The standoff (spacer) length','Tower part number if printed'],f:['fTower','fUpper','fStand']},
+ {id:'rear_tower',n:'Rear shock tower close-up',k:'tower',i:'Close-up of the LEFT rear tower from behind.',see:['All 4 upper shock holes','Which hole the shock bolt is in','The standoff length'],f:['rTower','rUpper','rStand']},
+ {id:'front_camber_link',n:'Front camber link — both ends',k:'link',i:'From slightly above and behind, so both the tower end and the spindle end of the LEFT front link are sharp.',see:['Tower end: the 2 × 3 hole grid','Spindle end: holes A / B / C','The whole turnbuckle'],f:['fInCam','fOutCam']},
+ {id:'rear_camber_link',n:'Rear camber link — both ends',k:'link',i:'From slightly above and behind the LEFT rear link.',see:['Tower end: the 2 × 4 hole grid','Hub end: the 15-hole grid','The whole turnbuckle'],f:['rInCam','rOutCam']},
+ {id:'front_spindle',n:'Front spindle & caster block',k:'spindle',i:'Side-on to the LEFT front spindle, wheel removed if possible.',see:['Camber holes A / B / C','Kingpin sleeves (L or H)','Caster block letter/marking','Hub offset marking'],f:['fOutCam','spHeight','caster','fHub','spPart']},
+ {id:'front_arm_lower',n:'Front arm — lower shock holes',k:'arm',i:'Looking down at the LEFT front arm where the shock bolts on.',see:['All 3 lower shock holes','Which one the shock is in'],f:['fLower']},
+ {id:'rear_arm_lower',n:'Rear arm — lower shock holes',k:'arm',i:'Looking down at the LEFT rear arm where the shock bolts on.',see:['All 3 lower shock holes','Which one the shock is in'],f:['rLower']},
+ {id:'blocks_ab',n:'Front hinge-pin blocks A & B (top view)',k:'blocksF',i:'Truck upside-down on a stand, camera straight down on the front arm mounts. Clean off dirt so the insert dots show.',see:['“A” block (front) insert dot position','“B” block (rear) insert dot position','Block part numbers if visible'],f:['aPill','bPill','aBlock','bBlock']},
+ {id:'blocks_cd',n:'Rear hinge-pin blocks C & D (top view)',k:'blocksR',i:'Same, straight down on the rear arm mounts.',see:['“C” block insert dot position','“D” block insert dot position','C-block screw (in/out)','Wheelbase shims front/back of the arm'],f:['cPill','dPill','cScrew','wbRear','wbFront']},
+ {id:'rear_hub',n:'Rear hub & axle height',k:'hub',i:'From behind/outside the LEFT rear hub, wheel off.',see:['The 15-hole camber grid (which hole is used)','Axle height insert (-2 / 0 / +2)','Hub offset marking'],f:['rOutCam','rAxle','rHub']},
+ {id:'sway_front',n:'Front sway bar',k:'sway',i:'Close to the front bar where it leaves the chassis.',see:['The bar wire (size label/packaging in frame helps)','The bushing on the arm'],f:['fBar','fBush']},
+ {id:'sway_rear',n:'Rear sway bar',k:'sway',i:'Close to the rear bar.',see:['The bar wire','The bushing'],f:['rBar','rBush']},
+ {id:'shocks',n:'Shocks — springs & length',k:'shocks',i:'Front and rear shock off the truck, side by side on a ruler, fully extended. Put a piece of tape on each with oil & piston written on it.',see:['Spring colours','Ruler along the shock length (eye to eye)','Tape labels: oil cSt + piston (or MIP valve)'],f:['fSpring','rSpring','fShockLen','rShockLen','fOil','rOil','fPiston','rPiston','fMipValve','rMipValve']},
+ {id:'steering',n:'Steering / Ackermann plate',k:'steer',i:'Top-down on the steering bellcrank plate with the body off.',see:['Ackermann plate: which hole the link uses','Spindle steering-plate letter (A–H)','Servo saver'],f:['ackHole','spPlate','saver']},
+ {id:nt?'clutch_spur':'pinion_spur',n:nt?'Clutch bell & spur':'Pinion & spur',k:'gear',i:nt?'Close-up of the clutch bell and spur gear mesh; the tooth counts are stamped on both.':'Close-up of the pinion and spur; tooth counts are stamped on both.',see:nt?['Clutch bell tooth count','Spur tooth count']:['Pinion tooth count','Spur tooth count / colour'],f:nt?['clutchBell','spurNT']:['pinion','spurET']},
+ {id:'tires',n:'Tires',k:'tires',i:'One front and one rear tire, tread and sidewall.',see:['Tread pattern','Sidewall brand/compound text'],f:['tBrand','tComp','tInsert','tWheel']},
+ {id:'notes_card',n:'Notes card (optional)',k:'notes',opt:1,i:'Things a photo can’t show: write diff oils (F/C/R), shock oils, pistons and any MIP valves on paper and photograph it.',see:['Diff oil front / centre / rear','Shock oil front / rear','Pistons / MIP valves'],f:['fDiffOil','cDiffOil','rDiffOil','fOil','rOil']}];
+ return L}
+function shotFile(t,s){return t.toLowerCase()+'_'+s.id+'.jpg'}
+/* ----- SVG framing guides ----- */
+function phGuide(k){var o='#ff8a1f',m='#8a94a6',p='#2a3242',ps='#6b778c',b='';
+ function box(x,y,w,h,n){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="6" fill="none" stroke="'+o+'" stroke-width="2" stroke-dasharray="6 4"/><circle cx="'+(x+8)+'" cy="'+(y+8)+'" r="8" fill="'+o+'"/><text x="'+(x+8)+'" y="'+(y+12)+'" font-size="11" font-weight="700" text-anchor="middle" fill="#111">'+n+'</text>'}
+ function holes(x,y,n,dx,dy,sel){var g='';for(var i=0;i<n;i++)g+='<circle cx="'+(x+i*dx)+'" cy="'+(y+i*dy)+'" r="5" fill="'+(i===sel?'#5aa9ff':'#0f1115')+'" stroke="#9aa4b5"/>';return g}
+ function grid(x,y,c,r,s,sel){var g='';for(var j=0;j<r;j++)for(var i=0;i<c;i++)g+='<circle cx="'+(x+i*s)+'" cy="'+(y+j*s)+'" r="'+(s*0.33)+'" fill="'+(j*c+i===sel?'#5aa9ff':'#0f1115')+'" stroke="#9aa4b5"/>';return g}
+ var wheel=function(x,y){return '<rect x="'+x+'" y="'+y+'" width="34" height="80" rx="8" fill="#1f2632" stroke="'+ps+'"/>'};
+ if(k==='front'||k==='rear'){b+='<line x1="20" y1="170" x2="300" y2="170" stroke="'+m+'"/>'+wheel(30,88)+wheel(256,88)+'<rect x="90" y="140" width="140" height="10" rx="3" fill="'+p+'" stroke="'+ps+'"/>';
+  b+='<path d="M140 140 L128 70 L104 50 M180 140 L192 70 L216 50" stroke="'+ps+'" stroke-width="7" fill="none" stroke-linecap="round"/>';
+  b+='<line x1="130" y1="100" x2="62" y2="104" stroke="#c9d1dc" stroke-width="3"/><line x1="190" y1="100" x2="258" y2="104" stroke="#c9d1dc" stroke-width="3"/>';
+  b+='<line x1="110" y1="56" x2="70" y2="140" stroke="#ff7ac6" stroke-width="6"/><line x1="210" y1="56" x2="250" y2="140" stroke="#ff7ac6" stroke-width="6"/>';
+  b+=box(92,40,136,74,1)+box(22,80,50,98,3)+box(248,80,50,98,3)+box(84,132,152,44,4);
+  b+='<g fill="'+m+'" font-size="10"><text x="160" y="196" text-anchor="middle">camera at axle height, square-on</text></g>'}
+ else if(k==='tower'){b+='<path d="M60 180 L60 110 L90 60 L250 26 L262 50 L120 96 L120 180Z" fill="'+p+'" stroke="'+ps+'"/>'+holes(148,70,4,26,-8,1)+'<rect x="164" y="54" width="10" height="16" fill="#e6e9ef"/><line x1="169" y1="70" x2="200" y2="170" stroke="#ff7ac6" stroke-width="10"/>';
+  b+=box(126,30,128,58,1)+box(150,48,40,34,2)}
+ else if(k==='link'){b+='<rect x="30" y="40" width="70" height="120" rx="8" fill="'+p+'" stroke="'+ps+'"/>'+grid(52,70,2,4,22,1)+'<rect x="230" y="50" width="70" height="110" rx="8" fill="'+p+'" stroke="'+ps+'"/>'+grid(246,72,3,3,18,1)+'<line x1="74" y1="92" x2="264" y2="72" stroke="#c9d1dc" stroke-width="5"/>';
+  b+=box(24,48,82,116,1)+box(228,52,76,72,2)+'<text x="160" y="190" text-anchor="middle" fill="'+m+'" font-size="10">both ends sharp, whole link in frame</text>'}
+ else if(k==='spindle'){b+='<rect x="110" y="40" width="100" height="140" rx="14" fill="'+p+'" stroke="'+ps+'"/>'+holes(130,56,3,30,0,1)+'<rect x="146" y="90" width="28" height="18" rx="3" fill="#e6e9ef"/><text x="160" y="103" font-size="11" text-anchor="middle" fill="#111" font-weight="700">H</text><rect x="214" y="110" width="44" height="30" rx="4" fill="'+p+'" stroke="'+ps+'"/><text x="236" y="130" font-size="12" text-anchor="middle" fill="#fff">B</text>';
+  b+=box(116,42,92,30,1)+box(138,82,44,34,2)+box(208,104,56,42,3)}
+ else if(k==='arm'){b+='<path d="M20 120 L300 96 L304 130 L24 150Z" fill="'+p+'" stroke="'+ps+'"/>'+holes(170,113,3,24,-2,2)+'<line x1="218" y1="109" x2="250" y2="30" stroke="#ff7ac6" stroke-width="10"/>';b+=box(150,90,96,44,1)}
+ else if(k==='blocksF'||k==='blocksR'){var A=k==='blocksF'?['A','B']:['C','D'];b+='<rect x="40" y="70" width="240" height="60" rx="8" fill="'+p+'" stroke="'+ps+'"/>';
+  [70,190].forEach(function(x,i){b+='<rect x="'+x+'" y="56" width="60" height="88" rx="8" fill="#3a4558" stroke="#9aa4b5"/>'+grid(x+12,74,3,3,18,4)+'<text x="'+(x+30)+'" y="160" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">“'+A[i]+'” block</text>'+box(x-6,50,72,100,i+1)});
+  b+='<text x="160" y="190" text-anchor="middle" fill="'+m+'" font-size="10">camera straight down · clean the insert dots</text>'}
+ else if(k==='hub'){b+='<rect x="90" y="30" width="150" height="150" rx="16" fill="'+p+'" stroke="'+ps+'"/>'+grid(118,52,5,3,22,4)+holes(165,130,3,0,16,0)+'<circle cx="165" cy="146" r="16" fill="none" stroke="#9aa4b5"/>';b+=box(100,38,130,70,1)+box(140,116,50,56,2)}
+ else if(k==='sway'){b+='<path d="M40 150 L40 70 L280 70 L280 150" fill="none" stroke="#c9d1dc" stroke-width="7" stroke-linejoin="round"/><circle cx="280" cy="150" r="16" fill="#3a4558" stroke="#9aa4b5"/>';b+=box(24,54,90,40,1)+box(256,126,48,48,2)}
+ else if(k==='shocks'){b+='<rect x="20" y="168" width="280" height="14" fill="#d9c27a"/>';for(var i=0;i<28;i++)b+='<line x1="'+(20+i*10)+'" y1="168" x2="'+(20+i*10)+'" y2="'+(i%5?174:178)+'" stroke="#333"/>';
+  [[60,'#ff7ac6'],[180,'#4fd47a']].forEach(function(s){b+='<rect x="'+s[0]+'" y="70" width="90" height="26" rx="8" fill="#3a4558"/><line x1="'+(s[0]+90)+'" y1="83" x2="'+(s[0]+120)+'" y2="83" stroke="#c9d1dc" stroke-width="4"/>';for(var z=0;z<8;z++)b+='<line x1="'+(s[0]+8+z*10)+'" y1="62" x2="'+(s[0]+14+z*10)+'" y2="104" stroke="'+s[1]+'" stroke-width="3"/>';b+='<rect x="'+(s[0]+10)+'" y="112" width="70" height="22" fill="#f2f2f2"/><text x="'+(s[0]+45)+'" y="127" font-size="10" text-anchor="middle" fill="#111">550 · 6136</text>'});
+  b+=box(52,54,120,56,1)+box(52,108,100,32,2)+box(14,160,292,28,3)}
+ else if(k==='steer'){b+='<rect x="90" y="60" width="140" height="70" rx="14" fill="'+p+'" stroke="'+ps+'"/>'+holes(200,82,2,0,24,1)+'<rect x="20" y="140" width="130" height="26" rx="6" fill="#3a4558"/><text x="85" y="158" text-anchor="middle" fill="#fff" font-size="12">A B C E F G H</text>';b+=box(184,66,34,58,1)+box(14,134,142,38,2)}
+ else if(k==='gear'){b+='<circle cx="120" cy="100" r="66" fill="'+p+'" stroke="#9aa4b5" stroke-dasharray="3 2"/><text x="120" y="104" text-anchor="middle" fill="#fff" font-size="14">'+(truck==='ET48'?'44T':'48T')+'</text><circle cx="214" cy="100" r="26" fill="#3a4558" stroke="#cfe6ff" stroke-dasharray="3 2"/><text x="214" y="104" text-anchor="middle" fill="#fff" font-size="12">'+(truck==='ET48'?'15T':'13T')+'</text>';b+=box(80,70,80,50,1)+box(186,74,56,52,2)}
+ else if(k==='tires'){b+='<rect x="60" y="30" width="90" height="150" rx="26" fill="#1f2632" stroke="'+ps+'"/>';for(i=0;i<8;i++)b+='<rect x="'+(70+(i%2)*36)+'" y="'+(38+i*17)+'" width="30" height="9" rx="2" fill="#3a4558"/>';b+='<circle cx="240" cy="105" r="62" fill="#1f2632" stroke="'+ps+'"/><text x="240" y="70" text-anchor="middle" fill="#9aa4b5" font-size="10">BRAND · COMPOUND</text>';b+=box(54,24,102,162,1)+box(186,56,108,26,2)}
+ else{b+='<rect x="70" y="26" width="180" height="150" rx="6" fill="#f2f2f2"/><g font-size="11" fill="#111"><text x="84" y="52">Diff F / C / R: 7k 5k 5k</text><text x="84" y="76">Shock oil F/R: 550 / 650</text><text x="84" y="100">Pistons: 6136 / 6137</text><text x="84" y="124">MIP valve: — </text></g>'+box(64,20,192,162,1)}
+ // viewfinder corners
+ var c='';[[6,6,1,1],[314,6,-1,1],[6,194,1,-1],[314,194,-1,-1]].forEach(function(q){c+='<path d="M'+q[0]+' '+(q[1]+18*q[3])+' L'+q[0]+' '+q[1]+' L'+(q[0]+18*q[2])+' '+q[1]+'" stroke="#e6e9ef" stroke-width="2.5" fill="none"/>'});
+ return '<svg viewBox="0 0 320 200" role="img" aria-label="Framing guide" style="background:#141a24">'+b+c+'</svg>'}
+/* ----- IndexedDB ----- */
+var PDB=null;
+function pdb(){if(!PDB)PDB=new Promise(function(res,rej){var r=indexedDB.open('rcsetup-photos',1);r.onupgradeneeded=function(){r.result.createObjectStore('shots')};r.onsuccess=function(){res(r.result)};r.onerror=function(){PDB=null;rej(r.error)}});return PDB}
+function ptx(mode,fn){return pdb().then(function(db){return new Promise(function(res,rej){var tx=db.transaction('shots',mode),q=fn(tx.objectStore('shots'));tx.oncomplete=function(){res(q&&'result' in q?q.result:undefined)};tx.onerror=tx.onabort=function(){rej(tx.error)}})})}
+function phAll(t){return ptx('readonly',function(st){return st.getAll()}).then(function(a){var m={};(a||[]).forEach(function(r){if(r&&r.truck===t)m[r.shot]=r});return m})}
+function phPut(t,shot,rec){rec.truck=t;rec.shot=shot;return ptx('readwrite',function(st){return st.put(rec,t+'_'+shot)})}
+function phDel(t,shot){return ptx('readwrite',function(st){return st.delete(t+'_'+shot)})}
+function phCompress(file){return new Promise(function(res,rej){var url=URL.createObjectURL(file),img=new Image();
+ img.onload=function(){var w=img.naturalWidth,h=img.naturalHeight,k=Math.min(1,PH_MAX/Math.max(w,h)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));
+  var g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);
+  c.toBlob(function(b){b?res({blob:b,w:c.width,h:c.height,ow:w,oh:h,ts:new Date().toISOString()}):rej(new Error('Could not encode JPEG'))},'image/jpeg',PH_Q)};
+ img.onerror=function(){URL.revokeObjectURL(url);rej(new Error('Could not read that image'))};img.src=url})}
+/* ----- minimal ZIP (stored, no compression; JPEGs are already compressed) ----- */
+var CRCT=null;function crc32(u){if(!CRCT){CRCT=new Uint32Array(256);for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;CRCT[n]=c>>>0}}var x=0xFFFFFFFF;for(var i=0;i<u.length;i++)x=CRCT[(x^u[i])&255]^(x>>>8);return (x^0xFFFFFFFF)>>>0}
+function makeZip(files){var parts=[],cen=[],off=0,d=new Date(),dt=((d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1))&0xFFFF,dd=(((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate())&0xFFFF;
+ files.forEach(function(f){var nm=new TextEncoder().encode(f.name),data=f.data,crc=crc32(data),lh=new DataView(new ArrayBuffer(30));
+  lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint16(8,0,true);lh.setUint16(10,dt,true);lh.setUint16(12,dd,true);lh.setUint32(14,crc,true);lh.setUint32(18,data.length,true);lh.setUint32(22,data.length,true);lh.setUint16(26,nm.length,true);lh.setUint16(28,0,true);
+  parts.push(lh.buffer,nm,data);var ch=new DataView(new ArrayBuffer(46));ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint16(10,0,true);ch.setUint16(12,dt,true);ch.setUint16(14,dd,true);ch.setUint32(16,crc,true);ch.setUint32(20,data.length,true);ch.setUint32(24,data.length,true);ch.setUint16(28,nm.length,true);ch.setUint32(42,off,true);
+  cen.push(ch.buffer,nm);off+=30+nm.length+data.length});
+ var cs=0;cen.forEach(function(c){cs+=c.byteLength||c.length});var e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+ return new Blob(parts.concat(cen,[e.buffer]),{type:'application/zip'})}
+function shotListText(t,got){var L=shotList(t),s='RC Setup Helper — Photo Setup — Tekno '+truckName(t)+'\nCreated '+new Date().toString()+'\n\nSend these to RC Racing in chat and it will build your sheet.\nImport the returned JSON in the app: My Setup → Photo Setup → Import setup.\n\n';
+ L.forEach(function(x,i){s+=(i+1)+'. '+shotFile(t,x)+(got[x.id]?'':'  [NOT TAKEN]')+'\n   '+x.n+'\n   Shows: '+x.see.join('; ')+'\n   Sheet fields: '+x.f.filter(function(id){return FBY[id]}).join(', ')+'\n'});return s}
+/* ----- UI ----- */
+function openPhoto(){photoOpen=true;['setupHome','setupEdit','setupCmp'].forEach(function(i){$('#'+i).classList.add('hidden')});var P=$('#setupPhoto');P.classList.remove('hidden');renderPhoto();window.scrollTo(0,0)}
+function closePhoto(){photoOpen=false;$('#setupPhoto').classList.add('hidden');phURLs.forEach(function(u){URL.revokeObjectURL(u)});phURLs=[]}
+function renderPhoto(){var t=truck,L=shotList(t);phAll(t).then(function(got){phURLs.forEach(function(u){URL.revokeObjectURL(u)});phURLs=[];
+ var req=L.filter(function(x){return !x.opt}),done=req.filter(function(x){return got[x.id]}).length,tot=0;Object.keys(got).forEach(function(k){tot+=got[k].blob.size});
+ var h='<button class="btn sm" id="phBack" style="margin-top:10px">← My setups</button><h2>📷 Photo Setup · '+truckName(t)+'</h2>';
+ h+='<div class="note blue" style="font-size:13.5px">Photograph your truck so a setup sheet can be read from the pictures. Flat bench, good light, clean truck, ride height set, wheels straight. Photos stay on this phone (resized to '+PH_MAX+' px JPEG) until you share them.</div>';
+ h+='<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b>'+done+' / '+req.length+' shots</b><span class="leg" style="margin:0">'+(tot/1048576).toFixed(1)+' MB stored</span></div><div class="pbar"><i style="width:'+Math.round(done/req.length*100)+'%"></i></div><div class="chk">';
+ L.forEach(function(x,i){h+='<a href="#shot-'+x.id+'" class="'+(got[x.id]?'ok':'')+'">'+(got[x.id]?'✓':(i+1))+' '+esc(x.n.replace(/ \(optional\)/,''))+(x.opt?' (opt.)':'')+'</a>'});h+='</div></div>';
+ L.forEach(function(x,i){var r=got[x.id],url=r?URL.createObjectURL(r.blob):'';if(url)phURLs.push(url);
+  h+='<div class="card shot'+(r?' done':'')+'" id="shot-'+x.id+'"><div class="shh"><span class="rank">'+(r?'✓':i+1)+'</span><div><b>'+esc(x.n)+'</b>'+(x.opt?' <span class="tag">optional</span>':'')+'<div class="leg" style="margin:2px 0 0">'+esc(shotFile(t,x))+'</div></div></div>';
+  h+='<p style="margin:8px 0">'+esc(x.i)+'</p>';
+  h+=r?'<div class="phimg"><img src="'+url+'" alt="'+esc(x.n)+'"><div class="leg">'+r.w+'×'+r.h+' · '+Math.round(r.blob.size/1024)+' KB · '+esc(new Date(r.ts).toLocaleString([], {month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}))+'</div></div>':'<div class="sdg">'+phGuide(x.k==='gear'&&t==='ET48'?'gear':x.k)+'</div>';
+  h+='<div class="leg" style="margin:6px 0 2px">Must be visible:</div><ol class="see">'+x.see.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol>';
+  h+='<div class="leg" style="margin:4px 0">Reads: '+x.f.filter(function(id){return FBY[id]&&(FBY[id].trucks==='both'||FBY[id].trucks===t)}).map(function(id){return esc(FBY[id].label)}).join(' · ')+'</div>';
+  h+='<div class="row"><label class="btn sm '+(r?'':'pri')+'" style="display:inline-flex;align-items:center">'+(r?'↻ Retake':'📷 Take photo')+'<input type="file" accept="image/*" capture="environment" data-shot="'+x.id+'" class="phin" style="display:none"></label>'+(r?'<button class="btn sm" data-phdel="'+x.id+'">Delete</button><button class="btn sm" data-phguide="'+x.id+'">Guide</button>':'')+'</div><div class="phg hidden" id="phg-'+x.id+'"><div class="sdg">'+phGuide(x.k)+'</div></div></div>'});
+ h+='<div class="card"><button class="btn pri" id="phShare" style="width:100%"'+(Object.keys(got).length?'':' disabled')+'>Share photos ('+Object.keys(got).length+')</button>'+
+  '<div class="row" style="margin-top:8px"><button class="btn sm" id="phZip"'+(Object.keys(got).length?'':' disabled')+'>Download .zip</button><button class="btn sm" id="phClear"'+(Object.keys(got).length?'':' disabled')+'>Clear all photos</button></div>'+
+  '<div class="note" style="margin-top:10px"><b>Send these to RC Racing in chat and it will build your sheet.</b> You’ll get a setup file back — import it below.</div></div>';
+ h+='<div class="card" id="phImport"><h3 style="margin-top:0">Import setup</h3><p class="leg" style="margin-top:0">A setup JSON file (from RC Racing, another phone or an export). Values are checked against the real Tekno options; anything missing can be filled from Tekno stock.</p>'+
+  '<div class="row"><label class="btn sm pri" style="display:inline-flex;align-items:center">Choose file<input type="file" id="phImpFile" accept="application/json,.json,text/plain" style="display:none"></label></div>'+
+  '<label for="phImpText">…or paste JSON</label><textarea id="phImpText" rows="4" placeholder=\'{"app":"rc-setup-helper","kind":"setups","version":2,"setups":[…]}\'></textarea>'+
+  '<div class="row" style="margin-top:8px"><button class="btn sm" id="phImpBtn">Import pasted JSON</button></div><div id="phImpOut"></div></div>';
+ var P=$('#setupPhoto');P.innerHTML=h;
+ $('#phBack').onclick=function(){closePhoto();showSetupHome()};
+ $$('#setupPhoto .chk a').forEach(function(a){a.onclick=function(e){e.preventDefault();var el=document.getElementById(a.getAttribute('href').slice(1));if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}});
+ $$('#setupPhoto .phin').forEach(function(inp){inp.onchange=function(){var f=inp.files&&inp.files[0],id=inp.dataset.shot;if(!f)return;toast('Saving photo…');
+  phCompress(f).then(function(rec){return phPut(t,id,rec)}).then(function(){toast('Saved '+shotFile(t,{id:id}));var keep=id;renderPhoto();setTimeout(function(){var el=document.getElementById('shot-'+keep);if(el)el.scrollIntoView({block:'start'})},60)}).catch(function(e){alert(e.message||'Could not save photo')})}});
+ $$('#setupPhoto [data-phdel]').forEach(function(b){b.onclick=function(){if(!confirm('Delete this photo?'))return;phDel(t,b.dataset.phdel).then(renderPhoto)}});
+ $$('#setupPhoto [data-phguide]').forEach(function(b){b.onclick=function(){$('#phg-'+b.dataset.phguide).classList.toggle('hidden')}});
+ $('#phShare').onclick=function(){sharePhotos(t,got)};$('#phZip').onclick=function(){zipPhotos(t,got)};
+ $('#phClear').onclick=function(){if(!confirm('Delete all '+truckName(t)+' photos from this phone?'))return;Promise.all(Object.keys(got).map(function(k){return phDel(t,k)})).then(renderPhoto)};
+ $('#phImpFile').onchange=function(){var file=this.files[0];if(!file)return;var r=new FileReader();r.onload=function(){showImport(importSetupsText(r.result))};r.readAsText(file);this.value=''};
+ $('#phImpBtn').onclick=function(){var v=$('#phImpText').value.trim();if(!v){toast('Paste the JSON first');return}showImport(importSetupsText(v))};
+ }).catch(function(e){$('#setupPhoto').innerHTML='<button class="btn sm" id="phBack" style="margin-top:10px">← My setups</button><div class="empty">Photo storage is not available in this browser ('+esc(e&&e.message||e)+').</div>';$('#phBack').onclick=function(){closePhoto();showSetupHome()}})}
+function phFiles(t,got){return shotList(t).filter(function(x){return got[x.id]}).map(function(x){return {name:shotFile(t,x),blob:got[x.id].blob}})}
+function sharePhotos(t,got){var fl=phFiles(t,got);if(!fl.length)return;try{var files=fl.map(function(f){return new File([f.blob],f.name,{type:'image/jpeg'})});
+  if(navigator.canShare&&navigator.share&&navigator.canShare({files:files})){navigator.share({files:files,title:'Tekno '+truckName(t)+' setup photos',text:'Tekno '+truckName(t)+' setup photos — please build my setup sheet (RC Setup Helper JSON).'}).then(function(){toast('Shared')}).catch(function(e){if(e&&e.name!=='AbortError')zipPhotos(t,got)});return}}catch(e){}
+ toast('Sharing files isn’t supported here — downloading a .zip');zipPhotos(t,got)}
+function zipPhotos(t,got){var fl=phFiles(t,got);if(!fl.length)return Promise.resolve();
+ return Promise.all(fl.map(function(f){return f.blob.arrayBuffer().then(function(b){return {name:f.name,data:new Uint8Array(b)}})})).then(function(arr){arr.push({name:t.toLowerCase()+'_shotlist.txt',data:new TextEncoder().encode(shotListText(t,got))});
+  var z=makeZip(arr),a=document.createElement('a');a.href=URL.createObjectURL(z);a.download=t.toLowerCase()+'_setup_photos_'+today()+'.zip';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);window.__lastZip=z;toast('Downloaded '+arr.length+' files (.zip)')})}
+/* ----- import (shared by My Setup → Import and Photo Setup → Import) ----- */
+function normTruck(x){x=String(x||'').toUpperCase().replace(/\s|-/g,'');return /^NT48/.test(x)?'NT48':/^ET48/.test(x)?'ET48':null}
+function normVal(f,v,warn){if(v===null||v===''||v===undefined)return undefined;
+ if(f.kind==='num'){var n=typeof v==='number'?v:parseFloat(String(v).replace(/[^\d.+-]/g,''));if(isFinite(n))return n;warn.push(f.id+': "'+v+'" is not a number — skipped');return undefined}
+ if(f.kind==='select'){var sv=String(v).trim(),hit=null;f.opts.forEach(function(o){if(hit===null&&String(optVal(o))===sv)hit=optVal(o)});
+  if(hit===null)f.opts.forEach(function(o){if(hit===null&&(String(optVal(o)).toLowerCase()===sv.toLowerCase()||String(optLab(o)).toLowerCase()===sv.toLowerCase()))hit=optVal(o)});
+  if(hit===null){var num=parseFloat(sv);if(isFinite(num))f.opts.forEach(function(o){if(hit===null&&+optVal(o)===num&&typeof optVal(o)==='number')hit=optVal(o)})}
+  if(hit!==null)return hit;warn.push(f.id+': "'+sv+'" is not a Tekno option — kept as custom');return sv}
+ return String(v)}
+function importSetupsText(txt){var rep={ok:[],warn:[],err:null};var d;try{d=JSON.parse(String(txt).replace(/^\uFEFF/,''))}catch(e){rep.err='Not valid JSON: '+e.message;return rep}
+ var arr=Array.isArray(d)?d:(d&&Array.isArray(d.setups)?d.setups:(d&&d.vals?[d]:null));if(!arr){rep.err='No "setups" array found.';return rep}
+ arr.forEach(function(raw,i){var w=[],t=raw&&normTruck(raw.truck);if(!t||typeof raw.vals!=='object'||!raw.vals){rep.warn.push('Setup #'+(i+1)+': needs "truck" (NT48/ET48) and a "vals" object — skipped');return}
+  var vals={};Object.keys(raw.vals).forEach(function(k){var f=FBY[k];if(!f){w.push(k+': unknown field — skipped');return}if(f.trucks!=='both'&&f.trucks!==t){w.push(k+': not used on the '+truckName(t)+' — skipped');return}var nv=normVal(f,raw.vals[k],w);if(nv!==undefined)vals[k]=nv});
+  var filled=0;if(raw.base==='stock'){var st=stockVals(t);Object.keys(st).forEach(function(k){if(vals[k]===undefined){vals[k]=st[k];filled++}})}
+  ['f','r'].forEach(function(P){if(vals[P+'PisType']!=null)return;var g=null;FBY[P+'MipPiston'].opts.forEach(function(o){if(o[0]===vals[P+'MipPiston'])g=o[2]});vals[P+'PisType']=g||(vals[P+'MipValve']?'b1':'tekno')});
+  var s=mkSetup(t,vals,String(raw.name||'Imported setup').slice(0,80));
+  if(raw.id&&typeof raw.id==='string')s.id=raw.id;['date','track','cond'].forEach(function(k){if(raw[k])s[k]=String(raw[k])});if(raw.temp!=null&&isFinite(+raw.temp))s.temp=+raw.temp;
+  if(raw.notes)s.vals.notes=String(raw.notes);if(raw.created)s.created=raw.created;s.version=raw.version||1;s.parent=raw.parent||null;s.source=raw.source||'import';
+  var j=setups.findIndex(function(x){return x.id===s.id});if(j>=0)setups[j]=s;else setups.unshift(s);
+  if(raw.active||!activeSetup(t))active[t]=s.id;
+  rep.ok.push({id:s.id,name:s.name,truck:t,n:Object.keys(raw.vals).length,filled:filled,replaced:j>=0});w.forEach(function(x){rep.warn.push(s.name+' · '+x)})});
+ if(rep.ok.length){saveSetups();renderSetupList()}return rep}
+function showImport(rep){var o=$('#phImpOut');if(!o)return;var h='';
+ if(rep.err)h='<div class="note" style="border-color:var(--bad)">'+esc(rep.err)+'</div>';
+ rep.ok.forEach(function(r){h+='<div class="note blue">✓ Imported <b>'+esc(r.name)+'</b> ('+truckName(r.truck)+') · '+r.n+' values'+(r.filled?' + '+r.filled+' from Tekno stock':'')+(r.replaced?' · replaced the setup with the same id':'')+' <div class="row" style="margin-top:6px"><button class="btn sm pri" data-open="'+esc(r.id)+'">Open setup</button></div></div>'});
+ if(rep.warn.length)h+='<div class="note"><b>'+rep.warn.length+' warning(s):</b><ul style="margin:4px 0;padding-left:18px">'+rep.warn.slice(0,30).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div>';
+ if(!rep.ok.length&&!rep.err)h+='<div class="note">Nothing imported.</div>';
+ o.innerHTML=h;$$('#phImpOut [data-open]').forEach(function(b){b.onclick=function(){var s=getSetup(b.dataset.open);if(!s)return;if(s.truck!==truck)setTruck(s.truck);closePhoto();showTab('setup');openSetup(s.id)}});
+ if(rep.ok.length)toast('Imported '+rep.ok.length+' setup'+(rep.ok.length>1?'s':''))}
+$('#photoBtn').addEventListener('click',openPhoto);
 
 /* ---------- Init ---------- */
 renderSyms();renderLearn();setTruck(truck==='ET48'?'ET48':'NT48');

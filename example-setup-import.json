@@ -1,0 +1,50 @@
+{
+  "app": "rc-setup-helper",
+  "kind": "setups",
+  "version": 2,
+  "setups": [
+    {
+      "truck": "NT48",
+      "name": "Speed Lot – from photos",
+      "date": "2026-10-17",
+      "track": "Speed Lot (Ramona, CA)",
+      "cond": "Dry / dusty",
+      "temp": 78,
+      "base": "stock",
+      "active": true,
+      "source": "photos",
+      "vals": {
+        "fUpper": "Hole 3",
+        "fStand": "+2mm",
+        "fInCam": "4",
+        "fOutCam": "B",
+        "fLower": "Outside",
+        "rUpper": "Hole 2",
+        "rInCam": "2",
+        "rOutCam": "5",
+        "rAxle": "-2mm",
+        "aPill": "Center",
+        "bPill": "Top-center",
+        "fBar": "2.3",
+        "rBar": "2.5",
+        "fSpring": "TKR6091",
+        "rSpring": "TKR6090",
+        "fShockLen": 121,
+        "rShockLen": 134,
+        "fOil": 550,
+        "rOil": 650,
+        "fDiffOil": 7000,
+        "cDiffOil": 7000,
+        "rDiffOil": 5000,
+        "rPisType": "b1",
+        "rMipPiston": "19021",
+        "rMipValve": "B",
+        "clutchBell": 13,
+        "spurNT": 48,
+        "fCam": -2,
+        "tBrand": "(tire name from sidewall)",
+        "notes": "Built from photos; diff oils from notes card."
+      }
+    }
+  ]
+}
