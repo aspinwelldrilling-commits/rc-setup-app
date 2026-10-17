@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1115">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RC Setup">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>RC Setup Helper</title>
+<style>
+:root{--bg:#0f1115;--card:#1a1f29;--card2:#222937;--line:#2e3646;--tx:#e6e9ef;--mut:#9aa4b5;--acc:#ff8a1f;--good:#3ecf8e;--bad:#ff5d5d;--blue:#5aa9ff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:5;background:rgba(15,17,21,.96);backdrop-filter:blur(6px);padding:calc(10px + env(safe-area-inset-top)) 14px 10px;border-bottom:1px solid var(--line)}
+h1{font-size:18px;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+h1 small{color:var(--mut);font-weight:400;font-size:13px}
+h2{font-size:19px;margin:18px 0 8px}
+h3{font-size:16px;margin:14px 0 6px;color:var(--acc)}
+.seg{display:flex;gap:6px;background:var(--card);padding:4px;border-radius:14px}
+.seg button{flex:1;min-height:46px;border:0;border-radius:10px;background:transparent;color:var(--mut);font-size:15px;font-weight:600}
+.seg button.on{background:var(--acc);color:#111}
+main{padding:6px 14px 20px;max-width:720px;margin:0 auto}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;background:#141821;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;min-height:64px;border:0;background:none;color:var(--mut);font-size:13px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+nav button span{font-size:22px}
+nav button.on{color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.note{background:#2a2112;border:1px solid #5a4012;color:#ffd9a8;border-radius:12px;padding:10px 12px;font-size:14px;margin:10px 0}
+.note.blue{background:#122133;border-color:#1e3e63;color:#cfe5ff}
+.grp{margin:14px 0 4px;color:var(--mut);font-size:13px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.sym{display:block;width:100%;text-align:left;min-height:54px;margin:6px 0;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:16px;font-weight:600}
+.sym small{display:block;color:var(--mut);font-weight:400;font-size:13px;margin-top:2px}
+.sym:active{background:var(--card2)}
+.btn{min-height:48px;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font-size:15px;font-weight:600}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:#111}
+.btn.dan{background:transparent;border-color:#5a2a2a;color:var(--bad)}
+.btn.sm{min-height:40px;font-size:14px;padding:0 12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fix{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0}
+.rank{flex:0 0 34px;height:34px;border-radius:50%;background:var(--acc);color:#111;font-weight:800;display:flex;align-items:center;justify-content:center}
+.fix .t{font-weight:700}
+.fix .d{color:var(--good);font-weight:600;margin-top:2px}
+.fix .s{color:var(--blue);font-size:14px;margin-top:2px}
+.fix .w{color:var(--mut);font-size:14px;margin-top:4px}
+.fix .lk{background:none;border:0;color:var(--acc);min-height:44px;padding:8px 14px 0 0;font-size:15px;text-decoration:underline}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--card2);color:var(--mut);margin-right:4px}
+label{display:block;font-size:14px;color:var(--mut);margin:12px 0 4px}
+input,select,textarea{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--line);background:#11151c;color:var(--tx);font-size:16px;padding:10px 12px;font-family:inherit}
+textarea{min-height:84px}
+.rate{display:flex;gap:6px}
+.rate button{flex:1;min-height:48px;border-radius:10px;border:1px solid var(--line);background:#11151c;color:var(--mut);font-size:17px;font-weight:700}
+.rate button.on{background:var(--acc);color:#111;border-color:var(--acc)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.entry .top{display:flex;justify-content:space-between;gap:8px;font-size:14px;color:var(--mut)}
+.entry .chg{font-weight:700;font-size:16px;margin:6px 0}
+.delta{font-weight:800}
+.delta.up{color:var(--good)}.delta.dn{color:var(--bad)}.delta.eq{color:var(--mut)}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:8px 0;padding:0 14px}
+summary{min-height:54px;display:flex;align-items:center;font-weight:700;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"＋";margin-left:auto;color:var(--acc)}
+details[open] summary::after{content:"－"}
+details p,details ul{margin:0 0 12px;color:#cfd5df;font-size:15px}
+details ul{padding-left:20px}
+.hidden{display:none!important}
+.empty{color:var(--mut);text-align:center;padding:30px 10px}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--good);color:#111;font-weight:700;padding:10px 16px;border-radius:12px;z-index:9;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏁 RC Setup Helper <small id="hdrTruck"></small></h1>
+  <div class="seg" id="truckSeg">
+    <button data-truck="NT48">NT48 2.2 <small style="font-weight:400">nitro</small></button>
+    <button data-truck="ET48">ET48 2.2 <small style="font-weight:400">electric</small></button>
+  </div>
+</header>
+
+<main>
+  <!-- ADVISOR -->
+  <section id="tab-advisor">
+    <div id="symList">
+      <div class="note"><b>Golden rule:</b> change ONE thing at a time, run at least 3–5 laps, then log how it felt. If it got worse, put it back. Always start from your Tekno manual baseline.</div>
+      <div id="symGroups"></div>
+    </div>
+    <div id="symDetail" class="hidden"></div>
+  </section>
+
+  <!-- LOG -->
+  <section id="tab-log" class="hidden">
+    <div class="row" style="margin-top:10px">
+      <button class="btn pri" id="newEntry" style="flex:1">＋ New log entry</button>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <select id="logFilter" style="flex:1"><option value="cur">This truck only</option><option value="all">All trucks</option></select>
+      <button class="btn sm" id="exportBtn">Export</button>
+      <button class="btn sm" id="importBtn">Import</button>
+      <input type="file" id="importFile" accept="application/json,.json" class="hidden">
+    </div>
+    <form id="logForm" class="card hidden" autocomplete="off">
+      <h2 id="formTitle" style="margin-top:0">New entry</h2>
+      <input type="hidden" id="f_id">
+      <div class="two">
+        <div><label for="f_date">Date</label><input type="date" id="f_date" required></div>
+        <div><label for="f_truck">Truck</label><select id="f_truck"><option value="NT48">NT48 2.2</option><option value="ET48">ET48 2.2</option></select></div>
+      </div>
+      <label for="f_track">Track</label><input id="f_track" value="Speed Lot (Ramona, CA)">
+      <div class="two">
+        <div><label for="f_cond">Conditions</label>
+          <select id="f_cond"><option>Dry / dusty</option><option>Loose</option><option>Medium bite</option><option>High bite / blue groove</option><option>Damp / tacky</option><option>Wet / muddy</option></select></div>
+        <div><label for="f_temp">Temp (°F)</label><input id="f_temp" type="number" inputmode="numeric" placeholder="e.g. 78"></div>
+      </div>
+      <label for="f_symptom">Problem I was fixing</label><input id="f_symptom" placeholder="e.g. Understeer on entry">
+      <label for="f_change">Change made (one thing!)</label><input id="f_change" required placeholder="e.g. Front diff 7k → 5k">
+      <label>Feeling BEFORE (1 = bad, 5 = great)</label><div class="rate" id="r_before"></div>
+      <label>Feeling AFTER</label><div class="rate" id="r_after"></div>
+      <label for="f_notes">Notes</label><textarea id="f_notes" placeholder="What changed in the handling? Lap times? Keep or revert?"></textarea>
+      <label for="f_keep">Verdict</label><select id="f_keep"><option value="">—</option><option>Keep</option><option>Revert</option><option>Needs more testing</option></select>
+      <div class="row" style="margin-top:14px">
+        <button type="submit" class="btn pri" style="flex:1">Save</button>
+        <button type="button" class="btn" id="cancelForm">Cancel</button>
+      </div>
+    </form>
+    <div id="logList"></div>
+  </section>
+
+  <!-- LEARN -->
+  <section id="tab-learn" class="hidden">
+    <div class="note blue">How each adjustment changes the truck. Rule of thumb: <b>softer / thinner = more grip &amp; more forgiving, but slower to react. Stiffer / thicker = more responsive &amp; stable on smooth high-grip, but less grip in rough or loose.</b></div>
+    <div id="learnList"></div>
+  </section>
+</main>
+
+<nav>
+  <button data-tab="advisor" class="on"><span>🔧</span>Advisor</button>
+  <button data-tab="log"><span>📒</span>Setup Log</button>
+  <button data-tab="learn"><span>📘</span>Learn</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s)}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+var LS_TRUCK='rcsetup.truck', LS_LOG='rcsetup.log';
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function load(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast('Could not save (storage full/blocked)')}}
+function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show')},1800)}
+
+/* ---------- Learn content: what each adjustment does ---------- */
+var LEARN={
+ fdiff:{n:'Front diff oil',step:'~1k–2k cSt per step',
+  p:'Controls how freely the two front wheels can turn at different speeds.',
+  l:['Thinner: front wheels differentiate easily → more steering off-power / on entry, but less "pull" on power.','Thicker: front acts more locked → more stable entry, more on-power pull out of the corner, less off-power steering.','Check your Tekno manual baseline for the stock value.']},
+ cdiff:{n:'Center diff oil',step:'~1k–2k cSt per step (ET often uses larger steps)',
+  p:'Splits power and braking between the front and rear axles.',
+  l:['Thicker: harder, more direct acceleration and stronger braking/air control; more on-power steering; can feel snappy and less forgiving in loose dirt.','Thinner: smoother, more forgiving power delivery, easier in loose/bumpy; can feel soft and lose drive on high grip.','Electric: instant motor torque usually makes the center diff feel more sensitive. Nitro: clutch engagement also shapes throttle feel.']},
+ rdiff:{n:'Rear diff oil',step:'~1k per step (rear is usually the thinnest)',
+  p:'Controls how freely the rear wheels differentiate.',
+  l:['Thinner: more rear side grip and smoother cornering, especially in loose conditions.','Thicker: more forward drive and stability on high grip; can push or feel less planted mid-corner.','Rear diff changes are subtle; tune front/center first.']},
+ oil:{n:'Shock oil',step:'~50 cSt (≈2.5wt) per step',
+  p:'Damping: how fast the shock moves. It does not change how much the truck leans in a steady corner, only how fast it gets there.',
+  l:['Thinner: shock reacts faster, wheels follow bumps better → more grip in rough/loose, but can bottom and feel floaty off jumps.','Thicker: slower, more controlled → better on big jumps and smooth high-bite, but skips over bumps.','Change one end at a time to shift grip balance: thinner front = more front grip, thinner rear = more rear grip (in rough).','Oil thins out as it heats up — hot days at Speed Lot may need a step thicker.']},
+ spring:{n:'Springs',step:'One spring rate step in the set',
+  p:'How much force it takes to compress the suspension; sets how far the truck leans and squats.',
+  l:['Softer: more roll/weight transfer → more grip at that end, better in bumps, but slower response and can bottom out.','Stiffer: quicker response, better for big jumps and high grip, less grip in rough.','Softer front = more steering; softer rear = more rear traction.','Re-set ride height after changing springs.']},
+ piston:{n:'Shock pistons',step:'One hole count or ~0.1 mm hole size',
+  p:'The holes oil flows through. Works with oil weight but acts differently on fast hits.',
+  l:['Smaller/fewer holes: more "pack" on hard, fast hits (landings) → resists bottoming, but harsher in square bumps.','Larger/more holes: plusher on sharp hits and bumps, less pack on big landings.','Rule: big jumps → less flow; choppy bumps → more flow. Adjust oil to keep the overall feel.']},
+ ride:{n:'Ride height',step:'1–2 mm per step (set with spring collars)',
+  p:'How high the chassis sits at rest.',
+  l:['Lower: lower center of gravity → less roll, less traction rolling, more stable on smooth tracks.','Higher: more suspension travel and more weight transfer → better in rough/ruts, more grip in loose, but more roll.','Measure with the truck ready to run (fuel/battery in). Ride height changes as shocks heat or tires wear.']},
+ camber:{n:'Camber',step:'~0.5° per step',
+  p:'Tilt of the tire viewed from the front. Negative = top of tire leans in.',
+  l:['More negative: more side grip in corners (tire stays flatter when the truck rolls), slightly less straight-line traction.','Less negative (toward 0°): more forward traction and a larger contact patch on straights.','1/8 off-road usually runs small amounts of negative camber — see your Tekno manual baseline.']},
+ toe:{n:'Toe',step:'~0.5–1° per step',
+  p:'Whether the front of the tires point in or out viewed from above.',
+  l:['Front toe-out: sharper turn-in, more nervous on straights.','Front toe-in / less toe-out: calmer, more stable, less initial steering.','Rear toe-in (set by hubs/pivot blocks on the 48s): more = more stable and more rear grip on power, less steering. Less = more rotation.']},
+ rc:{n:'Roll center / inner pivot height',step:'One hole or insert position (see manual)',
+  p:'Geometry that decides how much the chassis rolls for a given cornering force (camber link positions, hinge-pin inserts).',
+  l:['Higher roll center: less roll, quicker response, less grip at that end — good for high bite.','Lower roll center: more roll, more grip at that end, more forgiving — good for loose.','Tekno uses specific link holes and pivot inserts — use the chart in your Tekno manual to know which direction each hole moves it.']},
+ sway:{n:'Sway (anti-roll) bars',step:'One bar size (~0.1 mm wire step)',
+  p:'Link left and right wheels to resist body roll.',
+  l:['Thicker bar at one end: less roll → LESS grip at that end, quicker response, helps stop traction rolling.','Thinner/no bar: more roll → MORE grip at that end, better in bumps and loose.','Thicker front = less steering; thicker rear = more steering (less rear grip).']},
+ tires:{n:'Tires & compound',step:'One compound or tread step',
+  p:'Usually the biggest single change you can make — get tires right before fine-tuning.',
+  l:['Softer compound: more grip, wears faster, can overheat on hot hard-packed dirt.','Harder compound: more durable, less grip — useful in heat or when the track is abrasive/high-bite.','Lower/smaller pins: better on hard-packed, blue groove. Taller/spread pins: loose or soft dirt.','Different front vs rear tire is a strong balance tool. Check wear and glue every day.']},
+ wing:{n:'Wing',step:'One angle or mount position',
+  p:'Downforce on the rear at speed.',
+  l:['More angle / farther back: more rear grip at high speed, more stability, less high-speed steering.','Less angle / forward: more high-speed steering, rear lighter.','Little effect in slow tight corners.']},
+ weight:{n:'Weight placement',step:'5–15 g per step',
+  p:'Where mass sits changes how the truck loads each end and how it flies.',
+  l:['Weight forward: more steering, nose drops more in the air.','Weight back: more rear traction, nose rises more in the air.','ET is heavier (battery) — battery position is a powerful balance tool. NT gets lighter as fuel burns during the run.']},
+ power:{n:'Throttle / brake / power delivery',step:'Small radio/ESC/clutch steps',
+  p:'Often the easiest fix for traction problems — not suspension at all.',
+  l:['ET: lower punch/initial throttle, softer throttle curve (expo), or adjust drag/brake strength in the ESC.','NT: clutch shoe/spring setup changes engagement smoothness; brake EPA and brake balance on the radio.','Smooth inputs beat any setup change. Try driving it first!']},
+ drive:{n:'Driving technique',step:'—',
+  p:'Some symptoms are mostly driver input.',
+  l:['In the air: throttle lifts the nose, brake drops the nose.','On jump faces: steady, even throttle up the face; avoid lifting/braking on take-off.','Brake in a straight line before turning; roll on throttle after the apex.']}
+};
+
+/* ---------- Symptom database ---------- */
+// fixes ranked easiest/most-effective first. k = LEARN key.
+var G=[
+ {g:'Corner entry (off-power / braking)',s:[
+  {id:'push_entry',n:'Understeer (push) on entry',d:'Won\'t turn in when you let off or brake.',
+   f:[{k:'fdiff',dir:'Thinner front diff oil',why:'Lets the front wheels turn at different speeds so the truck rotates easier off-power.'},
+      {k:'sway',dir:'Thinner front sway bar (or remove)',why:'More front roll = more front tire grip.'},
+      {k:'oil',dir:'Thinner front shock oil',why:'Weight transfers to the front faster when you lift/brake.'},
+      {k:'toe',dir:'Slightly more front toe-out',why:'Sharper initial turn-in (costs some straight-line stability).'},
+      {k:'tires',dir:'Softer or fresher front tires',why:'If the fronts are worn or too hard, nothing else will fix it.'}],
+   nt:'NT: very strong brakes can unload and lock the front — try a little less brake on the radio first.',
+   et:'ET: lots of drag brake can also push on entry; try reducing drag brake in the ESC.'},
+  {id:'loose_entry',n:'Oversteer / rear steps out on entry',d:'Rear swings around when you brake or lift.',
+   f:[{k:'power',dir:'Reduce brake strength / drag brake',why:'Rear tires lock or overload under braking; less brake keeps them rolling.'},
+      {k:'fdiff',dir:'Thicker front diff oil',why:'Calms the front so it doesn\'t rotate as aggressively off-power.'},
+      {k:'cdiff',dir:'Thicker center diff oil',why:'Spreads braking more evenly between front and rear.'},
+      {k:'toe',dir:'More rear toe-in',why:'Rear tires resist sliding sideways.'},
+      {k:'sway',dir:'Thinner rear sway bar',why:'More rear roll = more rear grip.'}],
+   nt:'',et:'ET: heavier, so rear inertia on entry is bigger — smooth braking matters more.'}
+ ]},
+ {g:'Mid-corner',s:[
+  {id:'push_mid',n:'Understeer mid-corner',d:'Runs wide through the middle of the turn.',
+   f:[{k:'sway',dir:'Thinner front sway bar',why:'More front roll puts more load on the outside front tire.'},
+      {k:'spring',dir:'Softer front springs',why:'More front weight transfer and grip.'},
+      {k:'camber',dir:'Slightly more negative front camber (~0.5°)',why:'Keeps the front tire flatter on the ground while rolled.'},
+      {k:'sway',dir:'OR thicker rear sway bar',why:'Less rear grip lets the rear rotate the truck.'},
+      {k:'rc',dir:'Lower front roll center (see manual chart)',why:'More front roll = more front grip.'}],
+   nt:'',et:'ET: try moving the battery/electronics slightly forward if possible to load the front.'},
+  {id:'loose_mid',n:'Oversteer / loose mid-corner',d:'Rear slides out through the middle.',
+   f:[{k:'sway',dir:'Thinner rear sway bar',why:'More rear roll = more rear grip.'},
+      {k:'spring',dir:'Softer rear springs',why:'More rear grip from more weight transfer to the outside rear.'},
+      {k:'toe',dir:'More rear toe-in',why:'Rear tires resist stepping out.'},
+      {k:'rdiff',dir:'Thinner rear diff oil',why:'Smoother rear wheel differentiation = more side grip.'},
+      {k:'wing',dir:'More wing angle (fast sweepers only)',why:'More rear downforce at speed.'}],
+   nt:'',et:''}
+ ]},
+ {g:'Corner exit (on-power)',s:[
+  {id:'push_exit',n:'Understeer on exit (pushes on power)',d:'Goes straight when you get on the throttle.',
+   f:[{k:'cdiff',dir:'Thicker center diff oil',why:'Sends more drive to the front so it pulls the truck out of the corner.'},
+      {k:'fdiff',dir:'Thicker front diff oil',why:'More front "pull" on power.'},
+      {k:'sway',dir:'Thinner front sway bar',why:'More front grip overall.'},
+      {k:'spring',dir:'Stiffer rear springs',why:'Less rear squat keeps more weight on the front on power.'}],
+   nt:'NT: a very soft clutch engagement can also make it feel lazy and push.',
+   et:'ET: if you lowered punch a lot, it may push — find the balance.'},
+  {id:'loose_exit',n:'Oversteer on exit / lacks rear traction on power',d:'Rear breaks loose or spins out when you get on the throttle.',
+   f:[{k:'power',dir:'Smoother power: lower punch / softer throttle curve (ET), smoother clutch (NT)',why:'Less sudden torque = rear tires keep grip. Often the easiest fix.'},
+      {k:'cdiff',dir:'Thinner center diff oil',why:'Smoother, more forgiving power delivery to the rear.'},
+      {k:'sway',dir:'Thinner rear sway bar (or remove)',why:'More rear roll = more rear grip.'},
+      {k:'spring',dir:'Softer rear springs or thinner rear shock oil',why:'More rear squat and weight transfer onto the rear tires.'},
+      {k:'tires',dir:'Softer / better-matched rear tires',why:'Rear compound or tread may not suit the dirt that day.'}],
+   nt:'NT: power is smoother than ET; if it\'s still loose, look at tires and rear suspension.',
+   et:'ET: instant torque and extra weight make this the #1 ET complaint — try ESC punch/throttle curve before suspension.'},
+  {id:'wheelspin',n:'Wheelspin / poor forward drive on straights',d:'Spins up out of turns and off jump faces.',
+   f:[{k:'power',dir:'Less punch / smoother throttle',why:'Tires can only deliver so much grip; smooth power uses all of it.'},
+      {k:'tires',dir:'Tire compound/tread for the conditions',why:'The biggest factor in forward traction.'},
+      {k:'oil',dir:'Thinner rear shock oil',why:'Rear squats faster, loading the rear tires.'},
+      {k:'camber',dir:'Less negative rear camber',why:'Bigger contact patch going straight.'},
+      {k:'toe',dir:'More rear toe-in',why:'Improves on-power rear stability and drive.'}],
+   nt:'',et:'ET: watch your gearing/temps too — over-geared ETs feel spiky and hard to put down.'}
+ ]},
+ {g:'Jumps & landings',s:[
+  {id:'nosedive',n:'Nose-dives off jumps',d:'Front drops and lands nose-first.',
+   f:[{k:'drive',dir:'Stay on even throttle up the face; blip throttle in the air to lift the nose',why:'Lifting or braking on take-off throws the nose down. Check this first.'},
+      {k:'oil',dir:'Thicker rear shock oil',why:'Rear doesn\'t rebound as hard off the lip, so it doesn\'t kick the rear up.'},
+      {k:'spring',dir:'Softer rear springs',why:'Less rear rebound force on take-off.'},
+      {k:'weight',dir:'Move weight rearward',why:'Changes balance in the air so the nose stays up.'},
+      {k:'cdiff',dir:'Thicker center diff oil',why:'Makes throttle/brake in the air more effective for corrections.'}],
+   nt:'NT: full tank is heavier than near-empty — flight attitude changes during a run.',
+   et:'ET: battery position strongly affects flight balance.'},
+  {id:'nosehigh',n:'Lands nose-high / rear first',d:'Front sticks up, rear slaps down.',
+   f:[{k:'drive',dir:'Less throttle in the air / tap brake to drop the nose',why:'Wheel inertia pitches the truck in the air.'},
+      {k:'oil',dir:'Thinner rear shock oil',why:'Rear rebounds a bit more on take-off, levelling the truck.'},
+      {k:'spring',dir:'Stiffer rear springs',why:'More rear push off the lip.'},
+      {k:'weight',dir:'Move weight forward',why:'Nose drops more naturally in the air.'}],
+   nt:'',et:''},
+  {id:'bottom',n:'Bottoms out / harsh on big landings',d:'Chassis slams on landings.',
+   f:[{k:'piston',dir:'Smaller/fewer piston holes',why:'More pack on fast hits holds the chassis off the ground.'},
+      {k:'oil',dir:'Thicker shock oil (~50 cSt)',why:'Slows the suspension so it uses travel more slowly.'},
+      {k:'spring',dir:'Stiffer springs',why:'More force to compress.'},
+      {k:'ride',dir:'Raise ride height 1–2 mm',why:'More travel available before the chassis hits.'}],
+   nt:'',et:'ET is heavier than NT, so it usually needs more support (stiffer springs/more pack) for the same jumps.'},
+  {id:'bounce',n:'Bounces / unsettled after landing',d:'Pogos or bounces instead of settling.',
+   f:[{k:'oil',dir:'Thicker shock oil',why:'More damping stops the rebound bounce.'},
+      {k:'spring',dir:'Slightly softer springs',why:'Less stored energy to throw the truck back up.'},
+      {k:'piston',dir:'Check shocks: equal oil level, no air, no leaks, correct rebound',why:'Bad or uneven shocks often cause this.'}],
+   nt:'',et:''}
+ ]},
+ {g:'Bumps, whoops & ruts',s:[
+  {id:'bumps',n:'Unsettled in bumps / whoops',d:'Kicks, swaps, or skips through rough sections.',
+   f:[{k:'oil',dir:'Thinner shock oil (~50 cSt)',why:'Wheels follow the ground faster instead of skipping.'},
+      {k:'piston',dir:'Larger/more piston holes',why:'Plusher on sharp, fast hits.'},
+      {k:'spring',dir:'Softer springs',why:'Absorbs bumps instead of deflecting off them.'},
+      {k:'sway',dir:'Thinner sway bars',why:'Lets each side react to bumps more independently.'},
+      {k:'ride',dir:'Raise ride height 1–2 mm',why:'More travel to absorb rough sections.'}],
+   nt:'',et:'ET: extra weight can make rough sections harsher — may need more support (pistons/oil) than NT.'},
+  {id:'swap',n:'Rear swaps side-to-side in braking bumps',d:'Rear wags around over chop on braking.',
+   f:[{k:'power',dir:'Less brake / smoother braking',why:'Rear tires lose grip when they skip and brake at the same time.'},
+      {k:'oil',dir:'Thinner rear shock oil',why:'Rear tires stay on the ground over chop.'},
+      {k:'toe',dir:'More rear toe-in',why:'Straight-line stability.'},
+      {k:'cdiff',dir:'Thicker center diff oil',why:'More even brake balance front/rear.'}],
+   nt:'',et:''}
+ ]},
+ {g:'Traction roll',s:[
+  {id:'troll',n:'Traction rolls in corners',d:'Tips over in high-grip turns.',
+   f:[{k:'tires',dir:'Harder compound or less aggressive tread',why:'Too much grip for the track — lowering grip stops the tip-over.'},
+      {k:'sway',dir:'Thicker sway bars (front first)',why:'Less body roll.'},
+      {k:'ride',dir:'Lower ride height 1–2 mm',why:'Lower center of gravity.'},
+      {k:'rc',dir:'Raise roll center (see manual chart)',why:'Less roll and less grip.'},
+      {k:'oil',dir:'Thicker shock oil',why:'Slows weight transfer so it doesn\'t snap over.'}],
+   nt:'',et:'ET: higher weight and battery height make traction rolls more likely — keep the battery as low/central as possible.'}
+ ]},
+ {g:'Steering & stability',s:[
+  {id:'twitchy',n:'Twitchy / darty on straights',d:'Hard to drive straight, nervous.',
+   f:[{k:'toe',dir:'Less front toe-out (toward 0 / slight toe-in)',why:'Front tires track straighter.'},
+      {k:'power',dir:'Add steering expo / lower steering rate on the radio',why:'Easiest fix — less sensitive steering around center.'},
+      {k:'fdiff',dir:'Thicker front diff oil',why:'More stable front end.'},
+      {k:'toe',dir:'More rear toe-in',why:'Rear stays planted.'}],
+   nt:'',et:''},
+  {id:'lazy',n:'Lazy / slow to change direction',d:'Sluggish in chicanes and quick transitions.',
+   f:[{k:'sway',dir:'Thicker sway bars',why:'Less roll = quicker response.'},
+      {k:'oil',dir:'Thicker shock oil',why:'Weight shifts more quickly/directly.'},
+      {k:'spring',dir:'Stiffer springs',why:'Faster response to inputs.'},
+      {k:'ride',dir:'Lower ride height',why:'Less roll and a lower center of gravity.'}],
+   nt:'',et:'ET is heavier — some lazy feel is normal; don\'t over-stiffen for loose days.'},
+  {id:'toomuch',n:'Too much steering overall / spins out easily',d:'Hard to control; rotates too much everywhere.',
+   f:[{k:'fdiff',dir:'Thicker front diff oil',why:'Calms the front everywhere.'},
+      {k:'sway',dir:'Thicker front sway bar',why:'Less front grip.'},
+      {k:'toe',dir:'More rear toe-in',why:'More rear grip and stability.'},
+      {k:'tires',dir:'Harder front tires or softer rear tires',why:'Shifts the grip balance toward the rear.'}],
+   nt:'',et:''}
+ ]}
+];
+var ALL={};G.forEach(function(g){g.s.forEach(function(s){s.group=g.g;ALL[s.id]=s})});
+
+/* ---------- Truck ---------- */
+var truck=load(LS_TRUCK,'NT48');
+function setTruck(t){truck=t;save(LS_TRUCK,t);
+ $$('#truckSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.truck===t)});
+ $('#hdrTruck').textContent=t==='NT48'?'· Nitro truggy':'· Electric truggy';
+ if(curSym)showSym(curSym);renderLog();}
+$$('#truckSeg button').forEach(function(b){b.addEventListener('click',function(){setTruck(b.dataset.truck)})});
+
+/* ---------- Tabs ---------- */
+function showTab(t){$$('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===t)});
+ ['advisor','log','learn'].forEach(function(x){$('#tab-'+x).classList.toggle('hidden',x!==t)});window.scrollTo(0,0)}
+$$('nav button').forEach(function(b){b.addEventListener('click',function(){showTab(b.dataset.tab)})});
+
+/* ---------- Advisor ---------- */
+var curSym=null;
+function renderSyms(){var h='';G.forEach(function(g){h+='<div class="grp">'+esc(g.g)+'</div>';
+ g.s.forEach(function(s){h+='<button class="sym" data-sym="'+s.id+'">'+esc(s.n)+'<small>'+esc(s.d)+'</small></button>'})});
+ $('#symGroups').innerHTML=h;
+ $$('#symGroups .sym').forEach(function(b){b.addEventListener('click',function(){showSym(b.dataset.sym)})});}
+function showSym(id){curSym=id;var s=ALL[id];if(!s)return;
+ var tn=truck==='NT48'?'NT48 2.2 (nitro)':'ET48 2.2 (electric)';
+ var tnote=truck==='NT48'?s.nt:s.et;
+ var h='<button class="btn sm" id="backBtn" style="margin-top:10px">← All problems</button>';
+ h+='<h2>'+esc(s.n)+'</h2><div><span class="tag">'+esc(s.group)+'</span><span class="tag">'+tn+'</span></div>';
+ h+='<p style="color:var(--mut)">'+esc(s.d)+' Try these in order — <b style="color:var(--tx)">one at a time</b>:</p>';
+ s.f.forEach(function(f,i){var L=LEARN[f.k];
+  h+='<div class="fix"><div class="rank">'+(i+1)+'</div><div style="flex:1"><div class="t">'+esc(L.n)+'</div><div class="d">→ '+esc(f.dir)+'</div>'+
+   (L.step&&L.step!=='—'?'<div class="s">Step: '+esc(L.step)+'</div>':'')+'<div class="w">Why: '+esc(f.why)+'</div>'+
+   '<div class="row"><button class="lk" data-learn="'+f.k+'">Learn more</button><button class="lk" data-log="'+i+'">Log this change</button></div></div></div>'});
+ if(tnote)h+='<div class="note blue"><b>'+(truck==='NT48'?'Nitro':'Electric')+' note:</b> '+esc(tnote)+'</div>';
+ h+='<div class="note">Change ONE thing, test 3–5 laps, log it. Starting values: see your Tekno manual baseline. If a change made it worse, go back before trying the next item.</div>';
+ $('#symDetail').innerHTML=h;$('#symList').classList.add('hidden');$('#symDetail').classList.remove('hidden');window.scrollTo(0,0);
+ $('#backBtn').addEventListener('click',function(){curSym=null;$('#symDetail').classList.add('hidden');$('#symList').classList.remove('hidden');window.scrollTo(0,0)});
+ $$('#symDetail [data-learn]').forEach(function(b){b.addEventListener('click',function(){openLearn(b.dataset.learn)})});
+ $$('#symDetail [data-log]').forEach(function(b){b.addEventListener('click',function(){var f=s.f[+b.dataset.log];
+  showTab('log');openForm(null,{symptom:s.n,change:LEARN[f.k].n+': '+f.dir+' (from ___ to ___)'})})});}
+function openLearn(k){showTab('learn');var d=document.getElementById('learn-'+k);if(d){d.open=true;setTimeout(function(){d.scrollIntoView({behavior:'smooth',block:'start'})},30)}}
+
+/* ---------- Learn ---------- */
+function renderLearn(){var h='';Object.keys(LEARN).forEach(function(k){var L=LEARN[k];
+ h+='<details id="learn-'+k+'"><summary>'+esc(L.n)+'</summary><p>'+esc(L.p)+'</p><ul>'+L.l.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+ (L.step!=='—'?'<p style="color:var(--blue)">Typical step: '+esc(L.step)+'</p>':'')+'</details>'});
+ h+='<details><summary>Conditions cheat-sheet</summary><ul>'+
+ '<li><b>Dry / dusty / loose:</b> go softer and thinner (shock oil, sway bars, springs), slightly thinner diffs, more aggressive tires, maybe a bit higher ride height.</li>'+
+ '<li><b>High bite / blue groove:</b> go stiffer and thicker (sway bars, oil), lower ride height, harder/lower-pin tires; watch for traction rolling.</li>'+
+ '<li><b>Hot day:</b> shock and diff oil get thinner as they heat — you may need a step thicker. Soft tires can overheat.</li>'+
+ '<li><b>Wet / muddy:</b> mainly tires (mud/spike style); keep the truck soft. Protect electronics (especially ET).</li>'+
+ '<li>Track grip often changes during the day as a line comes in — log the time and conditions.</li></ul></details>';
+ h+='<details><summary>Nitro vs electric (NT48 vs ET48)</summary><ul>'+
+ '<li><b>Weight:</b> the ET48 is heavier (battery + motor). It usually needs more support from springs/pistons and is more prone to traction rolling.</li>'+
+ '<li><b>Power delivery:</b> electric torque is instant — the center diff and ESC punch/throttle curve matter a lot for exit traction. Nitro builds power more gradually and its clutch shapes throttle feel.</li>'+
+ '<li><b>Weight change:</b> the NT gets lighter as fuel burns; ET weight stays constant through the run.</li>'+
+ '<li><b>Braking:</b> nitro uses mechanical brakes (radio EPA/balance); electric uses ESC brake and drag brake settings.</li>'+
+ '<li>Don\'t copy one truck\'s setup to the other — start each from its own Tekno manual baseline.</li></ul></details>';
+ h+='<details><summary>How to test a change</summary><ul><li>Start from your Tekno manual baseline and write it down.</li><li>Change ONE thing by ONE step.</li><li>Run 3–5 laps on the same tires/fuel/battery state.</li><li>Rate before vs after honestly; note lap times if you have them.</li><li>Keep it or revert, then try the next item in the list.</li><li>If it changes nothing you can feel, try a bigger step — or put it back and try a different adjustment.</li></ul></details>';
+ $('#learnList').innerHTML=h;}
+
+/* ---------- Log ---------- */
+var log=load(LS_LOG,[]);if(!Array.isArray(log))log=[];
+var rb=0,ra=0;
+function rateUI(el,get,set){var h='';for(var i=1;i<=5;i++)h+='<button type="button" data-v="'+i+'">'+i+'</button>';el.innerHTML=h;
+ $$('#'+el.id+' button').forEach(function(b){b.addEventListener('click',function(){set(+b.dataset.v);paint()})});
+ function paint(){$$('#'+el.id+' button').forEach(function(b){b.classList.toggle('on',+b.dataset.v===get())})}
+ el._paint=paint;}
+rateUI($('#r_before'),function(){return rb},function(v){rb=v});
+rateUI($('#r_after'),function(){return ra},function(v){ra=v});
+function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function lastTrack(){for(var i=0;i<log.length;i++)if(log[i].track)return log[i].track;return 'Speed Lot (Ramona, CA)'}
+function openForm(e,pre){pre=pre||{};var f=$('#logForm');f.classList.remove('hidden');
+ $('#formTitle').textContent=e?'Edit entry':'New entry';
+ $('#f_id').value=e?e.id:'';$('#f_date').value=e?e.date:today();$('#f_truck').value=e?e.truck:truck;
+ $('#f_track').value=e?e.track:lastTrack();$('#f_cond').value=e?e.cond:'Dry / dusty';$('#f_temp').value=e&&e.temp!=null?e.temp:'';
+ $('#f_symptom').value=e?(e.symptom||''):(pre.symptom||'');$('#f_change').value=e?e.change:(pre.change||'');
+ $('#f_notes').value=e?(e.notes||''):'';$('#f_keep').value=e?(e.keep||''):'';
+ rb=e?(e.before||0):0;ra=e?(e.after||0):0;$('#r_before')._paint();$('#r_after')._paint();
+ setTimeout(function(){f.scrollIntoView({behavior:'smooth',block:'start'})},30);}
+function closeForm(){$('#logForm').classList.add('hidden')}
+$('#newEntry').addEventListener('click',function(){openForm(null)});
+$('#cancelForm').addEventListener('click',closeForm);
+$('#logForm').addEventListener('submit',function(ev){ev.preventDefault();
+ var id=$('#f_id').value||('e'+Date.now().toString(36)+Math.random().toString(36).slice(2,6));
+ var t=$('#f_temp').value;
+ var e={id:id,date:$('#f_date').value,truck:$('#f_truck').value,track:$('#f_track').value.trim(),cond:$('#f_cond').value,temp:t===''?null:+t,
+  symptom:$('#f_symptom').value.trim(),change:$('#f_change').value.trim(),before:rb||null,after:ra||null,notes:$('#f_notes').value.trim(),keep:$('#f_keep').value,updated:new Date().toISOString()};
+ var i=log.findIndex(function(x){return x.id===id});if(i>=0)log[i]=e;else log.unshift(e);
+ sortLog();save(LS_LOG,log);closeForm();renderLog();toast('Saved');});
+function sortLog(){log.sort(function(a,b){return (b.date||'').localeCompare(a.date||'')||(b.updated||'').localeCompare(a.updated||'')})}
+$('#logFilter').addEventListener('change',renderLog);
+function renderLog(){var all=$('#logFilter').value==='all';var list=log.filter(function(e){return all||e.truck===truck});
+ if(!list.length){$('#logList').innerHTML='<div class="empty">No entries yet for '+(all?'any truck':esc(truck==='NT48'?'NT48 2.2':'ET48 2.2'))+'.<br>Pick a problem in the Advisor and tap “Log this change”, or add one here.</div>';return}
+ $('#logList').innerHTML=list.map(function(e){var d='';
+  if(e.before&&e.after){var x=e.after-e.before;d='<span class="delta '+(x>0?'up':x<0?'dn':'eq')+'">'+e.before+' → '+e.after+(x>0?' ▲':x<0?' ▼':' =')+'</span>'}
+  else if(e.before||e.after)d='<span class="delta eq">'+(e.before||'?')+' → '+(e.after||'?')+'</span>';
+  return '<div class="card entry"><div class="top"><span>'+esc(e.date)+' · '+esc(e.truck==='NT48'?'NT48':'ET48')+'</span>'+d+'</div>'+
+  '<div class="chg">'+esc(e.change)+'</div>'+
+  (e.symptom?'<div style="font-size:14px">Fixing: '+esc(e.symptom)+'</div>':'')+
+  '<div style="font-size:14px;color:var(--mut)">'+esc(e.track)+' · '+esc(e.cond)+(e.temp!=null?' · '+esc(e.temp)+'°F':'')+(e.keep?' · <b style="color:var(--tx)">'+esc(e.keep)+'</b>':'')+'</div>'+
+  (e.notes?'<div style="margin-top:6px;font-size:15px;white-space:pre-wrap">'+esc(e.notes)+'</div>':'')+
+  '<div class="row" style="margin-top:10px"><button class="btn sm" data-edit="'+esc(e.id)+'">Edit</button><button class="btn sm dan" data-del="'+esc(e.id)+'">Delete</button></div></div>'}).join('');
+ $$('#logList [data-edit]').forEach(function(b){b.addEventListener('click',function(){var e=log.find(function(x){return x.id===b.dataset.edit});if(e)openForm(e)})});
+ $$('#logList [data-del]').forEach(function(b){b.addEventListener('click',function(){if(!confirm('Delete this entry?'))return;
+  log=log.filter(function(x){return x.id!==b.dataset.del});save(LS_LOG,log);renderLog();toast('Deleted')})});}
+$('#exportBtn').addEventListener('click',function(){var data=JSON.stringify({app:'rc-setup-helper',version:1,exported:new Date().toISOString(),entries:log},null,2);
+ var blob=new Blob([data],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='rc-setup-log-'+today()+'.json';
+ document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);toast('Exported '+log.length+' entries')});
+$('#importBtn').addEventListener('click',function(){$('#importFile').click()});
+$('#importFile').addEventListener('change',function(){var file=this.files[0];if(!file)return;var r=new FileReader();
+ r.onload=function(){try{var d=JSON.parse(r.result);var arr=Array.isArray(d)?d:d.entries;if(!Array.isArray(arr))throw 0;
+  var replace=confirm('Import '+arr.length+' entries.\nOK = merge with existing (same IDs overwritten)\nCancel = abort');if(!replace)return;
+  var n=0;arr.forEach(function(e){if(!e||typeof e!=='object'||!e.change)return;if(!e.id)e.id='e'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+   var i=log.findIndex(function(x){return x.id===e.id});if(i>=0)log[i]=e;else log.push(e);n++});
+  sortLog();save(LS_LOG,log);renderLog();toast('Imported '+n+' entries');}catch(err){alert('That file is not a valid setup log export.')}};
+ r.readAsText(file);this.value='';});
+
+/* ---------- Init ---------- */
+renderSyms();renderLearn();setTruck(truck==='ET48'?'ET48':'NT48');
+if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(function(){})}
+})();
+</script>
+</body>
+</html>
