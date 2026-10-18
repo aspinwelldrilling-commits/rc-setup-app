@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en" data-poc="front-end">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0a0c10">
+<link rel="icon" href="../../icon-192.png">
+<title>Front-end visuals · POC preview · RC Setup Helper</title>
+<style>
+:root{--bg:#0a0c10;--card:#12161d;--card2:#171c25;--ln:#262d3a;--tx:#e8edf4;--mu:#93a0b4;--acc:#ff7a1a;--sel:#38c6ff;--ok:#3ddc97;--rad:16px}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+header{position:sticky;top:0;z-index:5;background:rgba(10,12,16,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ln);padding:10px 14px 10px}
+h1{font-size:17px;margin:0 0 2px;letter-spacing:.01em}h1 small{color:var(--mu);font-weight:600;font-size:12px;margin-left:6px}
+.pv{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#140a02;background:var(--acc);border-radius:6px;padding:2px 6px;margin-right:6px;vertical-align:2px}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:8px;background:#0e1218;border:1px solid var(--ln);border-radius:14px;padding:4px}
+.seg button{min-height:42px;border:0;border-radius:10px;background:none;color:var(--mu);font:700 13px/1.1 inherit;font-family:inherit}
+.seg button small{display:block;font-weight:500;font-size:10px;opacity:.85;margin-top:2px}
+.seg button.on{background:linear-gradient(180deg,#ff8a33,#ff6a00);color:#140a02}
+main{padding:12px 12px 90px;max-width:760px;margin:0 auto}
+.card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--ln);border-radius:var(--rad);padding:12px;margin:12px 0;box-shadow:0 10px 30px -18px #000}
+.card h2{font-size:15px;margin:0 0 2px}.leg{color:var(--mu);font-size:12.5px;margin:4px 0}
+.note{border:1px solid #3a2a1a;background:rgba(255,122,26,.07);border-radius:12px;padding:10px 12px;font-size:13px;margin:10px 0}
+.note.blue{border-color:#1d3b52;background:rgba(56,198,255,.06)}
+.vtag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.06em;border-radius:6px;padding:2px 6px;margin-right:6px}
+.vtag.a{background:#e8edf4;color:#111}.vtag.b{background:#38c6ff;color:#06131c}
+.pair{display:block}.pair>.v{margin-top:10px}
+.v .vh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 6px}
+.v .vh a{color:var(--mu);font-size:11.5px;text-decoration:none;border-bottom:1px dotted var(--mu)}
+.stage{border-radius:14px;overflow:hidden;border:1px solid #222a36;background:radial-gradient(120% 90% at 50% 10%,#252c38 0%,#151a22 55%,#0d1016 100%)}
+.stage.light{background:radial-gradient(120% 90% at 50% 15%,#ffffff 0%,#eef1f4 60%,#d9dee4 100%)}
+.stage svg{display:block;width:100%;height:auto}
+.insets{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
+.inset{position:relative}.inset .lab{position:absolute;left:8px;top:6px;font-size:11.5px;font-weight:700;color:#cfd8e6;text-shadow:0 1px 2px #000;pointer-events:none}
+.stage.light+.lab,.inset .stage.light~.lab{color:#2a3240;text-shadow:none}
+.hp{cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{min-height:40px;padding:6px 12px;border-radius:999px;border:1.5px solid #3a4354;background:rgba(0,0,0,.35);color:var(--tx);font:600 13px/1.1 inherit;font-family:inherit}
+.chip.st{border-style:dashed;border-color:#c9d3e0}
+.chip.on{background:rgba(56,198,255,.22);border-color:var(--sel);border-style:solid}
+.chip.on.df{background:rgba(255,122,26,.25);border-color:var(--acc)}
+.sum{font-size:13px;color:#cfe0f5;margin:8px 2px 0}
+.rows .row{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;padding:10px 0;border-top:1px solid #1f2632}
+.rows .row:first-child{border-top:0}
+.th{display:flex;gap:6px}.th>div{width:58px;height:58px;border-radius:12px;overflow:hidden;border:1px solid #2a3240;position:relative;background:#10141b}
+.th>div.light{background:#eef1f4}
+.th>div svg{width:100%;height:100%;display:block}
+.th>div i{position:absolute;right:3px;bottom:2px;font:800 9px/1 inherit;font-style:normal;color:#fff;background:rgba(0,0,0,.55);border-radius:4px;padding:1px 3px}
+.row label{font-weight:700;font-size:13.5px;display:block;margin-bottom:4px}
+select,input{width:100%;min-height:42px;border-radius:10px;border:1px solid #2c3442;background:#0d1117;color:var(--tx);font:15px inherit;font-family:inherit;padding:6px 10px}
+.row .src{font-size:11.5px;color:var(--mu);margin-top:3px}.row.chg label{color:#ffcf9e}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--mu);margin-top:6px}.legend b{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-3px;margin-right:4px}
+.icons{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ic{background:#0d1117;border:1px solid var(--ln);border-radius:14px;padding:8px;text-align:center}
+.ic img.big{width:100%;aspect-ratio:1;border-radius:22%;display:block;box-shadow:0 8px 24px -10px #000}
+.ic .home{display:flex;justify-content:center;gap:10px;margin-top:8px;align-items:center}
+.ic .home img{width:48px;height:48px}.ic .home .c{border-radius:50%}.ic .home .s{border-radius:28%}
+.ic b{display:block;font-size:12.5px;margin-top:6px}.ic span{font-size:11px;color:var(--mu)}
+.btn{min-height:40px;border-radius:12px;border:1px solid #344055;background:#141a23;color:var(--tx);font:600 13px inherit;font-family:inherit;padding:6px 12px}
+footer{color:var(--mu);font-size:11.5px;text-align:center;padding:20px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="defs"></defs></svg>
+<header>
+ <h1><span class="pv">PREVIEW</span>Front end visuals <small>NT48 2.2 · proof of concept</small></h1>
+ <div class="seg" id="mode">
+  <button data-m="A">A · Photos<small>Tekno product</small></button>
+  <button data-m="B">B · Renders<small>original art</small></button>
+  <button data-m="AB">A + B<small>compare</small></button>
+  <button data-m="I">Icons<small>3 candidates</small></button>
+ </div>
+</header>
+<main>
+ <div class="note" id="intro">Not part of the app — a separate test page for Travis to choose a style. Changes here are saved only on this page and never touch your setups in RC Setup Helper.</div>
+ <div id="boot" class="leg">Loading Tekno data…</div>
+ <section id="fe"></section>
+ <section id="icons" class="hidden"></section>
+ <footer>RC Setup Helper · front-end visual POC · not linked from the app, not cached by the app’s service worker.<br>Variant A photos: © Tekno RC, LLC — shown by linking to teknorc.com for private evaluation; not copied into this site.</footer>
+</main>
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+var LSK='rcpoc.fe.v1';
+/* ---- keep the main app's service-worker cache clean (in case an older SW handled this page) ---- */
+try{if('serviceWorker' in navigator)navigator.serviceWorker.getRegistration('../../').then(function(r){if(r)r.update().catch(function(){})}).catch(function(){});
+ if(window.caches)caches.keys().then(function(ks){ks.filter(function(k){return /^rcsetup-/.test(k)}).forEach(function(k){caches.open(k).then(function(c){var idx=new URL('../../index.html',location.href).href;
+  c.match(idx).then(function(m){if(!m)return;m.clone().text().then(function(t){if(t.indexOf('data-poc="front-end"')>=0)fetch(idx,{cache:'no-cache'}).then(function(f){if(f.ok)c.put(idx,f)})})});
+  c.keys().then(function(rs){rs.forEach(function(rq){if(rq.url.indexOf('/preview/')>=0)c.delete(rq)})})})})}).catch(function(){})}catch(e){}
+
+/* ---------------- Variant A sources (Tekno product photos, hot-linked) ---------------- */
+var UP='https://www.teknorc.com/wp-content/uploads/',SHOP='https://www.teknorc.com/shop/';
+var PH={
+ tower:{u:UP+'2023/07/TKR9428Bs.jpg',W:500,H:500,ov:[16,106,470,316],part:'TKR9428B',shop:SHOP+'tkr9428b-shock-tower-front-lightened-7075-cnc-gm-ano-et-nt48-2-0/'},
+ arm:{u:UP+'2024/11/TKR9436B-2.jpg',W:1000,H:1000,ov:[326,282,570,520],part:'TKR9436B',shop:SHOP+'tkr9436b-suspension-arms-front-requires-tkr9055-c-sleeves-et-nt48-2-2/'},
+ carrier:{u:UP+'2022/08/TKR9142Bs.jpg',W:500,H:500,ov:[34,166,434,200],part:'TKR9142B (18°)',shop:SHOP+'tkr9142b-spindle-carriers-l-r-aluminum-18-degree-eb-nb48-2-1/'},
+ hub:{W:500,H:500,ov:[76,106,320,304],v:{'2mm':[UP+'2021/01/TKR9671s.jpg','TKR9671',SHOP+'tkr9671-wheel-hubs-2mm-offset-17mm-gun-metal-ano-w-pins-2pcs/'],'4mm':[UP+'2021/01/TKR9673s.jpg','TKR9673',SHOP+'tkr9673-wheel-hubs-4mm-offset-17mm-gun-metal-ano-w-pins-2pcs/']}},
+ stand:{W:1000,H:1000,ov:[160,296,672,404],v:{'0mm':[UP+'2024/05/TKR8777.jpg','TKR8777',SHOP+'tkr8777-shock-standoffs-revised-0mm-all-2-x-requires-tkr1443-2pcs/'],'+2mm':[UP+'2024/05/TKR8777B.jpg','TKR8777B',SHOP+'tkr8777b-shock-standoffs-revised-2mm-all-2-x-requires-tkr1443-2pcs/']}},
+ spring:{W:500,H:500,ov:[40,50,396,406],v:{TKR6090:[UP+'2014/01/TKR6090s.jpg','TKR6090',SHOP+'tkr6090-shock-spring-set-front-1-6x9-0t-80mm-pink/'],TKR6091:[UP+'2014/01/TKR6091s.jpg','TKR6091',''],TKR6092:[UP+'2014/01/TKR6092s.jpg','TKR6092',''],TKR6093:[UP+'2014/01/TKR6093s.jpg','TKR6093','']}}
+};
+/* hole positions measured on the Tekno photos (photo pixel coordinates); variant B art is drawn in the same frames */
+var HOLES={
+ fUpper:{part:'tower',vb:[30,120,76,50],r:4.4,t:'Upper shock holes (tower)',pts:[['Hole 1 (outermost)',52.4,141.2,'1'],['Hole 2',61.5,145.4,'2'],['Hole 3',70.5,149.6,'3'],['Hole 4 (innermost)',79.6,153.8,'4']]},
+ fInCam:{part:'tower',vb:[86,309,68,52],r:4.4,t:'Inner camber link holes (tower)',pts:[['1',131,325.5],['2',131,335.5],['3',131,345.5],['4',108.5,325.5],['5',108.5,335.5],['6',108.5,345.5]]},
+ fLower:{part:'arm',vb:[566,500,124,104],r:5.2,t:'Lower shock holes (arm, from below)',approx:1,pts:[['Outside',618,575],['Middle',633,561],['Inside',646,545]]},
+ fOutCam:{part:'carrier',vb:[398,214,74,70],r:4.4,t:'Outer camber holes A / B / C (spindle carrier)',approx:1,pts:[['A',438.5,237.5],['B',437.5,249],['C',436,260]]}
+};
+var FIDS=['fTower','fUpper','fStand','fInCam','fOutCam','fLower','fHub','fSpring'];
+var TK=null,FBY={},STOCK={},vals={},SRC=null,MODE='A';
+
+/* ---------------- Variant B: original vector renders (my own drawings, same frames) ---------------- */
+function defsHTML(){var d='';
+ d+='<linearGradient id="gGun" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0" stop-color="#6d7686"/><stop offset=".35" stop-color="#4a5260"/><stop offset=".7" stop-color="#363c47"/><stop offset="1" stop-color="#262b33"/></linearGradient>';
+ d+='<linearGradient id="gGunE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c7cfdb"/><stop offset=".5" stop-color="#7d8696"/><stop offset="1" stop-color="#3a414c"/></linearGradient>';
+ d+='<radialGradient id="gHole" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="#05070a"/><stop offset=".75" stop-color="#11151b"/><stop offset="1" stop-color="#2b313b"/></radialGradient>';
+ d+='<linearGradient id="gComp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b3f46"/><stop offset=".5" stop-color="#25282d"/><stop offset="1" stop-color="#17191c"/></linearGradient>';
+ d+='<linearGradient id="gCompE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5f646d"/><stop offset="1" stop-color="#1a1c20"/></linearGradient>';
+ d+='<linearGradient id="gAlu" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5c6573"/><stop offset=".22" stop-color="#d9dee6"/><stop offset=".45" stop-color="#8b94a3"/><stop offset=".7" stop-color="#e9edf2"/><stop offset="1" stop-color="#555d6a"/></linearGradient>';
+
+ d+='<pattern id="pThread" width="8" height="5" patternUnits="userSpaceOnUse"><rect width="8" height="5" fill="#59616e"/><rect y="0" width="8" height="2" fill="#a9b2bf"/><rect y="2" width="8" height=".8" fill="#2f353e"/></pattern>';
+ // static textures (rendered once by the browser; not animated)
+ d+='<filter id="fBrush" x="0" y="0" width="1" height="1"><feTurbulence type="fractalNoise" baseFrequency="0.9 0.012" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 -.18"/><feComposite in2="SourceGraphic" operator="in"/></filter>';
+ d+='<filter id="fGrain" x="0" y="0" width="1" height="1"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .35 -.12"/><feComposite in2="SourceGraphic" operator="in"/></filter>';
+ d+='<filter id="fDrop" x="-10%" y="-10%" width="130%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="3" dy="9"/><feComponentTransfer><feFuncA type="linear" slope=".65"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+ // A: white-background removal for dark parts (photo cut-out)
+ d+='<filter id="fCut" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1.6 -1.6 -1.6 0 4.62"/></filter>';
+ d+=towerArt()+armArt()+carrierArt();return d}
+function circ(x,y,r){return 'M'+(x-r)+','+y+'a'+r+','+r+' 0 1,0 '+(2*r)+',0a'+r+','+r+' 0 1,0 '+(-2*r)+',0Z'}
+function slot(pts,r){ // lobed slot: light rim under, dark fill over, inner shading
+ var a='',b='',c='';pts.forEach(function(p){a+=circ(p[0],p[1],r+1.3);b+=circ(p[0],p[1],r);c+=circ(p[0]+.6,p[1]+1.2,r*.55)});
+ for(var i=1;i<pts.length;i++){var p=pts[i-1],q=pts[i],dx=q[0]-p[0],dy=q[1]-p[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L,w=r*.62;
+  b+='M'+(p[0]+nx*w)+','+(p[1]+ny*w)+'L'+(q[0]+nx*w)+','+(q[1]+ny*w)+'L'+(q[0]-nx*w)+','+(q[1]-ny*w)+'L'+(p[0]-nx*w)+','+(p[1]-ny*w)+'Z'}
+ return '<path d="'+a+'" fill="#aeb6c3"/><path d="'+b+'" fill="url(#gHole)"/><path d="'+c+'" fill="#000" opacity=".35"/>'}
+function mirror(pts){var o=pts.slice();for(var i=pts.length-1;i>=0;i--)o.push([500-pts[i][0],pts[i][1]]);return o}
+function towerArt(){ // NT48 2.2-style front tower, front view (my own drawing)
+ var L=[[250,231],[204,231],[110,125],[96,117],[70,112],[46,116],[33,128],[26,146],[28,162],[42,172],[92,206],[92,334],[96,346],[110,350],[142,350],[146,394],[152,408],[165,411],[178,408],[183,394],[185,350],[250,350]];
+ var P=mirror(L),d='M'+P.map(function(p){return p.join(',')}).join('L')+'Z';
+ var win='M106,201L180,264L106,267Z M394,201L320,264L394,267Z M208,273L292,273L270,296L230,296Z';
+ var g='<g id="bTower"><g filter="url(#fDrop)"><path d="'+d+'" fill="url(#gGunE)" transform="translate(0,2.2)"/><path d="'+d+' '+win+'" fill-rule="evenodd" fill="url(#gGun)"/></g>';
+ g+='<path d="'+d+' '+win+'" fill-rule="evenodd" fill="#fff" filter="url(#fBrush)" opacity=".55"/>';
+ g+='<path d="'+d+'" fill="none" stroke="#a7b0bf" stroke-width="1.4" stroke-opacity=".8"/><path d="'+win+'" fill="none" stroke="#c9d0db" stroke-width="1.6"/><path d="'+win+'" fill="none" stroke="#11151b" stroke-width="1" transform="translate(0,1.6)" opacity=".7"/>';
+ // highlights along the top bevel
+ g+='<path d="M46,116 L70,112 L96,117 L110,125 L204,231 L296,231 L390,125 L404,117 L430,112 L454,116" fill="none" stroke="#e8edf4" stroke-width="1.1" stroke-opacity=".75"/>';
+ // holes
+ var U=HOLES.fUpper.pts.map(function(p){return [p[1],p[2]]}),Um=U.map(function(p){return [500-p[0],p[1]]});
+ var C1=[[131,325.5],[131,335.5],[131,345.5]],C2=[[108.5,325.5],[108.5,335.5],[108.5,345.5]];
+ g+=slot(U,5.2)+slot(Um,5.2);[C1,C2].forEach(function(c){g+=slot(c,5);g+=slot(c.map(function(p){return [500-p[0],p[1]]}),5)});
+ [[210,245],[290,245],[157,289],[343,289],[202,315],[298,315],[165,395],[335,395],[250,330]].forEach(function(h){g+=slot([h],3.6)});
+ g+='</g>';return g}
+function armArt(){ // composite front arm, underside (my own drawing, in the photo frame)
+ var P=[[712,300],[752,304],[770,318],[858,388],[870,410],[860,428],[812,448],[704,556],[560,652],[492,760],[470,776],[446,772],[440,748],[462,710],[420,676],[372,668],[350,654],[346,630],[372,606],[520,506],[640,400],[700,330]];
+ var d='M'+P.map(function(p){return p.join(',')}).join('L')+'Z';
+ var g='<g id="bArm"><g filter="url(#fDrop)"><path d="'+d+'" fill="url(#gCompE)" transform="translate(0,4)"/><path d="'+d+'" fill="url(#gComp)"/></g><path d="'+d+'" fill="#fff" filter="url(#fGrain)" opacity=".5"/>';
+ // stiffening ribs / pockets
+ g+='<path d="M700,350 L820,420 L720,520 L600,600 L520,580 L650,440Z" fill="#1b1d21" opacity=".55"/><path d="M700,350 L820,420 L720,520 L600,600 L520,580 L650,440Z" fill="none" stroke="#5a5f68" stroke-width="2"/>';
+ g+='<path d="M700,350 L600,600 M820,420 L520,580" stroke="#43474f" stroke-width="5" stroke-linecap="round"/>';
+ g+='<path d="'+d+'" fill="none" stroke="#6b717b" stroke-width="2" stroke-opacity=".8"/>';
+ // hinge-pin bosses + outer pivot
+ [[732,310],[860,404],[460,756],[362,642]].forEach(function(b){g+='<circle cx="'+b[0]+'" cy="'+b[1]+'" r="15" fill="url(#gCompE)" stroke="#6b717b" stroke-width="1.5"/><circle cx="'+b[0]+'" cy="'+b[1]+'" r="6" fill="url(#gHole)"/>'});
+ // shock-mount tab
+ var ang=Math.atan2(545-575,646-618)*180/Math.PI;
+ g+='<g transform="translate(632,560) rotate('+ang.toFixed(1)+')"><rect x="-44" y="-14" width="88" height="28" rx="8" fill="#141619" stroke="#7a808a" stroke-width="2"/><rect x="-40" y="-9" width="80" height="6" rx="3" fill="#fff" opacity=".08"/></g>';
+ g+=slot([[618,575]],5.2)+slot([[633,561]],5.2)+slot([[646,545]],5.2);
+ g+='</g>';return g}
+function carrierArt(){ // aluminium spindle carrier (caster block) in 3/4 view, my own drawing
+ var ring='M78,318 C60,250 150,206 252,206 C350,206 430,226 428,262 L428,286 C424,262 360,248 254,250 C160,252 112,280 118,318 Z';
+ var side='M78,318 L118,318 C116,338 120,350 128,356 L92,356 C82,346 78,334 78,318Z M428,262 L428,286 C428,300 420,312 404,318 L404,294 C418,288 428,276 428,262Z';
+ var g='<g id="bCarrier"><g filter="url(#fDrop)"><path d="'+ring+'" fill="url(#gGunE)" transform="translate(0,22)"/><path d="'+ring+'" fill="#2a3039" transform="translate(0,11)"/><path d="'+ring+'" fill="url(#gGun)"/>';
+ g+='<path d="'+side+'" fill="#2a3039"/>';
+ g+='<rect x="414" y="219" width="50" height="66" rx="10" fill="#262b33" transform="translate(-6,8)"/><rect x="414" y="219" width="50" height="66" rx="10" fill="url(#gGun)"/>';
+ g+='<rect x="44" y="280" width="60" height="62" rx="10" fill="#262b33" transform="translate(-6,8)"/><rect x="44" y="280" width="60" height="62" rx="10" fill="url(#gGun)"/></g>';
+ g+='<path d="'+ring+'" fill="#fff" filter="url(#fBrush)" opacity=".45"/><path d="M84,280 C104,232 180,212 252,212 C340,212 410,226 424,248" fill="none" stroke="#e7ecf3" stroke-width="2.2" stroke-opacity=".75"/>';
+ g+='<rect x="414" y="219" width="50" height="66" rx="10" fill="none" stroke="#c3cad5" stroke-width="1.4"/><rect x="44" y="280" width="60" height="62" rx="10" fill="none" stroke="#9aa3b1" stroke-width="1.2"/>';
+ g+=slot([[438.5,237.5],[437.5,249],[436,260]],5)+slot([[74,298],[74,309],[74,320]],4.6)+slot([[252,228]],6);
+ g+='</g>';return g}
+/* small renders for hub / standoff / spring (B) */
+function hubB(off,sm){var e=6+(parseFloat(off)||0)*9,cx=110,h='<svg viewBox="0 0 240 200"><g filter="url(#fDrop)">';
+ h+='<path d="M'+(cx-62)+',112 L'+(cx-31)+',104 L'+(cx-31)+',158 L'+(cx-62)+',150Z" fill="#2c323b"/><path d="M'+(cx-31)+',104 L'+(cx+31)+',104 L'+(cx+31)+',158 L'+(cx-31)+',158Z" fill="url(#gGun)"/><path d="M'+(cx+31)+',104 L'+(cx+62)+',112 L'+(cx+62)+',150 L'+(cx+31)+',158Z" fill="#3b424d"/>';
+ h+='<path d="M'+(cx-62)+',112 L'+(cx-31)+',104 L'+(cx+31)+',104 L'+(cx+62)+',112 L'+(cx+31)+',120 L'+(cx-31)+',120Z" fill="#7d8696"/><path d="M'+(cx-31)+',104 L'+(cx+31)+',104" stroke="#dfe5ee" stroke-width="1.5"/>';
+ h+='<rect x="'+(cx-14)+'" y="104" width="28" height="54" fill="#fff" opacity=".08"/><circle cx="'+(cx+45)+'" cy="134" r="4" fill="url(#gHole)"/>';
+ h+='<rect x="'+(cx-40)+'" y="'+(112-e)+'" width="80" height="'+e+'" fill="url(#pThread)" stroke="#2b3139"/>';
+ h+='<ellipse cx="'+cx+'" cy="'+(112-e)+'" rx="40" ry="8" fill="url(#gAlu)" stroke="#2b3139"/><ellipse cx="'+cx+'" cy="'+(112-e)+'" rx="20" ry="4" fill="url(#gHole)"/></g>';
+ if(!sm)h+='<line x1="192" y1="'+(112-e)+'" x2="192" y2="112" stroke="#38c6ff" stroke-width="2.5"/><text x="200" y="'+(116-e/2)+'" fill="#cfe0f5" font-size="15" font-weight="700">'+esc(off)+'</text>';
+ return h+'</svg>'}
+function standB(v,sm){var L=(parseFloat(String(v).replace('+',''))||0);var h='<svg viewBox="0 0 240 200"><g filter="url(#fDrop)">';
+ h+='<rect x="40" y="86" width="60" height="28" rx="4" fill="url(#gGun)"/>';
+ var x=100;if(L){h+='<rect x="100" y="90" width="'+(L*14)+'" height="20" rx="3" fill="url(#gAlu)" stroke="#3b424d"/>';x+=L*14}
+ h+='<rect x="'+x+'" y="94" width="40" height="12" fill="url(#pThread)"/><circle cx="'+(x+58)+'" cy="100" r="20" fill="url(#gAlu)" stroke="#3b424d"/><circle cx="'+(x+52)+'" cy="93" r="6" fill="#fff" opacity=".55"/></g>';
+ if(!sm)h+='<text x="120" y="160" fill="#cfe0f5" font-size="15" font-weight="700" text-anchor="middle">standoff '+esc(v)+'</text>';return h+'</svg>'}
+function springCol(lab){lab=String(lab||'').toLowerCase();return /pink/.test(lab)?'#ff6fb5':/green/.test(lab)?'#34d399':/yellow/.test(lab)?'#ffd34d':/orange/.test(lab)?'#ff7a1a':'#c7ced8'}
+function springB(id,sm){var o=optOf('fSpring',id),c=springCol(o?o[1]:''),h='<svg viewBox="0 0 240 200"><g filter="url(#fDrop)">';
+ var x0=26,x1=214,cy=100,A=40,turns=9,N=turns*36,back='',front='';
+ function P(i){var t=i/N,an=t*turns*Math.PI*2;return [x0+t*(x1-x0)+Math.sin(an)*6,cy+Math.cos(an)*A,Math.sin(an)]}
+ var seg=null,segF=null;for(var i=0;i<=N;i++){var q=P(i),isF=q[2]>=0;if(segF!==isF){if(seg){if(segF)front+=seg;else back+=seg}seg='M'+q[0].toFixed(1)+','+q[1].toFixed(1);segF=isF}else seg+='L'+q[0].toFixed(1)+','+q[1].toFixed(1)}
+ if(seg){if(segF)front+=seg;else back+=seg}
+ h+='<path d="'+back+'" fill="none" stroke="'+c+'" stroke-width="7" stroke-linecap="round" opacity=".55"/><path d="'+back+'" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" opacity=".35"/>';
+ h+='<path d="'+front+'" fill="none" stroke="'+c+'" stroke-width="7.5" stroke-linecap="round"/><path d="'+front+'" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55" transform="translate(-1,-2)"/>';
+ h+='</g>';if(!sm)h+='<text x="120" y="188" fill="#cfe0f5" font-size="14" font-weight="700" text-anchor="middle">'+esc(o?o[1].split(' – ')[0]:id)+'</text>';return h+'</svg>'}
+
+/* ---------------- data ---------------- */
+function optOf(fid,v){var f=FBY[fid];if(!f||!f.opts)return null;for(var i=0;i<f.opts.length;i++){var o=f.opts[i];var ov=Array.isArray(o)?o[0]:o;if(String(ov)===String(v))return Array.isArray(o)?o:[o,o]}return null}
+function optsList(fid){var f=FBY[fid];return (f&&f.opts||[]).map(function(o){return Array.isArray(o)?[String(o[0]),String(o[1])]:[String(o),String(o)]})}
+function cur(fid){return vals[fid]!=null?String(vals[fid]):(STOCK[fid]!=null?String(STOCK[fid]):'')}
+function st(fid){return STOCK[fid]!=null?String(STOCK[fid]):null}
+function save(){try{localStorage.setItem(LSK,JSON.stringify({vals:vals,mode:MODE}))}catch(e){}}
+
+/* ---------------- drawing ---------------- */
+function vbs(v){return v.join(' ')}
+function base(variant,part){var p=PH[part];
+ if(variant==='A')return '<image href="'+p.u+'" x="0" y="0" width="'+p.W+'" height="'+p.H+'" filter="url(#fCut)" preserveAspectRatio="none"/>';
+ return '<use href="#b'+part.charAt(0).toUpperCase()+part.slice(1)+'"/>'}
+function holeMarks(fid,scale,lbl){var H=HOLES[fid],c=cur(fid),s=st(fid),df=s!=null&&c!==s,h='',r=H.r;
+ H.pts.forEach(function(p){var v=p[0],x=p[1],y=p[2],sel=c===v,isS=s===v,lab=p[3]||v;
+  h+='<g class="hp" data-f="'+fid+'" data-v="'+esc(v)+'" role="button" aria-label="'+esc(H.t+': '+v)+'"><circle cx="'+x+'" cy="'+y+'" r="'+Math.max(r+2,17/scale)+'" fill="transparent"/>';
+  if(sel)h+='<circle cx="'+x+'" cy="'+y+'" r="'+(r+1.4)+'" fill="'+(df?'rgba(255,122,26,.42)':'rgba(56,198,255,.42)')+'" stroke="'+(df?'#ff7a1a':'#38c6ff')+'" stroke-width="3" vector-effect="non-scaling-stroke"/><circle cx="'+x+'" cy="'+y+'" r="'+(r*.38)+'" fill="'+(df?'#ffd2ad':'#d9f3ff')+'"/>';
+  else h+='<circle cx="'+x+'" cy="'+y+'" r="'+(r+.6)+'" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1" vector-effect="non-scaling-stroke"/>';
+  if(isS)h+='<circle cx="'+x+'" cy="'+y+'" r="'+(r+3.2)+'" fill="none" stroke="#f1f5fa" stroke-width="1.6" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/>';
+  if(lbl){var fs=12/scale,lx=x+(fid==='fUpper'?0:fid==='fInCam'?(x>120?r+5.5:-(r+5.5)):fid==='fOutCam'?r+6:0),ly=y+(fid==='fUpper'?-(r+4.5):0)+fs*.35;if(fid==='fLower'){lx=x+(r+5)*.73+fs*1.6;ly=y+(r+5)*.68+fs*.35}
+   h+='<text x="'+lx+'" y="'+ly+'" font-size="'+fs+'" font-weight="800" text-anchor="middle" fill="'+(sel?(df?'#ffcf9e':'#bfeaff'):'#fff')+'" stroke="#000" stroke-width="'+(3/scale)+'" paint-order="stroke">'+esc(lab)+'</text>'}
+  h+='</g>'});return h}
+function partBox(fid,part){var H=HOLES[fid];var v=H.vb;return '<rect x="'+v[0]+'" y="'+v[1]+'" width="'+v[2]+'" height="'+v[3]+'" rx="'+(v[2]*.08)+'" fill="none" stroke="#38c6ff" stroke-width="1.5" stroke-dasharray="5 3" vector-effect="non-scaling-stroke"/>'}
+function overview(variant,part,fids,wpx){var p=PH[part],v=p.ov,sc=wpx/v[2],h='<svg viewBox="'+vbs(v)+'" role="img" aria-label="'+esc(part)+'">'+base(variant,part);
+ fids.forEach(function(f){h+=partBox(f,part)});
+ // tiny live dots on the overview too
+ fids.forEach(function(f){var H=HOLES[f],c=cur(f),s=st(f),df=s!=null&&c!==s;H.pts.forEach(function(q){if(q[0]===c)h+='<circle cx="'+q[1]+'" cy="'+q[2]+'" r="'+(H.r*.9)+'" fill="'+(df?'#ff7a1a':'#38c6ff')+'" stroke="#fff" stroke-width="1" vector-effect="non-scaling-stroke"/>'})});
+ return h+'</svg>'}
+function inset(variant,fid,wpx){var H=HOLES[fid],v=H.vb,sc=wpx/v[2];return '<div class="inset"><div class="stage"><svg viewBox="'+vbs(v)+'">'+base(variant,H.part)+holeMarks(fid,sc,true)+'</svg></div><div class="lab">'+esc(H.t)+(H.approx&&variant==='A'?' · position approx.':'')+'</div></div>'}
+function chips(fid){var c=cur(fid),s=st(fid);return '<div class="chips">'+optsList(fid).map(function(o){var on=o[0]===c,df=on&&s!=null&&c!==s;return '<button class="chip'+(on?' on':'')+(df?' df':'')+(o[0]===s?' st':'')+'" data-f="'+fid+'" data-v="'+esc(o[0])+'">'+esc(o[1].split(' – ')[0])+'</button>'}).join('')+'</div>'}
+function photoTile(part,val,light){var p=PH[part],e=p.v[val];if(!e)return '<div class="stage'+(light?' light':'')+'" style="aspect-ratio:'+(p.ov[2]/p.ov[3])+';display:flex;align-items:center;justify-content:center"><span class="leg" style="padding:16px;text-align:center">No Tekno product photo found for '+esc(val)+'</span></div>';
+ return '<div class="stage'+(light?' light':'')+'"><svg viewBox="'+vbs(p.ov)+'"><image href="'+e[0]+'" width="'+p.W+'" height="'+p.H+'"'+(light?' style="mix-blend-mode:multiply"':' filter="url(#fCut)"')+'/></svg></div>'}
+function vhead(variant,part,extra){var p=PH[part]||{},src='';
+ if(variant==='A'){var sh=p.shop,pt=p.part;if(extra){sh=extra[2];pt=extra[1]}src=sh?'<a href="'+sh+'" target="_blank" rel="noopener">'+esc(pt||'')+' · teknorc.com ↗</a>':'<span class="leg" style="margin:0">'+esc(pt||'')+'</span>'}
+ else src='<span class="leg" style="margin:0">original render</span>';
+ return '<div class="vh"><span><span class="vtag '+(variant==='A'?'a':'b')+'">'+variant+'</span>'+(variant==='A'?'Tekno photo':'My render')+'</span>'+src+'</div>'}
+function variants(){return MODE==='AB'?['A','B']:[MODE]}
+function W(){var w=Math.min(innerWidth,760)-24-26;return Math.max(280,w)}
+
+function render(){if(!TK)return;var w=W(),h='';
+ var vv=variants();
+ h+='<div class="card"><h2>Front end · NT48 2.2</h2><div class="leg">'+esc(SRC)+'</div>'+
+  '<div class="legend"><span><b style="background:#38c6ff"></b>your setting</span><span><b style="border:2px dashed #f1f5fa"></b>Tekno stock</span><span><b style="background:#ff7a1a"></b>changed from stock</span></div>'+
+  '<div class="sum" id="sum">'+summary()+'</div><div class="row" style="display:flex;gap:8px;margin-top:8px"><button class="btn" id="rst">Reset to Tekno stock</button>'+(SRCV?'<button class="btn" id="mine">Use my active setup</button>':'')+'</div></div>';
+ // tower
+ h+='<div class="card"><h2>Front shock tower</h2><div class="leg">Tap a hole in the close-ups. Upper hole sets shock angle; inner camber hole sets camber gain.</div>';
+ vv.forEach(function(v){h+='<div class="v">'+vhead(v,'tower')+'<div class="stage">'+overview(v,'tower',['fUpper','fInCam'],w)+'</div><div class="insets">'+inset(v,'fUpper',w)+inset(v,'fInCam',w)+'</div></div>'});
+ h+='<h2 style="margin-top:12px;font-size:14px">Shock standoff</h2>';
+ vv.forEach(function(v){var c=cur('fStand');h+='<div class="v">'+vhead(v,'stand',v==='A'?PH.stand.v[c]:null)+(v==='A'?photoTile('stand',c,true):'<div class="stage">'+standB(c)+'</div>')+'</div>'});
+ h+=chips('fStand')+'<div class="leg">'+esc(FBY.fStand&&FBY.fStand.note||'')+'</div></div>';
+ // arm
+ h+='<div class="card"><h2>Front arm · lower shock hole</h2><div class="leg">Inside = more progressive / softer at ride height; outside = firmer, quicker response.</div>';
+ vv.forEach(function(v){h+='<div class="v">'+vhead(v,'arm')+'<div class="stage">'+overview(v,'arm',['fLower'],w)+'</div><div class="insets">'+inset(v,'fLower',w)+'</div></div>'});
+ h+='</div>';
+ // carrier
+ h+='<div class="card"><h2>Spindle carrier · outer camber A / B / C</h2><div class="leg">Outer link position on the carrier top tab (Tekno manual p13: stock 3/B).</div>';
+ vv.forEach(function(v){h+='<div class="v">'+vhead(v,'carrier')+'<div class="stage">'+overview(v,'carrier',['fOutCam'],w)+'</div><div class="insets">'+inset(v,'fOutCam',w)+'</div></div>'});
+ h+='</div>';
+ // hub
+ h+='<div class="card"><h2>Wheel hub offset</h2>';
+ vv.forEach(function(v){var c=cur('fHub');h+='<div class="v">'+vhead(v,'hub',v==='A'?(PH.hub.v[c]||[null,'no photo for '+c,'']):null)+(v==='A'?photoTile('hub',c,false):'<div class="stage">'+hubB(c)+'</div>')+'</div>'});
+ h+=chips('fHub')+'</div>';
+ // spring
+ h+='<div class="card"><h2>Front spring</h2>';
+ vv.forEach(function(v){var c=cur('fSpring');h+='<div class="v">'+vhead(v,'spring',v==='A'?(PH.spring.v[c]||[null,c,'']):null)+(v==='A'?photoTile('spring',c,true):'<div class="stage">'+springB(c)+'</div>')+'</div>'});
+ h+=chips('fSpring')+'</div>';
+ // rows with thumbnails
+ h+='<div class="card rows"><h2>Setup-sheet rows · thumbnails</h2><div class="leg">How each row’s mini picture would look'+(MODE==='AB'?' (A left, B right)':'')+'.</div>'+rowsHTML()+'</div>';
+ $('#fe').innerHTML=h;bind()}
+function summary(){return 'Link '+esc(cur('fInCam'))+'/'+esc(cur('fOutCam'))+' · shock hole '+esc((cur('fUpper').match(/\d/)||['—'])[0])+' · standoff '+esc(cur('fStand'))+' · lower '+esc(cur('fLower'))+' · hub '+esc(cur('fHub'))+' · '+esc((optOf('fSpring',cur('fSpring'))||[cur('fSpring'),cur('fSpring')])[1].split(' – ')[0])}
+function thumb(variant,fid){var light=false,svg='';
+ if(HOLES[fid]){var H=HOLES[fid];svg='<svg viewBox="'+vbs(H.vb)+'">'+base(variant,H.part)+holeMarks(fid,58/H.vb[2],false)+'</svg>'}
+ else if(fid==='fTower'){svg=overview(variant,'tower',[],58)}
+ else if(fid==='fStand'){if(variant==='A'){var e=PH.stand.v[cur(fid)];light=true;svg=e?'<svg viewBox="'+vbs(PH.stand.ov)+'"><image href="'+e[0]+'" width="1000" height="1000" style="mix-blend-mode:multiply"/></svg>':'<svg viewBox="0 0 58 58"><text x="29" y="33" font-size="9" fill="#556" text-anchor="middle">no photo</text></svg>'}else svg=standB(cur(fid),1)}
+ else if(fid==='fHub'){if(variant==='A'){var e2=PH.hub.v[cur(fid)];svg=e2?'<svg viewBox="'+vbs(PH.hub.ov)+'"><image href="'+e2[0]+'" width="500" height="500" filter="url(#fCut)"/></svg>':'<svg viewBox="0 0 58 58"><text x="29" y="33" font-size="9" fill="#889" text-anchor="middle">no photo</text></svg>'}else svg=hubB(cur(fid),1)}
+ else if(fid==='fSpring'){if(variant==='A'){var e3=PH.spring.v[cur(fid)];light=true;svg=e3?'<svg viewBox="'+vbs(PH.spring.ov)+'"><image href="'+e3[0]+'" width="500" height="500" style="mix-blend-mode:multiply"/></svg>':''}else svg=springB(cur(fid),1)}
+ var lab={fUpper:'H'+((cur('fUpper').match(/\d/)||['—'])[0]),fInCam:'#'+cur('fInCam'),fOutCam:cur('fOutCam'),fLower:cur('fLower').charAt(0),fHub:cur('fHub'),fStand:cur('fStand'),fTower:'',fSpring:''}[fid];
+ return '<div class="'+(light?'light':'')+'" data-th="'+variant+'">'+svg+(lab?'<i>'+esc(lab)+'</i>':'')+'</div>'}
+function rowsHTML(){return FIDS.map(function(fid){var f=FBY[fid];if(!f)return '';var c=cur(fid),s=st(fid),chg=s!=null&&c!==s;
+ var ctl=f.opts?'<select data-f="'+fid+'" aria-label="'+esc(f.label)+'">'+optsList(fid).map(function(o){return '<option value="'+esc(o[0])+'"'+(o[0]===c?' selected':'')+'>'+esc(o[1])+'</option>'}).join('')+'</select>':'<input data-f="'+fid+'" value="'+esc(c)+'" aria-label="'+esc(f.label)+'">';
+ var so=f.stock&&f.stock.NT48;
+ return '<div class="row'+(chg?' chg':'')+'"><div class="th">'+variants().map(function(v){return thumb(v,fid)}).join('')+'</div><div><label>'+esc(f.label)+'</label>'+ctl+'<div class="src">stock: '+esc(s==null?'— (not in Tekno docs)':((optOf(fid,s)||[s,s])[1]))+(so&&so.src?' · '+esc(so.src):'')+'</div></div></div>'}).join('')}
+function setV(fid,v){var s=st(fid);if(s!=null&&String(v)===s)delete vals[fid];else vals[fid]=v;save();render()}
+function bind(){$$('#fe .hp, #fe .chip').forEach(function(el){el.addEventListener('click',function(){setV(el.getAttribute('data-f'),el.getAttribute('data-v'))})});
+ $$('#fe select[data-f], #fe input[data-f]').forEach(function(el){el.addEventListener('change',function(){setV(el.dataset.f,el.value)})});
+ var r=$('#rst');if(r)r.onclick=function(){vals={};SRC='Showing Tekno box-stock (NT48 2.2 manual p34).';save();render()};
+ var m=$('#mine');if(m)m.onclick=function(){vals=Object.assign({},SRCV.vals);SRC='Started from your active NT48 setup “'+SRCV.name+'” (read-only copy).';save();render()}}
+
+/* ---------------- icons ---------------- */
+function icons(){var C=[1,2,3].map(function(n){return '<div class="ic"><img class="big" src="../../icon-candidates/icon-candidate-'+n+'-512.png" alt="Icon candidate '+n+'"><div class="home"><img class="s" src="../../icon-candidates/icon-candidate-'+n+'-512.png" alt=""><img class="c" src="../../icon-candidates/icon-candidate-'+n+'-512.png" alt=""></div><b>Candidate '+n+'</b><span>'+['Orange body · front ¾','Gunmetal body · orange ring','White body · rear ¾ / wing'][n-1]+'</span></div>'}).join('');
+ C+='<div class="ic"><img class="big" src="../../icon-512.png" alt="Current icon"><div class="home"><img class="s" src="../../icon-512.png" alt=""><img class="c" src="../../icon-512.png" alt=""></div><b>Current (live)</b><span>for comparison</span></div>';
+ $('#icons').innerHTML='<div class="card"><h2>App icon candidates</h2><div class="leg">512 px PNGs, original 3D renders (no Tekno logo or trademark). Small icons show squircle and circle masks like an Android home screen. The live icon is unchanged.</div><div class="icons" style="margin-top:10px">'+C+'</div></div>'}
+
+/* ---------------- mode ---------------- */
+function setMode(m){MODE=m;$$('#mode button').forEach(function(b){b.classList.toggle('on',b.dataset.m===m)});$('#fe').classList.toggle('hidden',m==='I');$('#icons').classList.toggle('hidden',m!=='I');$('#intro').classList.toggle('hidden',m==='I');if(m==='I')icons();else render();save();window.scrollTo(0,0)}
+$$('#mode button').forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.m)})});
+
+/* ---------------- boot ---------------- */
+var SRCV=null;
+document.getElementById('defs').innerHTML=defsHTML();
+fetch('../../tekno-data.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(d){TK=d;d.fields.forEach(function(f){FBY[f.id]=f;if(f.stock&&f.stock.NT48)STOCK[f.id]=f.stock.NT48.v});
+ // read (never write) the active NT48 setup from the main app, if any
+ try{var S=JSON.parse(localStorage.getItem('rcsetup.setups')||'[]'),A=JSON.parse(localStorage.getItem('rcsetup.active')||'{}'),id=A&&A.NT48,s=S.filter(function(x){return x&&x.id===id&&x.truck==='NT48'})[0];
+  if(s){var v={};FIDS.forEach(function(k){if(s.vals&&s.vals[k]!=null&&String(s.vals[k])!==String(STOCK[k]))v[k]=String(s.vals[k])});SRCV={vals:v,name:s.name}}}catch(e){}
+ var saved=null;try{saved=JSON.parse(localStorage.getItem(LSK)||'null')}catch(e){}
+ var qm=(location.hash.match(/mode=(A|B|AB|I)/)||[])[1];
+ if(saved&&saved.vals){vals=saved.vals;SRC='Your preview values (saved on this page only).'}else if(SRCV){vals=Object.assign({},SRCV.vals);SRC='Started from your active NT48 setup “'+SRCV.name+'” (read-only copy).'}else SRC='Showing Tekno box-stock (NT48 2.2 manual p34).';
+ $('#boot').remove();setMode(qm||(saved&&saved.mode)||'A');window.POC_READY=true})
+ .catch(function(e){$('#boot').textContent='Could not load tekno-data.json: '+e.message});
+var LW=innerWidth;addEventListener('resize',function(){if(Math.abs(innerWidth-LW)>40&&MODE!=='I'){LW=innerWidth;render()}});
+})();
+</script>
+</body>
+</html>
