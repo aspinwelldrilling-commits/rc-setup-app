@@ -266,3 +266,8 @@ Exports from the app (`Export / share`) use the same format, with extra keys (`i
 | `servoSpd` | Steering servo speed | all | string | free text | NT48: -10; ET48: -10; NB48: -10; EB48: -10 |
 | `brakeDR` | Brake dual rate | all | string | free text | NT48: 80; ET48: 80; NB48: 80; EB48: 80 |
 | `notes` | Notes | all | string | free text | NT48: null; ET48: null; NB48: null; EB48: null |
+
+## v11 – livery & icon
+- Vehicle art (advisor scenes, before/after, Tires & body, empty states) now uses Travis's own truck livery: silver body, orange/yellow flames, black lower sides, black wing. NT48 has the nitro head/antenna, two windows and gold springs; ET48 has a closed body, one window and silver springs. Buggies use the same livery family on a darker body.
+- The app icon and header logo are original vector art rendered from the in-app NT48 art. Tekno/TZR marks are suggested with text-free shapes only.
+- My Setup has an optional "My truck photo" per vehicle. It is stored only on the device (IndexedDB) and is not included in Photo Setup counts, zip or share.
