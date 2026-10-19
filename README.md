@@ -271,3 +271,11 @@ Exports from the app (`Export / share`) use the same format, with extra keys (`i
 - Vehicle art (advisor scenes, before/after, Tires & body, empty states) now uses Travis's own truck livery: silver body, orange/yellow flames, black lower sides, black wing. NT48 has the nitro head/antenna, two windows and gold springs; ET48 has a closed body, one window and silver springs. Buggies use the same livery family on a darker body.
 - The app icon and header logo are original vector art rendered from the in-app NT48 art. Tekno/TZR marks are suggested with text-free shapes only.
 - My Setup has an optional "My truck photo" per vehicle. It is stored only on the device (IndexedDB) and is not included in Photo Setup counts, zip or share.
+
+## v12 – photo-based vehicle art
+- **Side views (all advisor scenes, before/after, empty states):** cut-outs of Travis's own trucks. The NT48 is from the May 3 2025 photo, with the 1st-place tag removed; there's an option in My Setup to show it again. The ET48 is from the Feb 15 photo, mirrored with its decals turned back to read correctly. Body and wheels are separate layers, so the existing transform animations still move the chassis on its suspension. Each layer has a soft contact shadow.
+- **Buggies (NB48/EB48):** photo composites built from the same cut-outs, with buggy wheelbase and wheel size and a darker body.
+- **Top / rear views:** photo-textured shaded renders. These are the previous art with photo-style pin-tread tyres, grain and softening.
+- **Icon, header logo and splash:** the NT48 photo cut-out on carbon fibre with an orange accent.
+- **Dirt ground:** CC0 texture "Ground103" from ambientCG (ambientcg.com).
+- All sprites are in `img/` (WebP) and are cached by the service worker for offline use. The vector art is still the fallback if an image can't load.
