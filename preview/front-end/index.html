@@ -13,8 +13,8 @@
 header{position:sticky;top:0;z-index:5;background:rgba(10,12,16,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ln);padding:10px 14px 10px}
 h1{font-size:17px;margin:0 0 2px;letter-spacing:.01em}h1 small{color:var(--mu);font-weight:600;font-size:12px;margin-left:6px}
 .pv{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#140a02;background:var(--acc);border-radius:6px;padding:2px 6px;margin-right:6px;vertical-align:2px}
-.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:8px;background:#0e1218;border:1px solid var(--ln);border-radius:14px;padding:4px}
-.seg button{min-height:42px;border:0;border-radius:10px;background:none;color:var(--mu);font:700 13px/1.1 inherit;font-family:inherit}
+.seg{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:8px;background:#0e1218;border:1px solid var(--ln);border-radius:14px;padding:4px}
+.seg button{min-height:42px;border:0;border-radius:10px;background:none;color:var(--mu);font:700 12.5px/1.1 inherit;font-family:inherit;padding:2px 1px}
 .seg button small{display:block;font-weight:500;font-size:10px;opacity:.85;margin-top:2px}
 .seg button.on{background:linear-gradient(180deg,#ff8a33,#ff6a00);color:#140a02}
 main{padding:12px 12px 90px;max-width:760px;margin:0 auto}
@@ -59,6 +59,17 @@ select,input{width:100%;min-height:42px;border-radius:10px;border:1px solid #2c3
 .btn{min-height:40px;border-radius:12px;border:1px solid #344055;background:#141a23;color:var(--tx);font:600 13px inherit;font-family:inherit;padding:6px 12px}
 footer{color:var(--mu);font-size:11.5px;text-align:center;padding:20px}
 .hidden{display:none!important}
+.vtag.c{background:#ffd34d;color:#1a1300}
+.stage.paper{background:#fff;border-color:#d7dde6}.stage.ink{background:#21212b;border-color:#2f3442}
+.stage.paper~.lab{color:#334055;text-shadow:none}
+.th>div.paper{background:#fff;border-color:#cfd6e0}.th>div.ink{background:#21212b}
+.th>div.paper i{background:rgba(16,24,40,.72)}
+.th>div[data-th="C"] i{font-size:8px;right:2px;bottom:2px}
+.tgl{display:inline-flex;gap:2px;background:#0e1218;border:1px solid var(--ln);border-radius:10px;padding:2px}
+.tgl button{min-height:34px;border:0;border-radius:8px;background:none;color:var(--mu);font:700 12px inherit;font-family:inherit;padding:4px 10px}
+.tgl button.on{background:#2a3446;color:#fff}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.cmp .lab{position:static;margin:4px 2px 0;color:var(--mu);text-shadow:none;font-size:11.5px;font-weight:700}
+.chips.sm .chip{min-height:36px;font-size:12.5px;padding:5px 10px}
 </style>
 </head>
 <body>
@@ -66,10 +77,11 @@ footer{color:var(--mu);font-size:11.5px;text-align:center;padding:20px}
 <header>
  <h1><span class="pv">PREVIEW</span>Front end visuals <small>NT48 2.2 · proof of concept</small></h1>
  <div class="seg" id="mode">
-  <button data-m="A">A · Photos<small>Tekno product</small></button>
-  <button data-m="B">B · Renders<small>original art</small></button>
+  <button data-m="C">C · Sheet<small>Tekno art</small></button>
+  <button data-m="A">A · Photos<small>product</small></button>
+  <button data-m="B">B · Render<small>my art</small></button>
   <button data-m="AB">A + B<small>compare</small></button>
-  <button data-m="I">Icons<small>3 candidates</small></button>
+  <button data-m="I">Icons<small>3 options</small></button>
  </div>
 </header>
 <main>
@@ -77,7 +89,7 @@ footer{color:var(--mu);font-size:11.5px;text-align:center;padding:20px}
  <div id="boot" class="leg">Loading Tekno data…</div>
  <section id="fe"></section>
  <section id="icons" class="hidden"></section>
- <footer>RC Setup Helper · front-end visual POC · not linked from the app, not cached by the app’s service worker.<br>Variant A photos: © Tekno RC, LLC — shown by linking to teknorc.com for private evaluation; not copied into this site.</footer>
+ <footer>RC Setup Helper · front-end visual POC · not linked from the app, not cached by the app’s service worker.<br>Variant C drawings: cropped from Tekno’s free fillable NT48 2.2 setup sheet (© Tekno RC, LLC) for Travis’s personal use. Variant A photos: © Tekno RC, LLC — shown by linking to teknorc.com for private evaluation; not copied into this site.</footer>
 </main>
 <script>
 (function(){
@@ -109,7 +121,7 @@ var HOLES={
  fOutCam:{part:'carrier',vb:[398,214,74,70],r:4.4,t:'Outer camber holes A / B / C (spindle carrier)',approx:1,pts:[['A',438.5,237.5],['B',437.5,249],['C',436,260]]}
 };
 var FIDS=['fTower','fUpper','fStand','fInCam','fOutCam','fLower','fHub','fSpring'];
-var TK=null,FBY={},STOCK={},vals={},SRC=null,MODE='A';
+var TK=null,FBY={},STOCK={},vals={},SRC=null,MODE='C',THEME='paper';
 
 /* ---------------- Variant B: original vector renders (my own drawings, same frames) ---------------- */
 function defsHTML(){var d='';
@@ -127,6 +139,7 @@ function defsHTML(){var d='';
  d+='<filter id="fDrop" x="-10%" y="-10%" width="130%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="3" dy="9"/><feComponentTransfer><feFuncA type="linear" slope=".65"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
  // A: white-background removal for dark parts (photo cut-out)
  d+='<filter id="fCut" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1.6 -1.6 -1.6 0 4.62"/></filter>';
+ d+='<filter id="fInv" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-0.8 0 0 0 0.93  0 -0.8 0 0 0.93  0 0 -0.8 0 0.97  0 0 0 1 0"/></filter>';
  d+=towerArt()+armArt()+carrierArt();return d}
 function circ(x,y,r){return 'M'+(x-r)+','+y+'a'+r+','+r+' 0 1,0 '+(2*r)+',0a'+r+','+r+' 0 1,0 '+(-2*r)+',0Z'}
 function slot(pts,r){ // lobed slot: light rim under, dark fill over, inner shading
@@ -205,7 +218,7 @@ function optOf(fid,v){var f=FBY[fid];if(!f||!f.opts)return null;for(var i=0;i<f.
 function optsList(fid){var f=FBY[fid];return (f&&f.opts||[]).map(function(o){return Array.isArray(o)?[String(o[0]),String(o[1])]:[String(o),String(o)]})}
 function cur(fid){return vals[fid]!=null?String(vals[fid]):(STOCK[fid]!=null?String(STOCK[fid]):'')}
 function st(fid){return STOCK[fid]!=null?String(STOCK[fid]):null}
-function save(){try{localStorage.setItem(LSK,JSON.stringify({vals:vals,mode:MODE}))}catch(e){}}
+function save(){try{localStorage.setItem(LSK,JSON.stringify({vals:vals,mode:MODE,mv:2,theme:THEME}))}catch(e){}}
 
 /* ---------------- drawing ---------------- */
 function vbs(v){return v.join(' ')}
@@ -238,7 +251,7 @@ function vhead(variant,part,extra){var p=PH[part]||{},src='';
 function variants(){return MODE==='AB'?['A','B']:[MODE]}
 function W(){var w=Math.min(innerWidth,760)-24-26;return Math.max(280,w)}
 
-function render(){if(!TK)return;var w=W(),h='';
+function render(){if(!TK)return;if(MODE==='C')return renderC();var w=W(),h='';
  var vv=variants();
  h+='<div class="card"><h2>Front end · NT48 2.2</h2><div class="leg">'+esc(SRC)+'</div>'+
   '<div class="legend"><span><b style="background:#38c6ff"></b>your setting</span><span><b style="border:2px dashed #f1f5fa"></b>Tekno stock</span><span><b style="background:#ff7a1a"></b>changed from stock</span></div>'+
@@ -287,13 +300,85 @@ function bind(){$$('#fe .hp, #fe .chip').forEach(function(el){el.addEventListene
  var r=$('#rst');if(r)r.onclick=function(){vals={};SRC='Showing Tekno box-stock (NT48 2.2 manual p34).';save();render()};
  var m=$('#mine');if(m)m.onclick=function(){vals=Object.assign({},SRCV.vals);SRC='Started from your active NT48 setup “'+SRCV.name+'” (read-only copy).';save();render()}}
 
+
+/* ---------------- Variant C: drawings from Tekno's own NT48 2.2 setup sheet ----------------
+   Image = the front-end section of NT48-2.2-Setup-Sheet-Fillable.pdf (teknorc.com, 2025/01), rendered at 600 dpi,
+   placed in PDF-point coordinates (x 3-408, y 226-428 pt from the top-left of the A4 page).
+   Hole positions = the centres of the sheet's own fillable radio/checkbox fields, so overlays sit exactly on its holes. */
+var SHEET={u:'sheet/nt48-2.2-front-end.png',x:3,y:226,w:405,h:202,pdf:'https://www.teknorc.com/wp-content/uploads/2025/01/NT48-2.2-Setup-Sheet-Fillable.pdf'};
+function grid(x,y){var n=['Top-left','Top-center','Top-right','Middle-left','Center','Middle-right','Bottom-left','Bottom-center','Bottom-right'],o=[];for(var i=0;i<9;i++)o.push([n[i],x[i%3],y[Math.floor(i/3)]]);return o}
+var CH={
+ fUpper:{r:3.3,lp:'n',pts:[['Hole 1 (outermost)',48.9,263.0,'1'],['Hole 2',41.6,267.2,'2'],['Hole 3',34.4,271.5,'3'],['Hole 4 (innermost)',27.0,275.7,'4']]},
+ fStand:{r:3.3,pts:[['0mm',92.2,280.7],['+2mm',92.2,289.1],['+4mm',92.2,297.5]]},
+ fInCam:{r:3.3,lp:'col',pts:[['1',35.1,313.6,'1'],['2',35.1,322.0,'2'],['3',35.1,330.5,'3'],['4',47.3,313.7,'4'],['5',47.3,322.0,'5'],['6',47.3,330.6,'6']]},
+ fLower:{r:3.3,lp:'n',pts:[['Inside',90.8,331.3,'In'],['Middle',99.2,331.3,'Mid'],['Outside',107.7,331.3,'Out']]},
+ fOutCam:{r:3.3,lp:'n',pts:[['A',142.7,291.5,'A'],['B',151.0,291.5,'B'],['C',159.5,291.5,'C']]},
+ fCvd:{r:3.3,pts:[['U - TKR9487',169.3,252.8],['C - TKR9472',169.3,261.1]]},
+ fHub:{r:3.3,pts:[['2mm',204.2,294.8],['3mm',204.2,303.1],['4mm',204.2,311.7]]},
+ aBlock:{r:3.3,lp:'e',pts:[['TKR9461',104.8,410.5],['TKR9461B',104.8,418.8]]},
+ bBlock:{r:3.3,lp:'e',pts:[['TKR9462',320.8,410.4],['TKR9462B',320.8,418.7]]},
+ aPill:{r:3.3,gap:8,pts:grid([57.55,65.6,73.75],[395.05,403.15,411.15])},
+ bPill:{r:3.3,gap:8,pts:grid([274.95,282.95,291.05],[394.85,402.95,411.0])}
+};
+var CTXT={fTower:{x:63.2,y:240.6,fs:7,w:46},fSpring:{x:357,y:347.4,fs:6.6,w:46,a:'start'}};
+var CFIDS=['fTower','fUpper','fStand','fInCam','fOutCam','fLower','fHub','fCvd','aBlock','aPill','bBlock','bPill','fSpring'];
+var CVIEW={ov:[3,226,232,158],
+ tower:{vb:[5,229,124,74],t:'Tower · upper shock holes · standoff',f:['fUpper','fStand','fTower']},
+ camber:{vb:[14,302,112,66],t:'Inner camber link 1–6 (tower) · lower shock holes (arm)',f:['fInCam','fLower']},
+ spindle:{vb:[128,276,104,47],t:'Outer camber A / B / C (spindle carrier) · hub offset',f:['fOutCam','fHub']},
+ cvd:{vb:[104,229,126,44],t:'UNI/CVD (front driveshaft)',f:['fCvd']},
+ ablk:{vb:[44,383,136,44],t:'“A” Block (front of front arms)',f:['aPill','aBlock']},
+ bblk:{vb:[261,383,136,44],t:'“B” Block (rear of front arms)',f:['bPill','bBlock']}};
+var CTH={fTower:[5,229,86,86],fUpper:[19,251,38,32],fStand:[84,273,42,32],fInCam:[25,305,32,34],fOutCam:[131,277,40,32],fLower:[80,323,36,44],fHub:[193,286,27,33],fCvd:[160,243,64,28],aBlock:[97,402,62,24],aPill:[49,388,33,30],bBlock:[313,402,62,24],bPill:[266,388,33,30],fSpring:[322,334,84,18]};
+function pal(){return THEME==='ink'?{ring:'#10161f',lab:'#f1f5fa',halo:'#21212b',txt:'#8fd8ff'}:{ring:'#ffffff',lab:'#0b1a2e',halo:'#ffffff',txt:'#0a4a8a'}}
+function sheetImg(){return '<image href="'+SHEET.u+'" x="'+SHEET.x+'" y="'+SHEET.y+'" width="'+SHEET.w+'" height="'+SHEET.h+'" preserveAspectRatio="none"'+(THEME==='ink'?' filter="url(#fInv)"':'')+'/>'}
+function cMarks(fid,scale,lbl){var H=CH[fid];if(!H)return '';var c=cur(fid),s=st(fid),df=s!=null&&c!==s,P=pal(),r=H.r,h='',hit='',gap=H.gap||8.4;
+ var hr=Math.min(gap/2,Math.max(r+1,17/scale));
+ H.pts.forEach(function(p){var v=p[0],x=p[1],y=p[2],on=v===c,isS=v===s;
+  if(isS)h+='<circle cx="'+x+'" cy="'+y+'" r="'+(r+1.05)+'" fill="none" stroke="'+P.ring+'" stroke-width="'+(scale>2.5?2.2:1.6)+'" stroke-dasharray="'+(scale>2.5?'4 3':'2.5 2')+'" vector-effect="non-scaling-stroke" pointer-events="none"/>';
+  if(on){var col=df?'#ff7a1a':'#38c6ff',sc=df?'#7a3300':'#0a4f7a';
+   h+='<circle cx="'+x+'" cy="'+y+'" r="'+(r*.98)+'" fill="'+col+'" fill-opacity=".28" stroke="'+col+'" stroke-width="2.2" vector-effect="non-scaling-stroke" pointer-events="none"/><circle cx="'+x+'" cy="'+y+'" r="'+(r*.6)+'" fill="'+col+'" stroke="'+sc+'" stroke-width="1" vector-effect="non-scaling-stroke" pointer-events="none"/>'}
+  if(lbl&&p[3]){var dx=0,dy=-(r+1.7),an='middle';if(H.lp==='e'){dy=1.25;dx=r+1.6;an='start'}else if(H.lp==='col'){dy=1.25;if(x<41){dx=-(r+1.6);an='end'}else{dx=r+1.6;an='start'}}
+   h+='<text x="'+(x+dx)+'" y="'+(y+dy)+'" font-size="3.7" font-weight="800" text-anchor="'+an+'" fill="'+(on?(df?'#ff7a1a':(THEME==='ink'?'#38c6ff':'#0a6fb0')):P.lab)+'" stroke="'+P.halo+'" stroke-width=".9" paint-order="stroke" pointer-events="none">'+esc(p[3])+'</text>'}
+  hit+='<circle class="hp" data-f="'+fid+'" data-v="'+esc(v)+'" cx="'+x+'" cy="'+y+'" r="'+hr+'" fill="transparent"><title>'+esc(v)+'</title></circle>'});
+ return h+hit}
+function cText(fid){var T=CTXT[fid];if(!T)return '';var c=cur(fid),s=st(fid),df=s!=null&&c!==s,o=optOf(fid,c),t=o?o[1].split(' – ')[0]:c,P=pal();if(fid==='fSpring')t=String(t).split(' ')[0];
+ return '<text x="'+T.x+'" y="'+T.y+'" font-size="'+T.fs+'" font-weight="800" text-anchor="'+(T.a||'middle')+'" fill="'+(df?'#ff7a1a':P.txt)+'" '+(String(t).length>9?'textLength="'+T.w+'" lengthAdjust="spacingAndGlyphs" ':'')+'pointer-events="none">'+esc(t)+'</text>'}
+function cSvg(vb,fids,wpx,lbl){var sc=wpx/vb[2],h='<svg viewBox="'+vbs(vb)+'" role="img">'+sheetImg();fids.forEach(function(f){h+=CTXT[f]?cText(f):cMarks(f,sc,lbl)});return h+'</svg>'}
+function stageC(inner){return '<div class="stage '+THEME+'">'+inner+'</div>'}
+function cInset(k,w){var V=CVIEW[k];return '<div style="margin-top:14px"><div class="leg" style="font-weight:700;color:#cfd8e6;margin:0 2px 5px">'+esc(V.t)+'</div><div class="inset">'+stageC(cSvg(V.vb,V.f,w,true))+'</div></div>'+V.f.filter(function(f){return CH[f]}).map(function(f){return '<div class="chips sm">'+chipsIn(f)+'</div>'}).join('')}
+function chipsIn(fid){var c=cur(fid),s=st(fid);return optsList(fid).map(function(o){var on=o[0]===c,df=on&&s!=null&&c!==s;return '<button class="chip'+(on?' on':'')+(df?' df':'')+(o[0]===s?' st':'')+'" data-f="'+fid+'" data-v="'+esc(o[0])+'">'+esc(cLab(fid,o))+'</button>'}).join('')}
+function cLab(fid,o){var m={fUpper:function(){return 'Hole '+(o[0].match(/\d/)||[''])[0]},fInCam:function(){return 'Inner '+o[0]},fOutCam:function(){return 'Outer '+o[0]}}[fid];return m?m():o[1].split(' – ')[0]}
+function cThumb(fid){var vb=CTH[fid];if(!vb)return '';var lab={fUpper:'H'+((cur('fUpper').match(/\d/)||['—'])[0]),fInCam:'#'+cur('fInCam'),fOutCam:cur('fOutCam'),fLower:cur('fLower').slice(0,3),fHub:cur('fHub'),fStand:cur('fStand'),fCvd:cur('fCvd').charAt(0),aBlock:(cur('aBlock').slice(-1)==='B'?'-1':'0'),bBlock:(cur('bBlock').slice(-1)==='B'?'-1':'0')}[fid]||'';
+ return '<div class="'+THEME+'" data-th="C">'+cSvg(vb,[fid],58,false)+(lab?'<i>'+esc(lab)+'</i>':'')+'</div>'}
+function rowsC(){return CFIDS.map(function(fid){var f=FBY[fid];if(!f)return '';var c=cur(fid),s=st(fid),chg=s!=null&&c!==s;
+ var ctl=f.opts?'<select data-f="'+fid+'" aria-label="'+esc(f.label)+'">'+optsList(fid).map(function(o){return '<option value="'+esc(o[0])+'"'+(o[0]===c?' selected':'')+'>'+esc(o[1])+'</option>'}).join('')+'</select>':'<input data-f="'+fid+'" value="'+esc(c)+'" aria-label="'+esc(f.label)+'">';
+ var so=f.stock&&f.stock.NT48;
+ return '<div class="row'+(chg?' chg':'')+'"><div class="th">'+cThumb(fid)+'</div><div><label>'+esc(f.label)+'</label>'+ctl+'<div class="src">stock: '+esc(s==null?'— (not in Tekno docs)':((optOf(fid,s)||[s,s])[1]))+(so&&so.src?' · '+esc(so.src):'')+'</div></div></div>'}).join('')}
+function renderC(){var w=W(),h='',keep=THEME;
+ h+='<div class="card"><h2>Front end · NT48 2.2</h2><div class="leg">'+esc(SRC)+'</div>'+
+  '<div class="legend"><span><b style="background:#38c6ff"></b>your setting</span><span><b style="border:2px dashed #f1f5fa"></b>Tekno stock</span><span><b style="background:#ff7a1a"></b>changed from stock</span></div>'+
+  '<div class="sum" id="sum">'+summary()+' · A '+esc(cur('aBlock'))+'/'+esc(cur('aPill'))+' · B '+esc(cur('bBlock'))+'/'+esc(cur('bPill'))+'</div><div class="row" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn" id="rst">Reset to Tekno stock</button>'+(SRCV?'<button class="btn" id="mine">Use my active setup</button>':'')+'</div></div>';
+ h+='<div class="card"><div class="v"><div class="vh"><span><span class="vtag c">C</span>Tekno setup-sheet drawing</span><a href="'+SHEET.pdf+'" target="_blank" rel="noopener">NT48 2.2 sheet · teknorc.com ↗</a></div>'+
+  '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 8px"><span class="leg" style="margin:0">Card style</span><span class="tgl" id="thm"><button data-t="paper" class="'+(THEME==='paper'?'on':'')+'">Paper</button><button data-t="ink" class="'+(THEME==='ink'?'on':'')+'">Dark</button></span></div>'+
+  stageC(cSvg(CVIEW.ov,CFIDS,w,false))+
+  '<div class="cmp">'+['paper','ink'].map(function(t){THEME=t;var x='<div><div class="stage '+t+'">'+cSvg(CVIEW.tower.vb,CVIEW.tower.f,(w-8)/2,true)+'</div><div class="lab">'+(t==='paper'?'Paper':'Dark (inverted)')+'</div></div>';return x}).join('')+'</div>';
+ THEME=keep;
+ h+='<div class="leg" style="margin-top:8px">Tap a hole or option in the close-ups (or use the chips). Positions are the sheet’s own fill-in circles; numbers 1–6 and A/B/C follow the NT48 2.2 manual p13, hole 1 = outermost (manual p17).</div>';
+ ['tower','camber','spindle','cvd','ablk','bblk'].forEach(function(k){h+=cInset(k,w)});
+ h+='</div></div>';
+ h+='<div class="card rows"><h2>Setup-sheet rows · thumbnails</h2><div class="leg">Each row’s mini picture is cropped from the same sheet drawing.</div>'+rowsC()+'</div>';
+ h+='<div class="note blue">Drawings: Tekno RC’s free fillable NT48 2.2 setup sheet (© Tekno RC, LLC), used here for Travis’s personal app only. The part artwork inside Tekno’s PDF is a 150 dpi picture, so close-ups are slightly soft; the circles, outlines and labels are vector and stay sharp.</div>';
+ $('#fe').innerHTML=h;bind();
+ $$('#thm button').forEach(function(b){b.addEventListener('click',function(){THEME=b.dataset.t;save();renderC()})})}
+
 /* ---------------- icons ---------------- */
 function icons(){var C=[1,2,3].map(function(n){return '<div class="ic"><img class="big" src="../../icon-candidates/icon-candidate-'+n+'-512.png" alt="Icon candidate '+n+'"><div class="home"><img class="s" src="../../icon-candidates/icon-candidate-'+n+'-512.png" alt=""><img class="c" src="../../icon-candidates/icon-candidate-'+n+'-512.png" alt=""></div><b>Candidate '+n+'</b><span>'+['Orange body · front ¾','Gunmetal body · orange ring','White body · rear ¾ / wing'][n-1]+'</span></div>'}).join('');
  C+='<div class="ic"><img class="big" src="../../icon-512.png" alt="Current icon"><div class="home"><img class="s" src="../../icon-512.png" alt=""><img class="c" src="../../icon-512.png" alt=""></div><b>Current (live)</b><span>for comparison</span></div>';
  $('#icons').innerHTML='<div class="card"><h2>App icon candidates</h2><div class="leg">512 px PNGs, original 3D renders (no Tekno logo or trademark). Small icons show squircle and circle masks like an Android home screen. The live icon is unchanged.</div><div class="icons" style="margin-top:10px">'+C+'</div></div>'}
 
 /* ---------------- mode ---------------- */
-function setMode(m){MODE=m;$$('#mode button').forEach(function(b){b.classList.toggle('on',b.dataset.m===m)});$('#fe').classList.toggle('hidden',m==='I');$('#icons').classList.toggle('hidden',m!=='I');$('#intro').classList.toggle('hidden',m==='I');if(m==='I')icons();else render();save();window.scrollTo(0,0)}
+function setMode(m){$$('#mode button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.m===m?'true':'false')});MODE=m;$$('#mode button').forEach(function(b){b.classList.toggle('on',b.dataset.m===m)});$('#fe').classList.toggle('hidden',m==='I');$('#icons').classList.toggle('hidden',m!=='I');$('#intro').classList.toggle('hidden',m==='I');if(m==='I')icons();else render();save();window.scrollTo(0,0)}
 $$('#mode button').forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.m)})});
 
 /* ---------------- boot ---------------- */
@@ -302,11 +387,11 @@ document.getElementById('defs').innerHTML=defsHTML();
 fetch('../../tekno-data.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(d){TK=d;d.fields.forEach(function(f){FBY[f.id]=f;if(f.stock&&f.stock.NT48)STOCK[f.id]=f.stock.NT48.v});
  // read (never write) the active NT48 setup from the main app, if any
  try{var S=JSON.parse(localStorage.getItem('rcsetup.setups')||'[]'),A=JSON.parse(localStorage.getItem('rcsetup.active')||'{}'),id=A&&A.NT48,s=S.filter(function(x){return x&&x.id===id&&x.truck==='NT48'})[0];
-  if(s){var v={};FIDS.forEach(function(k){if(s.vals&&s.vals[k]!=null&&String(s.vals[k])!==String(STOCK[k]))v[k]=String(s.vals[k])});SRCV={vals:v,name:s.name}}}catch(e){}
+  if(s){var v={};FIDS.concat(CFIDS).forEach(function(k){if(s.vals&&s.vals[k]!=null&&String(s.vals[k])!==String(STOCK[k]))v[k]=String(s.vals[k])});SRCV={vals:v,name:s.name}}}catch(e){}
  var saved=null;try{saved=JSON.parse(localStorage.getItem(LSK)||'null')}catch(e){}
- var qm=(location.hash.match(/mode=(A|B|AB|I)/)||[])[1];
+ var qm=(location.hash.match(/mode=(AB|A|B|C|I)/)||[])[1];if(saved&&saved.theme)THEME=saved.theme==='ink'?'ink':'paper';var qt=(location.hash.match(/theme=(paper|ink)/)||[])[1];if(qt)THEME=qt;
  if(saved&&saved.vals){vals=saved.vals;SRC='Your preview values (saved on this page only).'}else if(SRCV){vals=Object.assign({},SRCV.vals);SRC='Started from your active NT48 setup “'+SRCV.name+'” (read-only copy).'}else SRC='Showing Tekno box-stock (NT48 2.2 manual p34).';
- $('#boot').remove();setMode(qm||(saved&&saved.mode)||'A');window.POC_READY=true})
+ $('#boot').remove();setMode(qm||(saved&&saved.mv===2&&saved.mode)||'C');window.POC_READY=true})
  .catch(function(e){$('#boot').textContent='Could not load tekno-data.json: '+e.message});
 var LW=innerWidth;addEventListener('resize',function(){if(Math.abs(innerWidth-LW)>40&&MODE!=='I'){LW=innerWidth;render()}});
 })();
