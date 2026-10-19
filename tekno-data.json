@@ -57,6 +57,10 @@
   "EBW": {
    "title": "teknorc.com TKR9005 EB48 2.2 kit page",
    "url": "https://www.teknorc.com/shop/tkr9005-eb48-2-2-1-8th-4wd-competition-electric-buggy-kit/"
+  },
+  "NBS3": {
+   "title": "Tekno NB48 2.2 blank fillable setup sheet v3 (rev 260520)",
+   "url": "https://www.teknorc.com/wp-content/uploads/2024/07/NB482.2_MCR_SetUpSheet_fillable-r3.pdf"
   }
  },
  "fields": [
@@ -425,12 +429,12 @@
    ],
    "stock": {
     "NT48": {
-     "v": "Hole 2 (lower on sheet)",
-     "src": "NTM p34 (Box Stock setup sheet)"
+     "v": "Hole 1 (upper on sheet)",
+     "src": "NTM p34 (Box Stock setup sheet – upper hole filled)"
     },
     "ET48": {
-     "v": "Hole 2 (lower on sheet)",
-     "src": "ETM p30 (Box Stock setup sheet)"
+     "v": "Hole 1 (upper on sheet)",
+     "src": "ETM p30 (Box Stock setup sheet – upper hole filled)"
     },
     "NB48": {
      "v": "Hole 1 (upper on sheet)",
@@ -441,17 +445,13 @@
      "src": "EBM p30 (Box Stock setup sheet)"
     }
    },
-   "note": "Manual setup notes: good starting point is \"forward on the bellcrank plate\" (NTM p30 / ETM p27). Plate TKR8100C.",
+   "note": "All four Box Stock sheets mark the UPPER bellcrank-plate hole. Manual setup notes: good starting point is \"forward on the bellcrank plate\" (NTM p30 / ETM p27 / NBM p30 / EBM p27). Plate TKR8100C.",
    "veh": [
     "NT48",
     "ET48",
     "NB48",
     "EB48"
-   ],
-   "noteV": {
-    "NB48": "Buggy Box Stock sheets mark the UPPER bellcrank hole (truggy sheets mark the lower one). Setup notes: “forward on the … bellcrank plate” (NBM p30 / EBM p27).",
-    "EB48": "Buggy Box Stock sheets mark the UPPER bellcrank hole (truggy sheets mark the lower one). Setup notes: “forward on the … bellcrank plate” (NBM p30 / EBM p27)."
-   }
+   ]
   },
   {
    "id": "ackWash",
@@ -485,6 +485,24 @@
     "NB48",
     "EB48"
    ]
+  },
+  {
+   "id": "ackPN",
+   "sec": "Steering",
+   "label": "Ackermann plate part #",
+   "kind": "text",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48"
+   ],
+   "stock": {
+    "NB48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "New field on the NB48 2.2 v3 setup sheet (rev 260520). Not filled on the manual’s Box Stock sheet, so no stock value."
   },
   {
    "id": "spPlate",
@@ -662,7 +680,23 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9141",
+      "TKR9141 (+1 / 0)"
+     ],
+     [
+      "TKR9141B",
+      "TKR9141B (-1 / -2)"
+     ],
+     [
+      "TKR9141C",
+      "TKR9141C (-1 / -2)"
+     ]
+    ]
+   }
   },
   {
    "id": "caster",
@@ -708,7 +742,10 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "labelV": {
+    "NB48": "Spindle carrier (caster block)"
+   }
   },
   {
    "id": "saver",
@@ -1259,12 +1296,12 @@
      "src": "ETM p17; ETM p30"
     },
     "NB48": {
-     "v": "Hole 2 (inner)",
-     "src": "NBM p35 (Box Stock setup sheet) (marks the inner of the 2 holes drawn); NBM p17 text says \"middle hole on the tower\""
+     "v": "Hole 2",
+     "src": "NBM p35 (Box Stock setup sheet – middle of the 3 tower holes); NBM p17 “middle hole on the tower”"
     },
     "EB48": {
-     "v": "Hole 2 (inner)",
-     "src": "EBM p30 (Box Stock setup sheet) (inner of 2 holes drawn); EBM p17 text says \"middle hole on the tower\""
+     "v": "Hole 2",
+     "src": "EBM p30 (Box Stock setup sheet – middle of the 3 tower holes); EBM p17 “middle hole on the tower”"
     }
    },
    "veh": [
@@ -1275,17 +1312,19 @@
    ],
    "optsV": {
     "NB48": [
-     "Hole 1 (outer)",
-     "Hole 2 (inner)"
+     "Hole 1 (outermost)",
+     "Hole 2",
+     "Hole 3 (innermost)"
     ],
     "EB48": [
-     "Hole 1 (outer)",
-     "Hole 2 (inner)"
+     "Hole 1 (outermost)",
+     "Hole 2",
+     "Hole 3 (innermost)"
     ]
    },
    "noteV": {
-    "NB48": "The buggy sheet draws only 2 upper holes on the TKR9268E tower and marks the inner one; the build step text says “middle hole on the tower”. Tekno does not state the tower’s hole count – check your tower.",
-    "EB48": "The buggy sheet draws only 2 upper holes on the TKR9268E tower and marks the inner one; the build step text says “middle hole on the tower”. Tekno does not state the tower’s hole count – check your tower."
+    "NB48": "The buggy sheets draw 3 upper holes on the TKR9268E tower; Box Stock marks the middle one, matching the build step (“middle hole on the tower”). Hole 1 = outermost.",
+    "EB48": "The buggy sheets draw 3 upper holes on the TKR9268E tower; Box Stock marks the middle one, matching the build step (“middle hole on the tower”). Hole 1 = outermost."
    }
   },
   {
@@ -1326,8 +1365,14 @@
     "EB48"
    ],
    "noteV": {
-    "NB48": "Front standoffs TKR8777B (longer), rear TKR8777 (shorter) – NBM p6/p7. NBM p6: “Stock standoff location is the center hole”. +4mm part number not listed.",
+    "NB48": "Front standoffs TKR8777B (longer), rear TKR8777 (shorter) – NBM p6/p7. NBM p6: “Stock standoff location is the center hole”. +4mm part number not listed. The v3 sheet (rev 260520) offers only 0mm / +2mm standoffs.",
     "EB48": "Front standoffs TKR8777B (longer), rear TKR8777 (shorter) – NBM p6/p7. NBM p6: “Stock standoff location is the center hole”. +4mm part number not listed."
+   },
+   "optsV": {
+    "NB48": [
+     "0mm",
+     "+2mm"
+    ]
    }
   },
   {
@@ -1434,6 +1479,10 @@
    "noteV": {
     "NB48": "Buggy front: one column of 3 inner camber-link holes on the tower/bulkhead (sheet graphic); stock 3 = bottom hole on the sheet. Turnbuckle length is not printed as a number for the buggies.",
     "EB48": "Buggy front: one column of 3 inner camber-link holes on the tower/bulkhead (sheet graphic); stock 3 = bottom hole on the sheet. Turnbuckle length is not printed as a number for the buggies."
+   },
+   "labelV": {
+    "NB48": "Front inner camber link (tower, 1–3)",
+    "EB48": "Front inner camber link (tower, 1–3)"
    }
   },
   {
@@ -1493,10 +1542,6 @@
      "v": "U - TKR9487",
      "src": "ETM p30 (Box Stock setup sheet)"
     },
-    "NB48": {
-     "v": "U - TKR9087",
-     "src": "NBM p35 (Box Stock setup sheet); teknorc.com TKR9087 (uni driveshaft F/R 96.5mm)"
-    },
     "EB48": {
      "v": "U - TKR9087",
      "src": "EBM p30 (Box Stock setup sheet)"
@@ -1505,14 +1550,9 @@
    "veh": [
     "NT48",
     "ET48",
-    "NB48",
     "EB48"
    ],
    "optsV": {
-    "NB48": [
-     "U - TKR9087",
-     "C - TKR8072"
-    ],
     "EB48": [
      "U - TKR9087",
      "C - TKR8072"
@@ -1678,7 +1718,47 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "Top-left",
+      "1 · Top-left"
+     ],
+     [
+      "Top-center",
+      "2 · Top-center"
+     ],
+     [
+      "Top-right",
+      "3 · Top-right"
+     ],
+     [
+      "Middle-left",
+      "4 · Middle-left"
+     ],
+     [
+      "Center",
+      "5 · Center"
+     ],
+     [
+      "Middle-right",
+      "6 · Middle-right"
+     ],
+     [
+      "Bottom-left",
+      "7 · Bottom-left"
+     ],
+     [
+      "Bottom-center",
+      "8 · Bottom-center"
+     ],
+     [
+      "Bottom-right",
+      "9 · Bottom-right"
+     ]
+    ]
+   }
   },
   {
    "id": "bBlock",
@@ -1786,7 +1866,47 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "Top-left",
+      "1 · Top-left"
+     ],
+     [
+      "Top-center",
+      "2 · Top-center"
+     ],
+     [
+      "Top-right",
+      "3 · Top-right"
+     ],
+     [
+      "Middle-left",
+      "4 · Middle-left"
+     ],
+     [
+      "Center",
+      "5 · Center"
+     ],
+     [
+      "Middle-right",
+      "6 · Middle-right"
+     ],
+     [
+      "Bottom-left",
+      "7 · Bottom-left"
+     ],
+     [
+      "Bottom-center",
+      "8 · Bottom-center"
+     ],
+     [
+      "Bottom-right",
+      "9 · Bottom-right"
+     ]
+    ]
+   }
   },
   {
    "id": "insertType",
@@ -1932,7 +2052,10 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "labelV": {
+    "NB48": "Spindle carrier (caster)"
+   }
   },
   {
    "id": "fSweep",
@@ -2067,7 +2190,10 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "labelV": {
+    "NB48": "Front body / shaft (shock length)"
+   }
   },
   {
    "id": "fUpTravel",
@@ -2938,6 +3064,42 @@
    ]
   },
   {
+   "id": "fBoot",
+   "sec": "Front suspension",
+   "label": "Front shock boots",
+   "kind": "text",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48"
+   ],
+   "stock": {
+    "NB48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "New field on the NB48 2.2 v3 setup sheet (rev 260520). Not filled on the manual’s Box Stock sheet, so no stock value."
+  },
+  {
+   "id": "fRodEnd",
+   "sec": "Front suspension",
+   "label": "Front shock rod ends",
+   "kind": "text",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48"
+   ],
+   "stock": {
+    "NB48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "New field on the NB48 2.2 v3 setup sheet (rev 260520). Not filled on the manual’s Box Stock sheet, so no stock value."
+  },
+  {
    "id": "rTower",
    "sec": "Rear end",
    "label": "Rear shock tower",
@@ -2992,12 +3154,12 @@
      "src": "ETM p18 \"second from the inside on the tower\" (Box Stock sheet graphic looks identical to NT – verify)"
     },
     "NB48": {
-     "v": "Hole 2",
-     "src": "NBM p35 (Box Stock setup sheet) (2nd hole from the outside of 4); NBM p18 text says \"middle hole on the tower\""
+     "v": "Hole 3",
+     "src": "NBM p35 (Box Stock setup sheet – middle of the 5 tower holes); NBM p18 “middle hole on the tower”"
     },
     "EB48": {
-     "v": "Hole 2",
-     "src": "EBM p30 (Box Stock setup sheet) (2nd from outside of 4); EBM p18 \"middle hole on the tower\""
+     "v": "Hole 3",
+     "src": "EBM p30 (Box Stock setup sheet – middle of the 5 tower holes); EBM p18 “middle hole on the tower”"
     }
    },
    "veh": [
@@ -3007,8 +3169,24 @@
     "EB48"
    ],
    "noteV": {
-    "NB48": "Sheet graphic: 4 holes, the 2nd from the outside is marked. Build text says “middle hole” (a 4-hole tower has no single middle).",
-    "EB48": "Sheet graphic: 4 holes, the 2nd from the outside is marked. Build text says “middle hole” (a 4-hole tower has no single middle)."
+    "NB48": "The buggy sheets draw 5 upper holes on the TKR9269E rear tower; Box Stock marks the middle one (hole 3), matching the build step (“middle hole on the tower”). Hole 1 = outermost.",
+    "EB48": "The buggy sheets draw 5 upper holes on the TKR9269E rear tower; Box Stock marks the middle one (hole 3), matching the build step (“middle hole on the tower”). Hole 1 = outermost."
+   },
+   "optsV": {
+    "NB48": [
+     "Hole 1 (outermost)",
+     "Hole 2",
+     "Hole 3",
+     "Hole 4",
+     "Hole 5 (innermost)"
+    ],
+    "EB48": [
+     "Hole 1 (outermost)",
+     "Hole 2",
+     "Hole 3",
+     "Hole 4",
+     "Hole 5 (innermost)"
+    ]
    }
   },
   {
@@ -3046,7 +3224,16 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     "0mm",
+     "+2mm"
+    ]
+   },
+   "noteV": {
+    "NB48": "The v3 sheet (rev 260520) offers only 0mm / +2mm standoffs."
+   }
   },
   {
    "id": "rLower",
@@ -3160,6 +3347,10 @@
    "noteV": {
     "NB48": "Buggy rear: 2 columns × 3 inner holes (sheet graphic); stock 2 = middle of the outer column, per “Stock position is 2/5” (NBM p10 / EBM p9). Turnbuckle length not printed as a number.",
     "EB48": "Buggy rear: 2 columns × 3 inner holes (sheet graphic); stock 2 = middle of the outer column, per “Stock position is 2/5” (NBM p10 / EBM p9). Turnbuckle length not printed as a number."
+   },
+   "labelV": {
+    "NB48": "Rear inner camber link (tower, 1–6)",
+    "EB48": "Rear inner camber link (tower, 1–6)"
    }
   },
   {
@@ -3253,8 +3444,7 @@
     "NB48": [
      "U - TKR9087",
      "U - TKR9287",
-     "U - TKR9287B",
-     "C - TKR8072"
+     "U - TKR9287B"
     ],
     "EB48": [
      "U - TKR9087",
@@ -3264,8 +3454,11 @@
     ]
    },
    "noteV": {
-    "NB48": "TKR9287 = 93.5mm (kit, new for 2.2), TKR9287B = 94.5mm, TKR9087 = 96.5mm (teknorc.com titles). The manuals do not explain the handling effect for the buggies.",
+    "NB48": "v3 sheet (rev 260520): UNI shafts TKR9087 / TKR9287 / TKR9287B only (no CVD option).",
     "EB48": "TKR9287 = 93.5mm (kit, new for 2.2), TKR9287B = 94.5mm, TKR9087 = 96.5mm (teknorc.com titles). The manuals do not explain the handling effect for the buggies."
+   },
+   "labelV": {
+    "NB48": "Rear driveshaft (UNI)"
    }
   },
   {
@@ -3403,6 +3596,46 @@
    "noteV": {
     "NB48": "Center dot inserts: anti-squat = 2° on the buggies (truggies: 3°) – NBM p8 / EBM p7.",
     "EB48": "Center dot inserts: anti-squat = 2° on the buggies (truggies: 3°) – NBM p8 / EBM p7."
+   },
+   "optsV": {
+    "NB48": [
+     [
+      "Top-left",
+      "1 · Top-left"
+     ],
+     [
+      "Top-center",
+      "2 · Top-center"
+     ],
+     [
+      "Top-right",
+      "3 · Top-right"
+     ],
+     [
+      "Middle-left",
+      "6 · Middle-left"
+     ],
+     [
+      "Center",
+      "5 · Center"
+     ],
+     [
+      "Middle-right",
+      "4 · Middle-right"
+     ],
+     [
+      "Bottom-left",
+      "7 · Bottom-left"
+     ],
+     [
+      "Bottom-center",
+      "8 · Bottom-center"
+     ],
+     [
+      "Bottom-right",
+      "9 · Bottom-right"
+     ]
+    ]
    }
   },
   {
@@ -3435,6 +3668,29 @@
      "v": "TKR9163B",
      "src": "EBM p30 (Box Stock setup sheet); EBM p7"
     }
+   },
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9163C",
+      "TKR9163C (-2mm)"
+     ],
+     [
+      "TKR9163B",
+      "TKR9163B (-1mm)"
+     ],
+     [
+      "TKR9163BW",
+      "TKR9163BW (-1mm, wide)"
+     ],
+     [
+      "TKR9163CW",
+      "TKR9163CW (-2mm, wide)"
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "v3 sheet (rev 260520) adds the wide-pivot “W” blocks. Box stock unchanged (NBM p35)."
    }
   },
   {
@@ -3516,7 +3772,47 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "Top-left",
+      "1 · Top-left"
+     ],
+     [
+      "Top-center",
+      "2 · Top-center"
+     ],
+     [
+      "Top-right",
+      "3 · Top-right"
+     ],
+     [
+      "Middle-left",
+      "4 · Middle-left"
+     ],
+     [
+      "Center",
+      "5 · Center"
+     ],
+     [
+      "Middle-right",
+      "6 · Middle-right"
+     ],
+     [
+      "Bottom-left",
+      "7 · Bottom-left"
+     ],
+     [
+      "Bottom-center",
+      "8 · Bottom-center"
+     ],
+     [
+      "Bottom-right",
+      "9 · Bottom-right"
+     ]
+    ]
+   }
   },
   {
    "id": "dBlock",
@@ -3548,6 +3844,25 @@
      "v": "TKR9164C",
      "src": "EBM p30 (Box Stock setup sheet); EBM p7"
     }
+   },
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9164B",
+      "TKR9164B (-1mm)"
+     ],
+     [
+      "TKR9164C",
+      "TKR9164C (-2mm)"
+     ],
+     [
+      "TKR9164CW",
+      "TKR9164CW (-2mm, wide)"
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "v3 sheet (rev 260520) adds the wide-pivot “W” blocks. Box stock unchanged (NBM p35)."
    }
   },
   {
@@ -3720,7 +4035,10 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "labelV": {
+    "NB48": "Rear body / shaft (shock length)"
+   }
   },
   {
    "id": "rUpTravel",
@@ -4539,6 +4857,42 @@
    ]
   },
   {
+   "id": "rBoot",
+   "sec": "Rear suspension",
+   "label": "Rear shock boots",
+   "kind": "text",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48"
+   ],
+   "stock": {
+    "NB48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "New field on the NB48 2.2 v3 setup sheet (rev 260520). Not filled on the manual’s Box Stock sheet, so no stock value."
+  },
+  {
+   "id": "rRodEnd",
+   "sec": "Rear suspension",
+   "label": "Rear shock rod ends",
+   "kind": "text",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48"
+   ],
+   "stock": {
+    "NB48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "New field on the NB48 2.2 v3 setup sheet (rev 260520). Not filled on the manual’s Box Stock sheet, so no stock value."
+  },
+  {
    "id": "fDiffOil",
    "sec": "Differentials",
    "label": "Front diff oil",
@@ -4977,7 +5331,23 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9150",
+      "TKR9150 (finer pitch)"
+     ],
+     [
+      "TKR9150B",
+      "TKR9150B (coarser pitch)"
+     ],
+     [
+      "TKR9150X",
+      "TKR9150X (team spec)"
+     ]
+    ]
+   }
   },
   {
    "id": "fCase",
@@ -5065,7 +5435,10 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "noteV": {
+    "NB48": "The v3 sheet (rev 260520) lists TKR9149 (steel), TKR9149A (aluminum) and TKR9149B (2-gear)."
+   }
   },
   {
    "id": "cOring",
@@ -5227,7 +5600,23 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9150",
+      "TKR9150 (finer pitch)"
+     ],
+     [
+      "TKR9150B",
+      "TKR9150B (coarser pitch)"
+     ],
+     [
+      "TKR9150X",
+      "TKR9150X (team spec)"
+     ]
+    ]
+   }
   },
   {
    "id": "cCase",
@@ -5315,7 +5704,10 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "noteV": {
+    "NB48": "The v3 sheet (rev 260520) lists TKR9149 (steel), TKR9149A (aluminum) and TKR9149B (2-gear)."
+   }
   },
   {
    "id": "rOring",
@@ -5477,7 +5869,23 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9150",
+      "TKR9150 (finer pitch)"
+     ],
+     [
+      "TKR9150B",
+      "TKR9150B (coarser pitch)"
+     ],
+     [
+      "TKR9150X",
+      "TKR9150X (team spec)"
+     ]
+    ]
+   }
   },
   {
    "id": "rCase",
@@ -5565,7 +5973,10 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "noteV": {
+    "NB48": "The v3 sheet (rev 260520) lists TKR9149 (steel), TKR9149A (aluminum) and TKR9149B (2-gear)."
+   }
   },
   {
    "id": "fBulk",
@@ -5607,7 +6018,26 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9012",
+      "TKR9012 (0mm)"
+     ],
+     [
+      "TKR9412",
+      "TKR9412 (0mm)"
+     ],
+     [
+      "TKR9416B",
+      "TKR9416B (-2mm)"
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "v3 sheet (rev 260520) bulkhead choices: TKR9012 (0mm), TKR9412 (0mm), TKR9416B (-2mm). Box stock TKR9416B (NBM p35)."
+   }
   },
   {
    "id": "rBulk",
@@ -5649,7 +6079,26 @@
     "ET48",
     "NB48",
     "EB48"
-   ]
+   ],
+   "optsV": {
+    "NB48": [
+     [
+      "TKR9012",
+      "TKR9012 (0mm)"
+     ],
+     [
+      "TKR9412",
+      "TKR9412 (0mm)"
+     ],
+     [
+      "TKR9416B",
+      "TKR9416B (-2mm)"
+     ]
+    ]
+   },
+   "noteV": {
+    "NB48": "v3 sheet (rev 260520) bulkhead choices: TKR9012 (0mm), TKR9412 (0mm), TKR9416B (-2mm). Box stock TKR9416B (NBM p35)."
+   }
   },
   {
    "id": "braceMid",
@@ -6261,7 +6710,28 @@
    "veh": [
     "NT48",
     "NB48"
-   ]
+   ],
+   "labelV": {
+    "NB48": "Engine"
+   }
+  },
+  {
+   "id": "pipe",
+   "sec": "Electronics",
+   "label": "Pipe",
+   "kind": "text",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48"
+   ],
+   "stock": {
+    "NB48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "New field on the NB48 2.2 v3 setup sheet (rev 260520). Not filled on the manual’s Box Stock sheet, so no stock value."
   },
   {
    "id": "fuel",
@@ -6283,7 +6753,28 @@
    "veh": [
     "NT48",
     "NB48"
-   ]
+   ],
+   "labelV": {
+    "NB48": "Fuel"
+   }
+  },
+  {
+   "id": "plug",
+   "sec": "Electronics",
+   "label": "Glow plug",
+   "kind": "text",
+   "unit": "",
+   "trucks": "buggy",
+   "veh": [
+    "NB48"
+   ],
+   "stock": {
+    "NB48": {
+     "v": null,
+     "src": null
+    }
+   },
+   "note": "New field on the NB48 2.2 v3 setup sheet (rev 260520). Not filled on the manual’s Box Stock sheet, so no stock value."
   },
   {
    "id": "esc",
@@ -6403,7 +6894,10 @@
    "veh": [
     "NT48",
     "NB48"
-   ]
+   ],
+   "labelV": {
+    "NB48": "Throttle / brake servo"
+   }
   },
   {
    "id": "expo",
@@ -6585,16 +7079,16 @@
   "NTM p30 setup text suggests 23mm/25mm ride height and +4/-4mm droop (buggy-style values); the NT48 2.2 sheet and build steps use 34mm/38mm and 0/-8mm, which match ETM p27.",
   "Diff oil: Box Stock sheet and build steps 10k/10k/5k vs setup notes \"we recommend 7k front / 5k center / 5k rear\" (both manuals).",
   "ET48 2.2 springs: Box Stock sheet and build steps L-4/M-4 show TKR6090; ET parts list (ETM p26) and teknorc.com list TKR6091 (green, 5.17 lb/in) as included with the ET48 2.2 kit.",
-  "ET48 2.2 rear upper shock: ETM p18 text says \"second from the inside on the tower\"; NTM p18 says \"second from the outside\"; both Box Stock sheet graphics look the same.",
+  "ET48 2.2 rear upper shock: ETM p18 text says “second from the inside on the tower” and the ET Box Stock sheet (ETM p30) marks exactly that hole (hole 3 of 4); NTM p18 / NT sheet: second from the outside (hole 2).",
   "NT clutch springs: sheet \"2× Red, 2× Gold\" vs NTM p23 \"kit contains 2× 1.0mm yellow and 2× 1.1mm red springs\".",
   "NTM p31 rear axle text names TKR9287/TKR9087 (not in the NT48 2.2 parts list); ETM p28 names TKR9687/TKR9487, which match the kit parts.",
   "Front toe: sheet 2° out vs setup notes \"approximately 0.5–1 degree of toe out per side\".",
   "NB48 2.2 ride height: Box Stock sheet (NBM p35) and build steps (NBM p17/p18) say 24mm front / 26mm rear; the setup notes (NBM p30) say 23mm / 25mm. EB48 2.2 uses 23 / 25 everywhere.",
-  "Buggy upper shock holes: sheets mark the inner of 2 drawn front holes and the 2nd-from-outside of 4 rear holes; build text (NBM/EBM p17–18) says “middle hole on the tower” for both.",
   "NB48 2.2 clutch springs: sheet “2x Green, 2x Gold” vs NBM p23 “(2x) 0.9mm green springs, (2x) 1.0mm yellow springs”.",
   "EB48 2.2 parts list page (EBM p26) is headed “TKR9003 – EB48 2.1 … Kit”; the kit body is listed as TKR9045 (EB48 2.0) and the NB48 body as TKR9345B (NB48 2.1) – carry-over parts, not 2.2-specific.",
   "teknorc.com titles TKR6032B “rear” spring, but both buggy kits use TKR6032B front AND rear (sheet + build steps).",
-  "Buggy setup notes (NBM p30 / EBM p27) suggest a good starting point of the “F” plate and TKR9047F spindle arm – the Box Stock sheet also marks F, consistent."
+  "Buggy setup notes (NBM p30 / EBM p27) suggest a good starting point of the “F” plate and TKR9047F spindle arm – the Box Stock sheet also marks F, consistent.",
+  "NB48 2.2: the newer v3 sheet (rev 260520) has no front UNI/CVD choice, no CVD rear option, no +4mm standoff and no TKR9416 0mm bulkhead – old setups that use them keep the value as “custom” (with an import/migration warning)."
  ],
  "gaps": [
   "Tires/inserts/wheels: not specified for either kit (sheet blank).",
@@ -6609,8 +7103,8 @@
   "NB48/EB48: which hole size of the mixed TKR6138 / TKR6139 piston sets is used front vs rear is not stated.",
   "NB48/EB48: no camber-link turnbuckle lengths printed; no published spring rate/colour for TKR6035/6036/6037/6039.",
   "NB48 2.2: no nitro gearing chart (only 13t bell / 48t spur stock, 46t/47t optional spurs listed).",
-  "NB48/EB48: TKR9268E front tower hole count not stated (sheet draws 2 upper holes).",
-  "Tires, wheels, inserts, engine/pipe, ESC/motor/battery: not included in the buggy kits / left blank on the sheets."
+  "Tires, wheels, inserts, engine/pipe, ESC/motor/battery: not included in the buggy kits / left blank on the sheets.",
+  "NB48 2.2 v3 sheet (rev 260520): new boots / rod ends / Ackermann-plate part # / pipe / plug fields, TKR9150X gears, TKR9141C spindles, wide C/D blocks and TKR9012/TKR9412 bulkheads have no Box Stock values (the manual’s filled sheet is the older layout) – left blank."
  ],
  "mip": {
   "about": "MIP Bypass1 piston system for 16mm 1/8 shocks, from OFFICIAL MIP sources only (miponline.com product pages + Bypass1 instruction sheet PDF). Fetched 2026-10-17. Nothing here is a Tekno spec.",
