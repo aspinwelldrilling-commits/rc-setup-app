@@ -295,4 +295,49 @@ Exports from the app (`Export / share`) use the same format, with extra keys (`i
 - Manual build pages (img/man/, © Tekno RC, personal reference) load lazily, open in a zoomable viewer, and are cached for offline use on view or with "Save manual drawings for offline".
 - My parts (`rcsetup.parts`, UI state `rcsetup.partsUi`): pit-box qty with a low threshold, need qty, wish list. Shopping list shows Tekno/MIP, AMain and Amazon search links and can be shared or copied as text. No purchasing.
 - My Setup field editor lists the related part numbers with "Add to shopping list". Log entries can record replaced parts, which decrements the pit box.
-- Export/import now includes `parts` (older files still import). The service worker cache is `rcsetup-v14`.
+- Export/import now includes `parts` (older files still import). The service worker cache was `rcsetup-v14`.
+
+## v15 – share links + QR, AI Mechanic, Ask RC Racing
+### Setup sharing
+- **Share** is on the setup sheet (under Photo Setup · Compare · More), in the More ••• menu and on every saved-setup card. It opens a sheet with a **QR code**, **Share link** (Android share sheet via `navigator.share`), **Copy link** and **Send as file (JSON)** (the old file export).
+- **Link format:** `https://aspinwelldrilling-commits.github.io/rc-setup-app/index.html#setup=<p>`. `<p>` is a one-letter codec plus base64url:
+  - `z…` = `deflate` (`CompressionStream`, zlib format) of the JSON.
+  - `j…` = the uncompressed JSON. This is the fallback when `CompressionStream` isn't available, or when compressing doesn't make it shorter.
+
+  The decoded JSON follows the **Setup import JSON schema** above: `{"app":"rc-setup-helper","kind":"setups","version":2,"shared":"YYYY-MM-DD","setups":[{truck,name,date,track,cond,temp,vals,lastChange}]}`. Ids, the active flag and parent links are never shared. The data sits in the URL hash, so it never reaches the server.
+- A full NT48 setup comes to about 1.3 KB as a link (QR version ≈ 27, ECC L). The QR is drawn as SVG by a vendored copy of **qrcode-generator 2.0.4** (Kazuhiko Arase, MIT), inlined in `index.html` as `<script id="qr-lib">`. Nothing loads from a CDN, so it works offline.
+- **Oversized setups** (usually from long notes):
+  - Over 2,900 characters: no QR. The link and file options remain.
+  - Over 8,000: a warning that some chat apps cut long links.
+  - Over 60,000: link buttons are disabled and only **Send as file** is offered.
+- **Opening a link:**
+  1. The hash is read and then removed from the address bar.
+  2. A **preview** sheet shows the name, vehicle, date, track and conditions. It also shows how many settings differ from Tekno stock (listed), how many differ from your active setup, and how many unknown fields will be skipped.
+  3. **Import** always adds a **new** setup and runs it through the normal importer and migrations. If the name already exists it gets " (shared)". **Make it my active setup** is off by default, so nothing is ever overwritten silently.
+  4. Damaged or cut-off links show a friendly error.
+
+### AI Mechanic (your own API key)
+- Open it from the **AI Mechanic** card at the top of the Advisor tab. It's a full-screen chat; Android back closes it.
+- **AI settings** (⚙):
+  - Provider presets: **xAI** (default: `https://api.x.ai/v1`, model `grok-4.7`), **OpenAI** (`https://api.openai.com/v1`, `gpt-6.1-sol`) or **Custom**. Custom works with any OpenAI-compatible `/chat/completions` endpoint that allows browser (CORS) requests.
+  - Base URL and model are editable. The API key field has Show/Hide and **Remove key**.
+- **Storage:**
+  - The key is stored only in `localStorage['rcsetup.aiKey']`, on the phone. It is sent only as `Authorization: Bearer …` to the chosen provider and is never in exports, backups or share links. No key is hardcoded.
+  - Provider settings are in `rcsetup.ai`.
+  - Chat history is per vehicle in `rcsetup.aiChat` (last 60 messages), with **Clear chat**.
+- **Each request** is `{model, messages, stream:true}`:
+  - It starts with a system prompt: favor cause-and-effect tuning logic and Tekno's box-stock baseline and setup notes over pro sheets; one change at a time, the smallest real step; plain beginner-friendly language; no invented part numbers or values; check mechanical problems first.
+  - The system prompt also carries a fresh context block: the active vehicle; the active setup with every value and its changes from Tekno stock; the 5 most recent log entries for that vehicle (change, symptom, feel before→after, verdict, conditions, notes); and the track (Speed Lot, Ramona, CA).
+  - The last 16 chat messages follow.
+  - The **Setup + N logs** chip shows exactly what is sent.
+- **Replies and errors:**
+  - Replies stream in (SSE). A plain JSON reply is also accepted. **Send** turns into **Stop** (AbortController) while a reply streams; partial text is kept.
+  - Errors are shown clearly with Retry: bad key (401/403, or a 400 that mentions the key), unknown model or URL (400/404), rate limit or no credits (429), provider errors (5xx), offline, and "couldn't reach … (network or CORS)".
+- **CORS check (2026-10-19):** `api.x.ai` answers the preflight with `access-control-allow-origin: *`. `api.openai.com` echoes the GitHub Pages origin. Calls therefore go straight from the phone; no proxy is needed.
+
+### Ask RC Racing
+- The button sits next to AI Mechanic (Advisor card and a chip inside the chat) and on the setup sheet.
+- It copies a formatted plain-text summary to the clipboard: vehicle, track and conditions, a beginner note, changes from Tekno stock, the full setup by section, recent log entries with notes, and **"What should I change?"**.
+- It then shows the toast **"Copied — paste it to RC Racing in Grok Bot"** and a sheet with the copied text, **Share…** (Android share sheet) and **Copy again**.
+
+The service worker cache is `rcsetup-v15`. No existing storage keys or the import schema changed.
