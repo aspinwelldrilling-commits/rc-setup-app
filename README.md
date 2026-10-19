@@ -288,3 +288,11 @@ Exports from the app (`Export / share`) use the same format, with extra keys (`i
 - **Compare:** a text list of the changed settings (A → B). "View on sheet" is optional.
 - **Setting:** "Show diagrams inline" (More menu or the Learn tab, off by default; stored in `rcsetup.inlineDiag`) restores the previous dense page with every drawing.
 - No data, schema or storage keys changed. The service worker cache is `rcsetup-v13`.
+
+## v14 – Parts
+- New **Parts** tab (6th nav tab; fits at 360px, Photos tab kept). Three views: **Catalog**, **Spares**, **Shopping**.
+- Catalog per vehicle, extracted from the official Tekno 2.2 manuals (parts lists + build steps + Option Parts), grouped by assembly, searchable by part # or name. Each part shows bag/steps/manual pages, qty in kit only where the manual prints it (hardware boxes), and links to its teknorc.com product page (verified) or a teknorc.com search. Setup option parts from tekno-data.json and MIP Bypass1 parts are flagged as Option.
+- Manual build pages (img/man/, © Tekno RC, personal reference) load lazily, open in a zoomable viewer, and are cached for offline use on view or with "Save manual drawings for offline".
+- My parts (`rcsetup.parts`, UI state `rcsetup.partsUi`): pit-box qty with a low threshold, need qty, wish list. Shopping list shows Tekno/MIP, AMain and Amazon search links and can be shared or copied as text. No purchasing.
+- My Setup field editor lists the related part numbers with "Add to shopping list". Log entries can record replaced parts, which decrements the pit box.
+- Export/import now includes `parts` (older files still import). The service worker cache is `rcsetup-v14`.
