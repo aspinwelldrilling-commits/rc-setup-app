@@ -279,3 +279,12 @@ Exports from the app (`Export / share`) use the same format, with extra keys (`i
 - **Icon, header logo and splash:** the NT48 photo cut-out on carbon fibre with an orange accent.
 - **Dirt ground:** CC0 texture "Ground103" from ambientCG (ambientcg.com).
 - All sprites are in `img/` (WebP) and are cached by the service worker for offline use. The vector art is still the fallback if an image can't load.
+
+## v13 – decluttered My Setup
+- **Compact header:** a small truck photo, the setup name, track/date and the ACTIVE badge. Below it is one row of actions: **Photo Setup · Compare · More •••**. More holds Set active, Setup info, Load Tekno stock, Duplicate, Print, Export/share, My truck photo, Sheet style and Show diagrams inline. The floating Photo button is hidden in this view; the Photos tab is unchanged.
+- **Summary chip:** "N changes from stock". Tap it to show only the changed settings.
+- **Sections:** collapsed by default and shown as list rows (icon, name, orange count of changed settings, chevron). Open/closed state is remembered per vehicle in `rcsetup.secOpen`.
+- **Field rows:** plain label, value and a changed dot, with no thumbnails. Tapping a row opens a bottom-sheet editor with that setting's crop of Tekno's sheet and big option buttons. "View on Tekno sheet" (one per section) opens a full-screen viewer with the tappable sheet close-ups. Android back, ✕ or a swipe closes the editor or viewer.
+- **Compare:** a text list of the changed settings (A → B). "View on sheet" is optional.
+- **Setting:** "Show diagrams inline" (More menu or the Learn tab, off by default; stored in `rcsetup.inlineDiag`) restores the previous dense page with every drawing.
+- No data, schema or storage keys changed. The service worker cache is `rcsetup-v13`.

@@ -54,7 +54,7 @@ h3{font-size:13px;margin:var(--s2) 0 var(--s1);color:var(--acc2);text-transform:
 .seg button.on{background:linear-gradient(180deg,var(--acc2),var(--acc) 55%,#e8650d);color:#140a02;box-shadow:0 6px 16px -6px rgba(255,122,26,.7),0 1px 0 rgba(255,255,255,.35) inset}
 .seg button:active{transform:scale(.97)}
 main{padding:var(--s1) calc(var(--s2) + env(safe-area-inset-right)) var(--s3) calc(var(--s2) + env(safe-area-inset-left));max-width:720px;margin:0 auto}
-main>section:not(.hidden),#tab-setup>div:not(.hidden),#symDetail:not(.hidden),#symList:not(.hidden),#logForm:not(.hidden){animation:pageIn .32s var(--ease) both}
+main>section:not(.hidden),#tab-setup>div:not(.hidden),#symDetail:not(.hidden),#symList:not(.hidden),#logForm:not(.hidden){animation:pageIn .32s var(--ease) backwards}
 @keyframes pageIn{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:none}}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;gap:4px;padding:6px calc(8px + env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left));
  background:linear-gradient(180deg,rgba(16,19,26,.78),rgba(10,12,16,.94));-webkit-backdrop-filter:saturate(160%) blur(16px);backdrop-filter:saturate(160%) blur(16px);border-top:1px solid var(--line);box-shadow:0 -10px 30px -12px rgba(0,0,0,.8)}
@@ -245,6 +245,77 @@ nav button .ic{width:46px}
 .phbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #tab-setup{padding-bottom:70px}
 @media print{.fab{display:none!important}}
+/* v13 simple My Setup */
+.dcr{display:none}
+#setupEdit.dc .shead{padding:12px}
+#setupEdit.dc .shead>.row,#setupEdit.dc .shead .acts,#setupEdit.dc .ovw,#setupEdit.dc .secnav,#setupEdit.dc .dcoff{display:none}
+#setupEdit.dc:not(.meta-on) .shead details.meta{display:none}
+#setupEdit.dc:not(.myt-on) #myTruck{display:none}
+.dch{display:flex;align-items:center;gap:12px}
+.dcav{flex:0 0 72px;height:52px;border-radius:12px;border:1px solid var(--line2);background:radial-gradient(ellipse at 50% 80%,rgba(255,122,26,.25),transparent 70%),#0b0d11;padding:0;overflow:hidden;cursor:pointer}
+.dcav img{display:block;width:100%;height:100%;object-fit:contain}.dcav.has img{object-fit:cover}
+.dcn{flex:1;min-width:0}.dcn b{display:block;font-size:17px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dcn span{display:block;font-size:12.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.dca{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:8px;margin-top:12px}
+.dca .btn{margin:0;width:100%;min-height:46px;padding:0 6px;justify-content:center;white-space:nowrap}
+.dcchips{display:flex;gap:8px;margin:2px 0 10px;overflow-x:auto;scrollbar-width:none}.dcchips::-webkit-scrollbar{display:none}
+.dcchip{flex:0 0 auto;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--tx);font:650 13.5px/1 var(--font);cursor:pointer}
+.dcchip b{color:var(--acc2);font-weight:900}.dcchip[aria-pressed="true"]{background:rgba(255,122,26,.18);border-color:var(--acc)}
+#setupEdit.dc details.sec{padding:0;margin:0 0 8px;overflow:hidden}
+#setupEdit.dc details.sec>summary{gap:12px;min-height:56px;padding:0 16px 0 12px;font-size:15.5px;font-weight:750}
+.dci{flex:0 0 32px;height:32px;border-radius:10px;background:rgba(56,198,255,.1);display:grid;place-items:center}
+.dci svg{width:18px;height:18px;fill:none;stroke:#8fd8ff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.dcsn{flex:1;min-width:0}
+.dcsc{flex:0 0 auto;min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:var(--acc);color:#170a00;font:800 12.5px/24px var(--font);text-align:center;margin-right:4px}
+.dcsc::before{content:attr(data-n)}.dcsc[data-n=""]{display:none}
+.dcsv{padding:2px 12px 10px}
+.dcsvb{width:100%;justify-content:center;gap:8px;margin:0}.dcsvb svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#setupEdit.dc .fld{display:block;padding:0;border-left:0;border-top:0}
+#setupEdit.dc .fld>.fb{display:none}
+#setupEdit.dc .dcr{display:flex}
+.dcr{width:100%;align-items:center;gap:10px;min-height:52px;padding:6px 16px;background:none;border:0;border-top:1px solid var(--line);color:var(--tx);text-align:left;font:inherit;cursor:pointer}
+.dcr:active{background:rgba(255,255,255,.06)}
+.dcl{flex:1 1 auto;min-width:0;font-size:14px;font-weight:600;line-height:1.25}.dcl .u{color:var(--mut);font-weight:500}
+.dcv{flex:0 1 46%;text-align:right;font-size:14px;color:#cfe6ff;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.dcd{flex:0 0 8px;height:8px;border-radius:50%}
+#setupEdit .fld.chg .dcd{background:var(--acc);box-shadow:0 0 0 3px rgba(255,122,26,.2)}#setupEdit .fld.chg .dcv{color:var(--acc2)}
+#setupEdit.dconly details.sec[data-z]{display:none}#setupEdit.dconly .fld:not(.chg):not(.dcpx){display:none}
+.dcsh{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;justify-content:flex-end}
+.dcbk{position:absolute;inset:0;background:rgba(3,4,7,.6);opacity:0;transition:opacity .2s}
+.dcsh.in .dcbk{opacity:1}
+.dcp{position:relative;max-height:88vh;max-height:88dvh;overflow:auto;overscroll-behavior:contain;background:linear-gradient(180deg,#171c26,#10141b);border-radius:22px 22px 0 0;border-top:1px solid var(--line2);padding:4px 16px calc(16px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .26s var(--ease);box-shadow:0 -24px 48px -12px rgba(0,0,0,.75)}
+.dcsh.in .dcp{transform:none}
+.dcg{width:44px;height:5px;border-radius:3px;background:#3a4354;margin:8px auto 8px}
+.dcph{display:flex;align-items:flex-start;gap:10px;justify-content:space-between;padding:2px 0 12px;touch-action:none}
+.dcph b{display:block;font-size:17px;line-height:1.25}.dcph b .u{color:var(--mut);font-weight:500}.dcph span{display:block;font-size:12.5px;color:var(--mut);margin-top:3px}
+.dcx{flex:0 0 44px;height:44px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.05);color:var(--tx);font-size:17px;cursor:pointer}
+.dccrop .sas{border-radius:12px;overflow:hidden;border:1px solid var(--line2)}
+.dcvis .savc .sach{margin-top:12px}
+.dcpx{display:block;padding:0;border:0;margin-top:12px}.dcpx .fb{display:block}.dcpx.haschips select{display:none}
+.dcpx details.src{margin-top:8px}
+.dcdone{width:100%;margin-top:16px}
+.dcmi{display:block;width:100%;text-align:left;min-height:56px;padding:9px 4px;border:0;border-top:1px solid var(--line);background:none;color:var(--tx);font:inherit;cursor:pointer}
+.dcmi b{display:block;font-size:15px}.dcmi span{display:block;font-size:12.5px;color:var(--mut);margin-top:2px}.dcmi:active{background:rgba(255,255,255,.05)}
+.dcmrow{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;border-top:1px solid var(--line);margin:0;padding:0 4px;font-size:15px;color:var(--tx)}
+.dcinl{-webkit-appearance:none;appearance:none;position:relative;width:46px;height:28px;min-height:0;flex:none;margin:0;padding:0;border-radius:14px;background:#2a3140;border:1px solid var(--line2);cursor:pointer;transition:background .2s}
+.dcinl::before{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#c9d1dd;transition:transform .2s}
+.dcinl:checked{background:var(--acc);border-color:var(--acc)}.dcinl:checked::before{transform:translateX(18px);background:#fff}
+.dcinl:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.dcview{position:fixed;inset:0;z-index:35;background:#0b0d11;display:flex;flex-direction:column;opacity:0;transform:translateX(24px);transition:opacity .2s,transform .24s var(--ease)}
+.dcview.in{opacity:1;transform:none}.dcview,.dcvb{overscroll-behavior:none;touch-action:pan-y pinch-zoom}
+.dcvh{display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 12px 10px;border-bottom:1px solid var(--line);background:#11151c}
+.dcvh .btn{margin:0}.dcvh>div{flex:1;min-width:0}.dcvh b{display:block;font-size:16px}.dcvh span{display:block;font-size:12px;color:var(--mut)}
+.dcvb{flex:1;overflow:auto;padding:12px 12px calc(28px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+body.dcmodal{overflow:hidden}
+html.rm .dcp,html.rm .dcview,html.rm .dcbk{transition:none}
+.cdl0{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.02)}
+.cdh{padding:10px 14px 6px;font-size:11.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);background:rgba(0,0,0,.28)}
+.cdr{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;min-height:46px;padding:6px 14px;border-top:1px solid var(--line);font-size:14px}
+.cdr .cdl{flex:1 1 38%;min-width:0;font-weight:600}
+.cdv{display:flex;align-items:center;gap:4px 6px;flex:1 1 55%;justify-content:flex-end;flex-wrap:wrap;text-align:right;font-variant-numeric:tabular-nums}
+.cdv s{color:#9aa3b2;text-decoration:none}.cdv i{color:var(--acc);font-style:normal;font-weight:900}.cdv b{color:var(--acc2)}.cdv em{font-style:normal;color:var(--mut)}
+.cdk{display:inline-block;min-width:18px;padding:0 5px;border-radius:6px;background:#2a3140;font-weight:800;text-align:center;color:var(--tx)}.cdk.b{background:rgba(255,122,26,.28)}
+
 /* Tekno setup-sheet drawings (v10) */
 .sag{margin:6px 0 2px}
 .satb{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0 6px}
@@ -1938,7 +2009,7 @@ function swInit(){if(!('serviceWorker' in navigator)||!/^https?:/.test(location.
  }).catch(function(){});
  navigator.serviceWorker.addEventListener('message',function(e){if(e.data&&e.data.ver&&e.data.ver!==APP_VER&&!shown){shown=true;swBanner()}});
  navigator.serviceWorker.addEventListener('controllerchange',function(){var was=had;had=true;if(!was||shown)return;var c=navigator.serviceWorker.controller;if(c)c.postMessage('ver')})}
-var APP_VER='rcsetup-v12';
+var APP_VER='rcsetup-v13';
 
 /* ---------- Realistic vehicle art (original vector illustration; proportions from Tekno manual drawings, NOT official dimensions) ----------
    Authored in millimetres per vehicle, scaled into the legacy unit systems:
@@ -2337,6 +2408,139 @@ document.addEventListener('change',function(ev){var el=ev.target;if(!el||!el.mat
 document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('[data-myt="del"]'),s=getSetup(editId);if(!b||!s)return;if(!confirm('Remove your '+truckName(s.truck)+' header photo?'))return;myDel(s.truck).then(myTruckRender)});
 document.addEventListener('change',function(ev){var el=ev.target;if(!el||!el.matches||!el.matches('input[data-myt="tag"]'))return;PR_TAG=!!el.checked;try{localStorage.setItem('rcsetup-prtag',PR_TAG?'1':'0')}catch(e){}
  if(RA_CUR==='NT48'){var t=RA_CUR;RA_CUR=null;raInstall(t)}toast(PR_TAG?'Race tag on':'Race tag off')});
+/* ---------- v13 decluttered My Setup ----------
+   Default: compact header, one row of actions, a "changes from stock" chip, collapsed section rows with change counts, plain
+   field rows (tap = bottom-sheet editor with that field's sheet crop), one "View on Tekno sheet" per section (full-screen viewer).
+   Settings → "Show diagrams inline" restores the previous dense page. Data, fields, handlers and storage are unchanged:
+   the real inputs (#sf_*) are only moved into the editor while it is open, so every existing change handler still runs. */
+var LS_INL='rcsetup.inlineDiag',LS_SECO='rcsetup.secOpen',DC=!load(LS_INL,false),DC_RENDER=0,DCE=null,DC_SKIP=0;
+var DC_ICO={'Event':'M5 6h14v13H5zM5 10h14M9 4v4M15 4v4','Steering':'M12 4a8 8 0 1 0 0 16a8 8 0 1 0 0-16M4.5 13h5l2.5-2 2.5 2h5M12 11v9','Sway bars':'M4 16c3-6 13-6 16 0M4 16v3M20 16v3',
+ 'Front end':'M4 12h10M10 7l5 5-5 5M19 5v14','Front suspension':'M9 3v3l4 2-4 2 4 2-4 2 4 2v5M17 6v12','Rear end':'M20 12H10M14 7l-5 5 5 5M5 5v14','Rear suspension':'M15 3v3l-4 2 4 2-4 2 4 2-4 2v5M7 6v12',
+ 'Differentials':'M12 8.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1','Chassis':'M3 14h18l-2 4H5zM6 14V9h12v5',
+ 'Tires & body':'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18M12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8','Drivetrain':'M4 12h16M7 8v8M17 8v8','Electronics':'M13 3L5 14h6l-1 7 8-11h-6z','Radio':'M7 21V9M17 21V9M4 9h16M12 3v6','Notes':'M5 19l1-4L16 5l3 3L9 18zM14 7l3 3'};
+function dcIco(sec){return '<span class="dci" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="'+(DC_ICO[sec]||'M5 5h14v14H5z')+'"/></svg></span>'}
+/* in the simple view the heavy inline art is not built at all (faster open); it is built on demand in the viewer/editor */
+(function(){var _s=sdForSec;sdForSec=function(sec,v,t){if(DC&&!DC_RENDER)return '';return _s(sec,v,t)}})();
+(function(){var _t=thumbBtn;thumbBtn=function(f,v,t){return DC?'':_t(f,v,t)}})();
+(function(){var _o=ovHTML;ovHTML=function(s){return DC?'':_o(s)}})();
+(function(){var _f=syncFab;syncFab=function(){_f();if(DC){var f=$('#photoFab');if(f)f.classList.add('hidden')}}})();
+function dcHasSheet(sec,t){if(SA[t]&&saViewsFor(t,sec).length)return true;return SDP.some(function(p){return p.sec===sec&&!saPanelCovered(p,t)})}
+function dcVal(f,v){return v==null||v===''?'—':shortVal(f,v)}
+function dcSecOpen(t){var o=load(LS_SECO,{});return o[t]||{}}
+function dcSaveSec(t,sec,on){var o=load(LS_SECO,{});o[t]=o[t]||{};if(on)o[t][sec]=1;else delete o[t][sec];save(LS_SECO,o)}
+function dcRow(fid){var E=$('#setupEdit'),s=getSetup(editId),f=FBY[fid];if(!E||!s||!f)return;var row=E.querySelector('.fld[data-row="'+fid+'"]:not(.dcpx)');if(!row)return;
+ row.classList.toggle('chg',isChanged(f,s.vals[fid]));var v=row.querySelector('.dcv');if(v)v.textContent=dcVal(f,s.vals[fid])}
+function dcCount(){var E=$('#setupEdit');if(!E||!E.classList.contains('dc'))return;var tot=0;
+ $$('#setupEdit details.sec').forEach(function(d){var n=d.querySelectorAll('.fld.chg:not(.hidden):not(.dcpx)').length;tot+=n;var c=d.querySelector('.dcsc');if(c){c.setAttribute('data-n',n?String(n):'');c.setAttribute('aria-label',n?n+' changed from stock':'stock')}d.toggleAttribute('data-z',!n)});
+ var b=$('#dcChg');if(b)b.innerHTML='<b>'+tot+'</b> change'+(tot===1?'':'s')+' from stock'}
+function dcAv(){var i=$('#dcAv img'),b=$('#myTruck'),s=getSetup(editId);if(!i||!s)return;var im=b&&b.querySelector('img');var u=im?im.getAttribute('src'):prSide(s.truck);if(i.getAttribute('src')!==u)i.setAttribute('src',u);$('#dcAv').classList.toggle('has',!!im)}
+function dcBuild(){var E=$('#setupEdit'),s=getSetup(editId);if(!E||!s||E.classList.contains('hidden'))return;E.classList.toggle('dc',DC);E.setAttribute('data-sid',s.id);E.classList.remove('dconly','myt-on','meta-on');
+ if(!DC){var ac0=E.querySelector('.shead .acts');if(ac0&&!$('#dcSimple'))ac0.insertAdjacentHTML('beforeend','<button class="btn sm" type="button" id="dcSimple">Simple view</button>');return}
+ var t=s.truck,isA=active[t]===s.id,sh=E.querySelector('.shead');if(!sh)return;
+ var hd=document.createElement('div');hd.className='dch';
+ hd.innerHTML='<button type="button" class="dcav" id="dcAv" aria-label="My truck photo"><img alt="" src="'+prSide(t)+'" onerror="this.style.visibility=\'hidden\'"></button><div class="dcn"><b>'+esc(s.name)+'</b><span>'+esc(truckName(t))+(s.date?' · '+esc(s.date):'')+(s.track?' · '+esc(s.track):'')+'</span></div>'+(isA?'<span class="badge">ACTIVE</span>':'');
+ sh.insertBefore(hd,sh.firstChild);
+ var ac=document.createElement('div');ac.className='dca';ac.innerHTML='<button class="btn sm" type="button" id="dcCmp">Compare</button><button class="btn sm" type="button" id="dcMore" aria-haspopup="dialog">More •••</button>';
+ hd.parentNode.insertBefore(ac,hd.nextSibling);var ph=$('#sePhoto');if(ph)ac.insertBefore(ph,ac.firstChild);
+ var box=$('#myTruck');if(box){sh.insertBefore(box,ac.nextSibling);try{new MutationObserver(dcAv).observe(box,{childList:true,subtree:true})}catch(e){}}dcAv();
+ sh.insertAdjacentHTML('afterend','<div class="dcchips"><button type="button" class="dcchip" id="dcChg" aria-pressed="false"></button><button type="button" class="dcchip" id="dcFold">Collapse all</button></div>');
+ var lg=[].filter.call(E.querySelectorAll(':scope > .leg'),function(x){return /Each section opens/.test(x.textContent)});lg.forEach(function(x){x.classList.add('dcoff')});
+ var O=dcSecOpen(t);
+ $$('#setupEdit details.sec').forEach(function(d){var sm=d.querySelector('summary'),sec=sm.textContent;d.setAttribute('data-sec',sec);
+  sm.innerHTML=dcIco(sec)+'<span class="dcsn">'+esc(sec)+'</span><span class="dcsc" data-n=""></span>';d.open=!!O[sec];
+  if(dcHasSheet(sec,t))sm.insertAdjacentHTML('afterend','<div class="dcsv"><button type="button" class="btn sm dcsvb" data-dcv="'+esc(sec)+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h3M8 13h8M8 16h5"/></svg>View on Tekno sheet</button></div>');
+  d.addEventListener('toggle',function(){if(E.classList.contains('dconly'))return;dcSaveSec(t,sec,d.open)})});
+ $$('#setupEdit .fld').forEach(function(r){var f=FBY[r.getAttribute('data-row')];if(!f)return;var v=s.vals[f.id];
+  r.insertAdjacentHTML('afterbegin','<button type="button" class="dcr" data-dce="'+f.id+'"><span class="dcl">'+esc(f.label)+'</span><span class="dcv">'+esc(dcVal(f,v))+'</span><i class="dcd" aria-hidden="true"></i></button>')});
+ $$('#setupEdit [data-f]').forEach(function(el){el.addEventListener('change',function(){dcRow(el.getAttribute('data-f'));dcCount();dcEdVis()})});
+ dcCount()}
+(function(){var _o=openSetup;openSetup=function(){dcEdClose();dcViewClose();dcMenuClose();var r=_o.apply(this,arguments);try{dcBuild()}catch(e){console.error(e)}return r}})();
+/* ---- overlays + Android back ---- */
+function dcPush(){try{history.pushState({dc:1},'')}catch(e){}}
+function dcPop(fromPop){if(fromPop)return;DC_SKIP++;try{history.back()}catch(e){DC_SKIP--}}
+window.addEventListener('popstate',function(){if(DC_SKIP){DC_SKIP--;return}if($('.dcmenu'))dcMenuClose(1);else if(DCE)dcEdClose(1);else if($('.dcview'))dcViewClose(1)});
+function dcLock(){document.body.classList.toggle('dcmodal',!!($('.dcview')||DCE||$('.dcmenu')))}
+function dcSwipe(el,handle,close,axis){var y0=null,x0=null,dy=0,dx=0;
+ handle.addEventListener('touchstart',function(e){var t=e.touches[0];y0=t.clientY;x0=t.clientX;dy=dx=0;el.style.transition='none'},{passive:true});
+ handle.addEventListener('touchmove',function(e){if(y0==null)return;var t=e.touches[0];dy=t.clientY-y0;dx=t.clientX-x0;
+  if(axis==='y'&&dy>0)el.style.transform='translateY('+dy+'px)';if(axis==='x'&&dx>0&&Math.abs(dx)>Math.abs(dy))el.style.transform='translateX('+dx+'px)'},{passive:true});
+ handle.addEventListener('touchend',function(){if(y0==null)return;el.style.transition='';var go=axis==='y'?dy>90:(dx>90&&Math.abs(dx)>Math.abs(dy)*1.3);y0=null;if(go)close();else el.style.transform=''})}
+function dcVb(tb,vv){var cx=tb[0]+tb[2]/2,cy=tb[1]+tb[3]/2,w=Math.max(tb[2]*1.9,tb[3]*2.4,170),h=w*.62;
+ if(vv){w=Math.min(w,vv[2]);h=Math.min(h,vv[3]);var x=Math.max(vv[0],Math.min(cx-w/2,vv[0]+vv[2]-w)),y=Math.max(vv[1],Math.min(cy-h/2,vv[1]+vv[3]-h));return [+x.toFixed(2),+y.toFixed(2),+w.toFixed(2),+h.toFixed(2)]}
+ return [+(cx-w/2).toFixed(2),+(cy-h/2).toFixed(2),+w.toFixed(2),+h.toFixed(2)]}
+function dcEdVis(){if(!DCE)return;var s=getSetup(editId);if(!s)return;var t=s.truck,A=SA[t],fid=DCE.fid,f=FBY[fid],h='',ch='';
+ var tb=A&&saHas(t,fid)?((A.TH&&A.TH[fid])||(A.F[fid]&&A.F[fid].b&&[A.F[fid].b[0],A.F[fid].b[1],A.F[fid].b[2]-A.F[fid].b[0],A.F[fid].b[3]-A.F[fid].b[1]])):null;
+ if(tb){var V=saViewOf(t,fid),vb=dcVb(tb,V&&V.vb),ctx={stock:saStock(t),dif:difStock(s.vals,t),meta:saMetaOf(s)},w=Math.min(window.innerWidth||400,560)-32;
+  h+='<div class="dccrop">'+saStage(t,{f:[fid],im:V&&V.im},vb,s.vals,ctx,{w:w,hi:1,lbl:1,hit:1,lab:f.label+' on Tekno’s sheet'})+'</div>';ch=saChips(t,[fid],s.vals,ctx)}
+ if(!ch&&f.kind==='select'&&f.opts&&f.opts.length<=16){var c=String(s.vals[fid]==null?'':s.vals[fid]),st=stockOf(f,t),sS=st?String(st.v):null;
+  ch='<div class="sach'+(f.opts.length>8?' many':'')+'" role="group" aria-label="'+esc(f.label)+'">'+f.opts.map(function(o){var v=String(optVal(o)),on=v===c;return '<button type="button" class="chip'+(on?' on':'')+(on&&sS!=null&&v!==sS?' df':'')+(v===sS?' st':'')+'" data-pick="'+fid+'" data-v="'+esc(v)+'" aria-pressed="'+on+'">'+esc(saChipLab(f,o))+'</button>'}).join('')+'</div>'}
+ if(ch)h+='<div class="savc">'+ch+'</div>';
+ var vis=DCE.w.querySelector('.dcvis');vis.innerHTML=h;DCE.w.querySelector('.dcpx').classList.toggle('haschips',!!ch&&f.kind==='select'&&!(s.vals[fid]!=null&&s.vals[fid]!==''&&!f.opts.some(function(o){return String(optVal(o))===String(s.vals[fid])})));saSched()}
+function dcEdit(fid){var s=getSetup(editId),f=FBY[fid],E=$('#setupEdit');if(!s||!f||!E)return;dcEdClose();dcMenuClose();
+ var row=E.querySelector('.fld[data-row="'+fid+'"]'),inp=document.getElementById('sf_'+fid);if(!row||!inp)return;var fb=inp.parentNode,src=fb.querySelector('details.src,.src0'),st=stockOf(f,s.truck);
+ var w=document.createElement('div');w.className='dcsh';w.setAttribute('role','dialog');w.setAttribute('aria-modal','true');w.setAttribute('aria-label','Edit '+f.label);
+ w.innerHTML='<div class="dcbk" data-dcx></div><div class="dcp"><div class="dcg" aria-hidden="true"></div><div class="dcph"><div><b>'+esc(f.label)+(f.kind==='num'&&f.unit?' <span class="u">('+esc(f.unit)+')</span>':'')+'</b><span>'+esc(f.sec)+(st?' · Tekno stock: '+esc(shortVal(f,st.v)):'')+'</span></div><button type="button" class="dcx" data-dcx aria-label="Close">✕</button></div>'+
+  '<div class="dcvis"></div><div class="fld dcpx" data-row="'+fid+'"><div class="fb"><div class="dcslot"></div></div></div><button type="button" class="btn pri dcdone" data-dcx>Done</button></div>';
+ E.appendChild(w);var slot=w.querySelector('.dcslot');slot.appendChild(inp);if(src)slot.appendChild(src);
+ DCE={fid:fid,w:w,inp:inp,src:src,fb:fb};dcEdVis();dcLock();dcPush();
+ dcSwipe(w.querySelector('.dcp'),w.querySelector('.dcph'),function(){dcEdClose()},'y');dcSwipe(w.querySelector('.dcp'),w.querySelector('.dcg'),function(){dcEdClose()},'y');
+ requestAnimationFrame(function(){w.classList.add('in')});
+ if(f.kind!=='select'&&f.kind!=='date')setTimeout(function(){try{inp.focus({preventScroll:true})}catch(e){}},260)}
+function dcEdClose(fromPop){if(!DCE)return;var d=DCE;DCE=null;try{if(document.activeElement===d.inp)d.inp.blur()}catch(e){}
+ d.fb.appendChild(d.inp);if(d.src)d.fb.appendChild(d.src);d.w.remove();dcRow(d.fid);dcCount();dcLock();dcPop(fromPop);
+ var r=document.querySelector('#setupEdit .fld[data-row="'+d.fid+'"] .dcr');if(r&&!fromPop)try{r.focus({preventScroll:true})}catch(e){}}
+function dcView(sec){var s=getSetup(editId),E=$('#setupEdit');if(!s||!E)return;dcEdClose();dcViewClose();DC_RENDER=1;var html='';try{html=sdForSec(sec,s.vals,s.truck)}finally{DC_RENDER=0}
+ var v=document.createElement('div');v.className='dcview';v.setAttribute('role','dialog');v.setAttribute('aria-modal','true');v.setAttribute('aria-label',sec+' on Tekno’s setup sheet');
+ v.innerHTML='<div class="dcvh"><button type="button" class="btn sm" data-dcvx>← Back</button><div><b>'+esc(sec)+'</b><span>Tekno setup sheet · tap a hole or button</span></div><button type="button" class="dcx" data-dcvx aria-label="Close">✕</button></div><div class="dcvb">'+(html||'<div class="empty">Nothing from this section is drawn on Tekno’s sheet.</div>')+'</div>';
+ E.appendChild(v);dcLock();dcPush();saSched();try{mipRows(s)}catch(e){}dcSwipe(v,v.querySelector('.dcvh'),function(){dcViewClose()},'x');dcSwipe(v,v.querySelector('.dcvb'),function(){dcViewClose()},'x');
+ requestAnimationFrame(function(){v.classList.add('in')})}
+function dcViewClose(fromPop){var v=$('.dcview');if(!v)return;v.remove();dcLock();dcPop(fromPop)}
+function dcMenu(){var s=getSetup(editId),E=$('#setupEdit');if(!s||!E)return;dcMenuClose();var isA=active[s.truck]===s.id;
+ var it=function(a,l,d){return '<button type="button" class="dcmi" data-dcm="'+a+'"><b>'+l+'</b>'+(d?'<span>'+d+'</span>':'')+'</button>'};
+ var m=document.createElement('div');m.className='dcsh dcmenu';m.setAttribute('role','dialog');m.setAttribute('aria-modal','true');m.setAttribute('aria-label','More actions');
+ m.innerHTML='<div class="dcbk" data-dcmx></div><div class="dcp"><div class="dcg" aria-hidden="true"></div><div class="dcph"><div><b>'+esc(s.name)+'</b><span>More actions</span></div><button type="button" class="dcx" data-dcmx aria-label="Close">✕</button></div>'+
+  (isA?'':it('act','Set active','The Advisor reads the active setup'))+it('info','Setup info','Name, date, track, temperature, conditions')+it('stock','Load Tekno stock','Overwrite every setting with the Box Stock baseline')+it('dup','Duplicate')+it('print','Print')+it('share','Export / share')+it('photo','My truck photo','Set or change the header picture')+
+  '<div class="dcmrow"><b>Sheet style</b><span class="tgl" role="group" aria-label="Sheet style"><button type="button" data-sth="paper" class="'+(STH==='paper'?'on':'')+'" aria-pressed="'+(STH==='paper')+'">Paper</button><button type="button" data-sth="ink" class="'+(STH==='ink'?'on':'')+'" aria-pressed="'+(STH==='ink')+'">Dark</button></span></div>'+
+  '<label class="dcmrow"><b>Show diagrams inline</b><input type="checkbox" class="dcinl" data-dcinl'+(DC?'':' checked')+'></label></div>';
+ E.appendChild(m);dcLock();dcPush();dcSwipe(m.querySelector('.dcp'),m.querySelector('.dcph'),function(){dcMenuClose()},'y');requestAnimationFrame(function(){m.classList.add('in')})}
+function dcMenuClose(fromPop){var m=$('.dcmenu');if(!m)return;m.remove();dcLock();dcPop(fromPop)}
+function dcSetInline(on){DC=!on;save(LS_INL,!!on);$$('input[data-dcinl]').forEach(function(x){x.checked=!!on});syncFab();var E=$('#setupEdit');if(editId&&E&&!E.classList.contains('hidden'))openSetup(editId)}
+document.addEventListener('change',function(ev){var el=ev.target;if(el&&el.matches&&el.matches('input[data-dcinl]')){dcMenuClose();dcSetInline(el.checked);toast(el.checked?'Diagrams shown inline':'Simple view')}});
+/* tap routing (capture so the old "scroll to the field" handler for sheet text boxes does not run in the simple view) */
+document.addEventListener('click',function(ev){var E=$('#setupEdit');if(!E||!E.classList.contains('dc')||!E.contains(ev.target))return;var c=ev.target.closest.bind(ev.target);
+ var fx=c('[data-fx]');if(fx){ev.stopPropagation();ev.preventDefault();dcEdit(fx.getAttribute('data-fx'));return}
+ var r=c('[data-dce]');if(r){dcEdit(r.getAttribute('data-dce'));return}
+ var v=c('[data-dcv]');if(v){dcView(v.getAttribute('data-dcv'));return}
+ if(c('[data-dcvx]')){dcViewClose();return}
+ if(c('[data-dcx]')){dcEdClose();return}
+ if(c('[data-dcmx]')){dcMenuClose();return}
+ var mi=c('[data-dcm]');if(mi){var a=mi.getAttribute('data-dcm');dcMenuClose();
+  if(a==='act'){var b=$('#seAct');b&&b.click()}else if(a==='stock'){$('#seStock').click()}else if(a==='dup'){$('#seDup').click()}else if(a==='print'){$('#sePrint').click()}else if(a==='share'){$('#seShare').click()}
+  else if(a==='info'){E.classList.add('meta-on');var md=E.querySelector('details.meta');if(md){md.open=true;md.scrollIntoView({block:'center'})}}
+  else if(a==='photo'){E.classList.add('myt-on');var bx=$('#myTruck');if(bx)bx.scrollIntoView({block:'center'})}return}
+ if(c('#dcAv')){E.classList.toggle('myt-on');return}
+ if(c('#dcMore')){dcMenu();return}
+ if(c('#dcCmp')){var s=getSetup(editId);if(s){var sid=s.id;openCompare('__stock',sid);var bk=$('#cmBack');if(bk){bk.textContent='← Back to setup';bk.onclick=function(){openSetup(sid)}}}return}
+ if(c('#dcFold')){$$('#setupEdit details.sec').forEach(function(d){d.open=false});return}
+ if(c('#dcChg')){var on=E.classList.toggle('dconly'),b2=$('#dcChg');b2.setAttribute('aria-pressed',on);var O=dcSecOpen(getSetup(editId).truck);
+  $$('#setupEdit details.sec').forEach(function(d){d.open=on?!d.hasAttribute('data-z'):!!O[d.getAttribute('data-sec')]});return}},true);
+document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('#dcSimple');if(b)dcSetInline(false)});
+document.addEventListener('keydown',function(e){if(e.key!=='Escape')return;if($('.dcmenu'))dcMenuClose();else if(DCE)dcEdClose();else if($('.dcview'))dcViewClose()});
+/* Compare: plain text diff of changed fields by default; the sheet drawings only on request */
+(function(){var _rc=renderCompare;renderCompare=function(){if(!DC)return _rc();var A=valsOf($('#cmA').value),B=valsOf($('#cmB').value),only=$('#cmOnly').checked,n=0,h='',sec='',dif={};
+ fieldsFor(truck).forEach(function(f){var a=A[f.id],b=B[f.id],d=String(a==null?'':a)!==String(b==null?'':b);if(d){n++;dif[f.id]=1}if(only&&!d)return;
+  if(f.sec!==sec){sec=f.sec;h+='<div class="cdh">'+esc(sec)+'</div>'}
+  h+='<div class="cdr'+(d?' df':'')+'"><span class="cdl">'+esc(f.label)+'</span><span class="cdv">'+(d?'<s>'+esc(dcVal(f,a))+'</s><i aria-label="changed to">→</i><b>'+esc(dcVal(f,b))+'</b>':'<em>'+esc(dcVal(f,a))+'</em>')+'</span></div>'});
+ var an=$('#cmA').selectedOptions[0].text,bn=$('#cmB').selectedOptions[0].text;
+ $('#cmOut').innerHTML='<p class="leg"><b style="color:var(--acc)">'+n+'</b> setting'+(n===1?'':'s')+' differ · <span class="cdk">A</span> '+esc(an)+' → <span class="cdk b">B</span> '+esc(bn)+'</p>'+
+  (h?'<div class="cdl0">'+h+'</div>':'<div class="empty">These setups are identical.</div>')+(n?'<button type="button" class="btn sm" id="cmSheet" style="margin-top:12px">View on sheet</button><div id="cmSheets"></div>':'');
+ var bt=$('#cmSheet');if(bt)bt.onclick=function(){var o=$('#cmSheets');if(o.innerHTML){o.innerHTML='';bt.textContent='View on sheet';return}o.innerHTML=sdCompare(A,B,dif,an,bn)||'<div class="empty">None of these changes are drawn on Tekno’s sheet.</div>';bt.textContent='Hide sheet views';saSched()}}})();
+/* Learn tab: settings card */
+(function(){var L=$('#tab-learn');if(!L||$('#dcSet'))return;var c=document.createElement('div');c.className='card';c.id='dcSet';c.style.padding='10px 12px';
+ c.innerHTML='<label class="row" style="justify-content:space-between;margin:0;min-height:44px"><b>Show diagrams inline in My Setup</b><input type="checkbox" class="dcinl" data-dcinl'+(DC?'':' checked')+'></label><div style="font-size:13px;color:var(--mut);margin-top:4px">Off = simple list (tap a setting to edit it, “View on Tekno sheet” per section). On = the previous dense page with every sheet drawing and thumbnail.</div>';
+ var a=L.firstElementChild;L.insertBefore(c,a?a.nextSibling:null)})();
+syncFab();
+
 /* ---------- Init ---------- */
 renderSyms();renderLearn();setTruck(VEHS.indexOf(truck)>=0?truck:'NT48');
 swInit();
